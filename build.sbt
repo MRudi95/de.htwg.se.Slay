@@ -1,4 +1,4 @@
-name := "slay"
+name := "de/htwg/se/slay"
 
 version := "0.1"
 
