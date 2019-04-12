@@ -1,6 +1,5 @@
 package de.htwg.se.slay.model
 
-import de.htwg.se.Slay.model.Field
 import org.scalatest._
 
 class FieldSpec extends WordSpec with Matchers {
@@ -14,7 +13,7 @@ class FieldSpec extends WordSpec with Matchers {
         field.str should be("grün")
       }
       "have Player" in {
-        field.str1 should be("Player1")
+        field.str1 should be("Pl")
       }
     }
     "new Field" should {
@@ -32,8 +31,8 @@ class FieldSpec extends WordSpec with Matchers {
     "has new owner" should {
       val field = Field(1, "grün", "Player1")
       "" in{
-      field.newOwner(1, "red", "Player2") should be(Field(1, "red", "Player2"))
-    }
+        field.newOwner(1, "red", "Player2") should be(Field(1, "red", "Player2"))
+      }
 
-  }
-}}
+    }
+  }}

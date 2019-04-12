@@ -1,6 +1,5 @@
-package de.htwg.se.slay.model.gamePieces
+package de.htwg.se.slay.model
 
-import de.htwg.se.slay.model.Player
 import org.scalatest._
 
 class GamePieceSpec extends WordSpec with Matchers {
