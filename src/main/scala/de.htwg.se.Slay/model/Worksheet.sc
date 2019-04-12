@@ -15,3 +15,6 @@ case class characters(x: Char, y: Int)
 val person1 = characters('a', 1)
 person1.x
 person1.y
+
+val index = 36
+(index / 10, index % 10)
