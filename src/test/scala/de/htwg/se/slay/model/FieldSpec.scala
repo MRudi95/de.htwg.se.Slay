@@ -13,7 +13,7 @@ class FieldSpec extends WordSpec with Matchers {
         field.str should be("grün")
       }
       "have Player" in {
-        field.str1 should be("Pl")
+        field.str1 should be("Player1")
       }
     }
     "new Field" should {
