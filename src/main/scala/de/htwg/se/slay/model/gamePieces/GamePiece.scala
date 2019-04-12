@@ -1,5 +1,7 @@
 package de.htwg.se.slay.model.gamePieces
 
-case class GamePiece(movable: Boolean) {
+import de.htwg.se.slay.model.Player
+case class GamePiece(player: Player = null, movable: Boolean = false) {
+
 
 }
