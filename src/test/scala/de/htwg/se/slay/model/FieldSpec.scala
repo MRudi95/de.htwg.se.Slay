@@ -1,5 +1,6 @@
 package de.htwg.se.slay.model
 
+import de.htwg.se.Slay.model.Field
 import org.scalatest._
 
 class FieldSpec extends WordSpec with Matchers {
