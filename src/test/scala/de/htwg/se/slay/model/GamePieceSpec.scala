@@ -14,7 +14,7 @@ class GamePieceSpec extends WordSpec with Matchers {
       }
     }
     "it has a Player" should{
-      val playr = Player("Name")
+      val playr = Player("Name", "Color")
       val piece = GamePiece(player = playr)
       "have a Player" in{
         piece.player should be (playr)
