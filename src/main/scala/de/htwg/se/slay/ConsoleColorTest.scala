@@ -1,5 +1,7 @@
 package de.htwg.se.slay
 
+import de.htwg.se.slay.model.{Peasant, Player}
+
 object ConsoleColorTest {
   val W = "\033[44m" //Color Water (blue)
   val P1 = "\033[43m" //Color Player1 (yellow)
