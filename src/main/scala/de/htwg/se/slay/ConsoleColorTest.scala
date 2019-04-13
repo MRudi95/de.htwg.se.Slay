@@ -39,5 +39,8 @@ object ConsoleColorTest {
     println(W + "\033[4;97m     " + R + " " + W + "     " + P1 + "     " + P2 + "     " + P2 + "     " + W + "     " + R)
     println(W + "     " + R + " " + W + "     " + P1 + "  \033[43m\033[97m1\033[43m  " + P2 + "     " + P2 + "     " + W + "     " + R)
     println(W + "\033[4;97m     " + R + " " + W + "     " + P1 + "     " + P2 + "     " + P2 + "     " + W + "     " + R)
+    //Single Field:
+    // Color + "  " + Color + B + Text + "  " + R
+    // Color + Underline + "     " + R
   }
 }
