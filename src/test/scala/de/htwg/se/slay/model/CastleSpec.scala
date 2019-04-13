@@ -2,11 +2,11 @@ package de.htwg.se.slay.model
 
 import org.scalatest._
 
-class TowerSpec extends WordSpec with Matchers {
-  "A Tower is an immovable GamePiece that can be used for defense and" when{
+class CastleSpec extends WordSpec with Matchers {
+  "A Castle is an immovable GamePiece that can be used for defense and" when{
     "new" should{
       val playr = Player("","")
-      val tower = Tower(playr)
+      val tower = Castle(playr)
       "have a Player it belongs to" in{
         tower.player should be (playr)
       }
