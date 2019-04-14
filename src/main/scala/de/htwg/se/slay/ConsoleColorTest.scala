@@ -3,8 +3,8 @@ package de.htwg.se.slay
 import de.htwg.se.slay.model.{Peasant, Player}
 
 object ConsoleColorTest {
-  val W = "\033[44m" //Color Water (blue)
-  val P1 = "\033[43m" //Color Player1 (yellow)
+  val W = "\033[104m" //Color Water (bright blue)
+  val P1 = "\033[103m" //Color Player1 (bright yellow)
   val P2 = "\033[42m" // Color Player2 (green)
   val R = "\033[0m" //Color Reset
   val B = "\033[97m" //Text Color Black
@@ -31,18 +31,18 @@ object ConsoleColorTest {
     println("3 = Knight")
     println("4 = Baron")
     //TestPlayingField 5 x 6
-    println(W + "     " + R + " " + W + "     " + P1 + "  \033[43m\033[97m1\033[43m  " + P2 + "     " + P2 + "     " + W + "     " + R)
+    println(W + "     " + R + " " + W + "     " + P1 + "  \033[103m\033[97m1  " + P2 + "     " + P2 + "     " + W + "     " + R)
     println(W + "\033[4;97m     " + R + " " + W + "\033[4;97m     " + P1 + "\033[4;97m     " + P2 + "\033[4;97m     " + P2 + "\033[4;97m     " + W + "\033[4;97m     " + R)
-    println(P1 + "     " + R + " " + W + "     " + P1 + "  \033[43m\033[97m1\033[43m  " + P2 + "     " + P2 + "     " + W + "     " + R)
+    println(P1 + "     " + R + " " + W + "     " + P1 + "  \033[103m\033[97m1  " + P2 + "     " + P2 + "     " + W + "     " + R)
     println(P1 + "\033[4;97m     " + R + " " + W + "\033[4;97m     " + P1 + "\033[4;97m     " + P2 + "\033[4;97m     " + P2 + "\033[4;97m     " + W + "\033[4;97m     " + R)
-    println(W + "     " + R + " " + W + "     " + P1 + "  \033[43m\033[97m1\033[43m  " + P2 + "     " + P2 + "     " + W + "     " + R)
+    println(W + "     " + R + " " + W + "     " + P1 + "  \033[103m\033[97m1  " + P2 + "     " + P2 + "     " + W + "     " + R)
     println(W + "\033[4;97m     " + R + " " + W + "     " + P1 + "     " + P2 + "     " + P2 + "     " + W + "     " + R)
-    println(W + "     " + R + " " + W + "     " + P1 + "  \033[43m\033[97m1\033[43m  " + P2 + "     " + P2 + "     " + W + "     " + R)
+    println(W + "     " + R + " " + W + "     " + P1 + "  \033[103m\033[97m1  " + P2 + "     " + P2 + "     " + W + "     " + R)
     println(W + "\033[4;97m     " + R + " " + W + "     " + P1 + "     " + P2 + "     " + P2 + "     " + W + "     " + R)
-    println(W + "     " + R + " " + W + "     " + P1 + "  \033[43m\033[97m1\033[43m  " + P2 + "     " + P2 + "     " + W + "     " + R)
+    println(W + "     " + R + " " + W + "     " + P1 + "  \033[103m\033[97m1  " + P2 + "     " + P2 + "     " + W + "     " + R)
     println(W + "\033[4;97m     " + R + " " + W + "     " + P1 + "     " + P2 + "     " + P2 + "     " + W + "     " + R)
     //Single Field:
-    // Color + "  " + Color + B + Text + "  " + R
-    // Color + Underline + "     " + R
+    // Color + "  " + Color + TextColor + Text + "  " + R + " "
+    // Color + Underline + "     " + R + " "
   }
 }
