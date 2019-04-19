@@ -26,10 +26,10 @@ class TextUI {
     for(rows <- 0 to grid.rowIdx) {
       for (cols <- 0 to grid.colIdx) {
         val idx = rows * (grid.colIdx+1) + cols
-        val gamePiece = getGamePiece(grid.grid(idx))
-        lineOne   += grid.grid(idx).owner.color + "     "
-        lineTwo   += grid.grid(idx).owner.color + "  " + grid.grid(idx).owner.color + B + gamePiece + "  "
-        lineThree += grid.grid(idx).owner.color + "     "
+        val gamePiece = getGamePiece(grid(idx))
+        lineOne   += grid(idx).owner.color + "     "
+        lineTwo   += grid(idx).owner.color + "  " + grid(idx).owner.color + B + gamePiece + "  "
+        lineThree += grid(idx).owner.color + "     "
       }
       println("  " + lineOne + R)
       println(rows+1 + " " + lineTwo + R)

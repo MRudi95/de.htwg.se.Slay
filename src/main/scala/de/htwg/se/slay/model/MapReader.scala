@@ -7,11 +7,10 @@ class MapReader(players:Vector[Player]) {
     var grid:Vector[Field] = Vector.empty
     for(line <- map.getLines()){
       val fields = line.split(";")
-      val testfield = new Field(players(0))
       for(field <- fields) {
         field match {
           case "0"  =>
-            grid = grid :+ testfield
+            grid = grid :+ new Field(players(0))
           case "10" =>
             grid = grid :+ new Field(players(1))
           case "11" =>
@@ -36,8 +35,35 @@ class MapReader(players:Vector[Player]) {
       }
       rowIdx += 1
     }
-    val columnIdx = grid.length / rowIdx
     map.close
-    Grid(grid, rowIdx-1, columnIdx-1)
+
+    val colIdx = grid.length / rowIdx - 1
+    rowIdx -= 1
+
+    var idxF = 0
+    for(f <- grid){
+      val idxN = idxF - 1 - colIdx
+      val idxW = idxF - 1
+      val idxE = idxF + 1
+      val idxS = idxF + 1 + colIdx
+      var neighborN:Field = null
+      var neighborW:Field = null
+      var neighborE:Field = null
+      var neighborS:Field = null
+
+      if(idxN < 0) neighborN = null else neighborN = grid(idxN)
+
+      if((idxW+1) % (colIdx+1) == 0) neighborW = null else neighborW = grid(idxW)
+
+      if(idxE % (colIdx+1) == 0) neighborE = null else neighborE = grid(idxE)
+
+      if(idxS > rowIdx * colIdx) neighborS = null else neighborS = grid(idxS)
+
+      f.setNeighbors(Neighbors(neighborN, neighborW, neighborE, neighborS))
+
+      idxF += 1
+    }
+
+    Grid(grid, rowIdx, colIdx)
   }
 }

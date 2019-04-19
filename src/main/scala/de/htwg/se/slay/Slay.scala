@@ -9,6 +9,9 @@ object Slay{
   val tui = new TextUI
 
   def main(args: Array[String]) : Unit = {
+    val testplayer = Player("", "\033[105m")
+    val testfield = 20
+    for(f <- grid(testfield).neighbors) if(f != null) f.owner_=(testplayer)
     tui.printGrid(grid)
   }
 }

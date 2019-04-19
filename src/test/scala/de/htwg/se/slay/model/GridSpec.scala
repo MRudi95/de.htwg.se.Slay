@@ -9,14 +9,17 @@ class GridSpec extends WordSpec with Matchers{
       val field = new Field(playr)
       val fields = Vector[Field](field, field, field, field, field, field)
       val grid = Grid(fields, 2, 3)
-      "have a Vector of Fields" in{
-        grid.grid should be(fields)
+      "be a Vector of Fields" in{
+        grid should be(fields)
       }
       "have a Row Index" in{
         grid.rowIdx should be(2)
       }
       "have a Column Index" in{
         grid.colIdx should be(3)
+      }
+      "be able to be indexed directly" in{
+        grid(2) should be(field)
       }
     }
   }
