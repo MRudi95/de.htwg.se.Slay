@@ -39,23 +39,17 @@ class FieldSpec extends WordSpec with Matchers {
       val playr = Player("", "")
       val fieldOne = new Field(playr)
       val fieldTwo = new Field(playr)
-      val neighbors = Vector[Field](fieldTwo, fieldOne, fieldOne, fieldTwo)
+      val neighbors = Neighbors(fieldTwo, fieldOne, fieldOne, fieldTwo)
       val bool = fieldOne.setNeighbors(neighbors)
-      "only be set with a Vector of 4 Fields" in{
+      "have a Neighbors object" in{
         fieldOne.neighbors should be(neighbors)
         bool should be(true)
       }
-      val neighbors2 = Vector[Field](fieldOne)
-      val bool2 = fieldTwo.setNeighbors(neighbors2)
-      "not be set with a Vector that doesnt have exactly 4 Fields" in{
-        fieldTwo.neighbors should be(null)
-        bool2 should be(false)
-      }
-      val neighbors3 = Vector[Field](fieldOne, fieldTwo, fieldOne, fieldTwo)
-      val bool3 = fieldOne.setNeighbors(neighbors3)
+      val neighbors2 = Neighbors(fieldOne, fieldTwo, fieldOne, fieldTwo)
+      val bool2 = fieldOne.setNeighbors(neighbors2)
       "not be set more than one time" in{
         fieldOne.neighbors should be(neighbors)
-        bool3 should be(false)
+        bool2 should be(false)
       }
     }
   }
