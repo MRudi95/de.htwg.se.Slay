@@ -12,7 +12,7 @@ class TextUI {
   def printGrid(grid:Grid): Unit = println(buildGridString(grid))
 
   def welcomeScreen(): Unit = {
-    println("========== WELCOME TO SLAY ==========\n" +
+    println("\n========== WELCOME TO SLAY ==========\n" +
             "\t Do You want to play a Game?\n\n" +
             "\t\t  \033[1;97m\033[42m YES \033[0m\t\t\033[1;97m\033[41m no \033[0m")
   }
