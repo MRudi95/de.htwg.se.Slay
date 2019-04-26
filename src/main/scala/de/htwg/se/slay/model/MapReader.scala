@@ -1,7 +1,7 @@
 package de.htwg.se.slay.model
 
-class MapReader(players:Vector[Player]) {
-  def readMap(mapname:String):Grid = {
+object MapReader {
+  def readMap(mapname:String, players:Vector[Player]):Grid = {
     val map = io.Source.fromFile("src/main/scala/de/htwg/se/slay/model/" + mapname + ".csv")
     var rowIdx = 0
     var grid:Vector[Field] = Vector.empty

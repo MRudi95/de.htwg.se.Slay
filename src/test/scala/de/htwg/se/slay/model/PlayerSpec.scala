@@ -16,6 +16,9 @@ class PlayerSpec extends WordSpec with Matchers {
       "have a Color as ANSI escape code" in {
         player.color should be ("\033[44m")
       }
+      "unapply for code coverage" in {
+        Player.unapply(player).get should be(("Your Name", "\033[44m"))
+      }
     }
   }
 

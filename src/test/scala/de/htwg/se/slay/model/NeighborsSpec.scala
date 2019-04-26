@@ -2,7 +2,7 @@ package de.htwg.se.slay.model
 
 import org.scalatest.{Matchers, WordSpec}
 
-class NeighborsSpec  extends WordSpec with Matchers {
+class NeighborsSpec extends WordSpec with Matchers {
   "A Neighbors object is all the neighboring Fields surrounding a specific Field that" when{
     "created" should{
       val playr = Player("", "")
@@ -27,6 +27,9 @@ class NeighborsSpec  extends WordSpec with Matchers {
         it.next() should be(fieldE)
         it.next() should be(fieldS)
         it.hasNext should be(false)
+      }
+      "unapply for code coverage" in {
+        Neighbors.unapply(neighbors).get should be((fieldN, fieldW, fieldE, fieldS))
       }
     }
   }

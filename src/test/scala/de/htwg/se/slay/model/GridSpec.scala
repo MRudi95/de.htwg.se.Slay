@@ -21,6 +21,9 @@ class GridSpec extends WordSpec with Matchers{
       "be able to be indexed directly" in{
         grid(2) should be(field)
       }
+      "unapply for code coverage" in {
+        Grid.unapply(grid).get should be((fields, 2, 3))
+      }
     }
   }
 }
