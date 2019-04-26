@@ -9,7 +9,25 @@ class TextUI {
 
   private var firstLine = "  "
 
-  def printGrid(grid:Grid): Unit ={
+  def printGrid(grid:Grid): Unit = println(buildGridString(grid))
+
+  def welcomeScreen(): Unit = {
+    println("========== WELCOME TO SLAY ==========\n" +
+            "\t Do You want to play a Game?\n\n" +
+            "\t\t  \033[1;97m\033[42m YES \033[0m\t\t\033[1;97m\033[41m no \033[0m")
+  }
+
+  def processStartup(input: String): Unit = {
+    if(input != "YES"){
+      println("Ok, bye!")
+      System.exit(0)
+    }
+  }
+
+  def readPlayerName(player: String): Unit = println("\n" + player + " enter your name:")
+
+  private def buildGridString(grid:Grid): String ={
+    var returnGrid = "\n"
     if(firstLine == "  "){
       var char:Int = 65 // char 'A'
       for(cols <- 0 to grid.colIdx){
@@ -17,7 +35,7 @@ class TextUI {
         char += 1
       }
     }
-    println(firstLine)
+    returnGrid += firstLine + "\n"
 
     var lineOne = ""
     var lineTwo = ""
@@ -31,13 +49,14 @@ class TextUI {
         lineTwo   += grid(idx).owner.color + "  " + grid(idx).owner.color + B + gamePiece + "  "
         lineThree += grid(idx).owner.color + "     "
       }
-      println("  " + lineOne + R)
-      println(rows+1 + " " + lineTwo + R)
-      println("  " + lineThree + R)
+      returnGrid += "  " + lineOne + R + "\n"
+      returnGrid += rows+1 + " " + lineTwo + R + "\n"
+      returnGrid += "  " + lineThree + R + "\n"
       lineOne = ""
       lineTwo = ""
       lineThree = ""
     }
+    returnGrid
   }
 
   private def getGamePiece(field:Field):String = {
@@ -52,10 +71,6 @@ class TextUI {
       case _:Baron    => "4"
       case null       => " "
     }
-  }
-
-  def processStartup(input: String): Boolean = {
-    if(input == "YES") true else false
   }
 }
 
