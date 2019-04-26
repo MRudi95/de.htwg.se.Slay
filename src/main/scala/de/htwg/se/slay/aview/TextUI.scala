@@ -30,7 +30,7 @@ class TextUI {
     var returnGrid = "\n"
     if(firstLine == "  "){
       var char:Int = 65 // char 'A'
-      for(cols <- 0 to grid.colIdx){
+      for(_ <- 0 to grid.colIdx){
         firstLine += "  " + char.toChar + "  "
         char += 1
       }

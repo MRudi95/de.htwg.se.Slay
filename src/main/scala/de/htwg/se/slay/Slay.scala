@@ -14,8 +14,7 @@ object Slay{
     //val testfield = 20
     //for(f <- grid(testfield).neighbors) if(f != null) f.owner_=(testplayer)
     tui.welcomeScreen()
-    val start = readLine()
-    tui.processStartup(start)
+    tui.processStartup(readLine())
 
     tui.readPlayerName("Player 1")
     val playerOne = Player(readLine(), "\033[103m")
