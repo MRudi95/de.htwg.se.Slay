@@ -38,6 +38,5 @@ object Slay{
       tui.printGrid(grid)
       input = readLine()
     }while(input != "q" && input != "quit")
-
   }
 }
