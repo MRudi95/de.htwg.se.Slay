@@ -53,5 +53,9 @@ class TextUI {
       case null       => " "
     }
   }
+
+  def processStartup(input: String): Boolean = {
+    if(input == "YES") true else false
+  }
 }
 
