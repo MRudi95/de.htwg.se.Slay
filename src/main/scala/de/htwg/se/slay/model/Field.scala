@@ -1,7 +1,6 @@
 package de.htwg.se.slay.model
 
-class Field(private var _owner: Player) {
-  private var _gamepiece: GamePiece = _
+class Field(private var _owner: Player, private var _gamepiece: GamePiece = NoPiece()) {
   private var _neighbors: Neighbors= _
 
   def owner:Player = _owner

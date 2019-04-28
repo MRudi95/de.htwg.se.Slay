@@ -5,4 +5,6 @@ class Knight(val player: Player) extends UnitGamePiece {
   override val price: Int = 30
   override val cost: Int = 18
   var hasMoved: Boolean = false
+
+  override def toString: String = "3"
 }

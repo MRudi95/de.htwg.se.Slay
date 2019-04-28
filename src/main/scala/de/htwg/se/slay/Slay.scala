@@ -19,7 +19,7 @@ object Slay{
     val playerTwo = Player(readLine(), "\033[102m")
 
     val players = Vector(playerZero, playerOne, playerTwo)
-    val grid:Grid = MapReader.readMap("Map1", players)
+    val grid:Grid = new MapReader(players).gridCreator("Map1")
 
     var input: String = ""
     do{

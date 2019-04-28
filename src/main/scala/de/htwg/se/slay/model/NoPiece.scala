@@ -1,8 +1,8 @@
 package de.htwg.se.slay.model
 
-case class Tree() extends GamePiece {
+case class NoPiece() extends GamePiece {
   override val player: Player = null
   override val strength: Int = 0
 
-  override def toString: String = "T"
+  override def toString: String = " "
 }
