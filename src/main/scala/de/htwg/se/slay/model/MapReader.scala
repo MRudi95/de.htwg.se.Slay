@@ -11,6 +11,7 @@ class MapReader(val players:Vector[Player]) {
 
     val colIdx = grid.length / (rowIdx+1) - 1
 
+    setNeighbors(grid, rowIdx, colIdx)
     Grid(grid, rowIdx, colIdx)
   }
 
@@ -40,5 +41,32 @@ class MapReader(val players:Vector[Player]) {
       rowIdx += 1
     }
     (grid, rowIdx-1)
+  }
+
+  private def setNeighbors(grid: Vector[Field], rowIdx: Int, colIdx: Int): Unit = {
+    var neighborN:Field = null
+    var neighborW:Field = null
+    var neighborE:Field = null
+    var neighborS:Field = null
+
+    var idxF = 0
+    for(f <- grid){
+      val idxN = idxF - 1 - colIdx
+      val idxW = idxF - 1
+      val idxE = idxF + 1
+      val idxS = idxF + 1 + colIdx
+
+      if(idxN < 0) neighborN = null else neighborN = grid(idxN)
+
+      if((idxW+1) % (colIdx+1) == 0) neighborW = null else neighborW = grid(idxW)
+
+      if(idxE % (colIdx+1) == 0) neighborE = null else neighborE = grid(idxE)
+
+      if(idxS > rowIdx * colIdx) neighborS = null else neighborS = grid(idxS)
+
+      f.setNeighbors(Neighbors(neighborN, neighborW, neighborE, neighborS))
+
+      idxF += 1
+    }
   }
 }

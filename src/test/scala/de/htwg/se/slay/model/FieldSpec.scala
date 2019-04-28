@@ -11,7 +11,7 @@ class FieldSpec extends WordSpec with Matchers {
         field.owner should be(playr)
       }
       "have no GamePiece on it" in{
-        field.gamepiece should be(null)
+        field.gamepiece should be(NoPiece())
       }
       "have no neighboring Fields set yet" in{
         field.neighbors should be(null)
