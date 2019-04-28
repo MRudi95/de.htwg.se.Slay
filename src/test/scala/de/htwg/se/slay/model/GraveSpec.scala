@@ -12,6 +12,9 @@ class GraveSpec extends WordSpec with Matchers {
       "have a strength of 0" in{
         grave.strength should be (0)
       }
+      "unapply for code coverage" in {
+        Grave.unapply(grave) should be(true)
+      }
     }
   }
 }
