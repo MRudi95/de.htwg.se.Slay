@@ -1,29 +1,29 @@
 package de.htwg.se.slay
 
 import de.htwg.se.slay.aview.TextUI
+import de.htwg.se.slay.controller.Controller
 import de.htwg.se.slay.model.{Grid, MapReader, Player}
 
 import scala.io.StdIn.readLine
 
 object Slay{
-  val playerZero = Player("Player0", "\033[104m")
-  val tui = new TextUI
+  val controller = new Controller
+  val tui = new TextUI(controller)
+
+  tui.welcomeScreen()
+  tui.processWelcome(readLine())
+
+  tui.readPlayerName(1)
+  controller.addPlayer(Player(readLine(), "\033[103m"))
+  tui.readPlayerName(2)
+  controller.addPlayer(Player(readLine(), "\033[102m"))
+
+  controller.createGrid()
 
   def main(args: Array[String]) : Unit = {
-    tui.welcomeScreen()
-    tui.processWelcome(readLine())
-
-    tui.readPlayerName(1)
-    val playerOne = Player(readLine(), "\033[103m")
-    tui.readPlayerName(2)
-    val playerTwo = Player(readLine(), "\033[102m")
-
-    val players = Vector(playerZero, playerOne, playerTwo)
-    val grid:Grid = new MapReader(players).gridCreator("Map1")
-
     var input: String = ""
+
     do{
-      tui.printGrid(grid)
       input = readLine()
     }while(input != "q" && input != "quit")
   }

@@ -1,8 +1,14 @@
 package de.htwg.se.slay.aview
 
-import de.htwg.se.slay.model._
 
-class TextUI {
+import de.htwg.se.slay.controller.Controller
+import de.htwg.se.slay.model._
+import de.htwg.se.slay.util.Observer
+
+class TextUI(controller: Controller) extends Observer{
+
+  controller.add(this)
+
   private val R = "\033[0m"       //Color Reset
   private val B = "\033[1;97m"    //Text Color Black
   private val RED = "\033[41m"    //Red Background
@@ -24,5 +30,7 @@ class TextUI {
   }
 
   def readPlayerName(player: Int): Unit = println("\n Player " + player + " enter your name:")
+
+  override def update(): Unit = println(controller.gridToString)
 }
 
