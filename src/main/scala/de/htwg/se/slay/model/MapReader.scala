@@ -12,6 +12,7 @@ class MapReader(val players:Vector[Player]) {
     val colIdx = grid.length / (rowIdx+1) - 1
 
     setNeighbors(grid, rowIdx, colIdx)
+    setTerritories(grid)
     Grid(grid, rowIdx, colIdx)
   }
 
@@ -63,10 +64,32 @@ class MapReader(val players:Vector[Player]) {
     }
   }
 
-  private def setTerritories(grid: Vector[Field], rowIdx: Int, colIdx: Int): Unit = {
+  private def setTerritories(grid: Vector[Field]): Unit = {
     for(field <- grid){
-      for(neighbor <- field.neighbors){
+      if(field.territory == null) {
+        field.territory = new Territory
+        field.territory.addField(field)
+      }
 
+      field.gamepiece match {
+        case _:Capital => field.territory.setCapital(field)
+        case _ =>
+      }
+
+      val east = field.neighbors.neighborEast
+      val south = field.neighbors.neighborSouth
+      if(east != null && east.owner == field.owner) {
+        if(east.territory != null) {
+          field.territory = east.territory
+          field.territory.addField(field)
+        } else {
+          east.territory = field.territory
+          field.territory.addField(east)
+        }
+      }
+      if(south != null && south.owner == field.owner) {
+        field.territory.addField(south)
+        south.territory = field.territory
       }
     }
   }
