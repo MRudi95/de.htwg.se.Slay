@@ -2,7 +2,7 @@ package de.htwg.se.slay
 
 import de.htwg.se.slay.aview.TextUI
 import de.htwg.se.slay.controller.Controller
-import de.htwg.se.slay.model.{Grid, MapReader, Player}
+import de.htwg.se.slay.model.Player
 
 import scala.io.StdIn.readLine
 

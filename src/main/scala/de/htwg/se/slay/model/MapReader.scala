@@ -22,20 +22,13 @@ class MapReader(val players:Vector[Player]) {
       val fields = line.split(";")
       for(field <- fields) {
         field match {
-          case "0"  =>
-            grid = grid :+ new Field(players(0))
-          case "10" =>
-            grid = grid :+ new Field(players(1))
-          case "11" =>
-            grid = grid :+ new Field(players(1), new Capital(players(1)))
-          case "12" =>
-            grid = grid :+ new Field(players(1), Tree())
-          case "20" =>
-            grid = grid :+ new Field(players(2))
-          case "21" =>
-            grid = grid :+ new Field(players(2), new Capital(players(2)))
-          case "22" =>
-            grid = grid :+ new Field(players(2), Tree())
+          case "0"  => grid = grid :+ new Field(players(0))
+          case "10" => grid = grid :+ new Field(players(1))
+          case "11" => grid = grid :+ new Field(players(1), new Capital(players(1)))
+          case "12" => grid = grid :+ new Field(players(1), Tree())
+          case "20" => grid = grid :+ new Field(players(2))
+          case "21" => grid = grid :+ new Field(players(2), new Capital(players(2)))
+          case "22" => grid = grid :+ new Field(players(2), Tree())
         }
       }
       rowIdx += 1
@@ -67,6 +60,14 @@ class MapReader(val players:Vector[Player]) {
       f.setNeighbors(Neighbors(neighborN, neighborW, neighborE, neighborS))
 
       idxF += 1
+    }
+  }
+
+  private def setTerritories(grid: Vector[Field], rowIdx: Int, colIdx: Int): Unit = {
+    for(field <- grid){
+      for(neighbor <- field.neighbors){
+
+      }
     }
   }
 }
