@@ -1,10 +1,11 @@
 package de.htwg.se.slay.model
 
+import scala.collection.immutable.HashSet
 import scala.io.BufferedSource
 
 class MapReader(val players:Vector[Player]) {
 
-  def gridCreator(mapname:String):Grid = {
+  def gridCreator(mapname:String):(Grid, HashSet[Field]) = {
     val map: BufferedSource = io.Source.fromFile("src/main/scala/de/htwg/se/slay/maps/" + mapname + ".csv")
     val (grid, rowIdx) = readCSV(map)
     map.close
@@ -12,8 +13,8 @@ class MapReader(val players:Vector[Player]) {
     val colIdx = grid.length / (rowIdx+1) - 1
 
     setNeighbors(grid, rowIdx, colIdx)
-    setTerritories(grid)
-    Grid(grid, rowIdx, colIdx)
+
+    (Grid(grid, rowIdx, colIdx), setTerritories(grid))
   }
 
   private def readCSV(map: BufferedSource): (Vector[Field], Int) = {
@@ -64,7 +65,8 @@ class MapReader(val players:Vector[Player]) {
     }
   }
 
-  private def setTerritories(grid: Vector[Field]): Unit = {
+  private def setTerritories(grid: Vector[Field]): HashSet[Field] = {
+    var capitals: HashSet[Field] = HashSet()
     for(field <- grid){
       if(field.territory == null) {
         field.territory = new Territory
@@ -72,7 +74,9 @@ class MapReader(val players:Vector[Player]) {
       }
 
       field.gamepiece match {
-        case _:Capital => field.territory.setCapital(field)
+        case _:Capital =>
+          field.territory.setCapital(field)
+          capitals += field
         case _ =>
       }
 
@@ -92,5 +96,7 @@ class MapReader(val players:Vector[Player]) {
         south.territory = field.territory
       }
     }
+
+    capitals
   }
 }

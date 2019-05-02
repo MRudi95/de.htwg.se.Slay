@@ -13,9 +13,9 @@ class Territory {
     }
   }
 
-  def addField(field: Field):Unit = _fields = _fields + field
+  def addField(field: Field):Unit = _fields += field
 
-  def removeField(field: Field):Unit = _fields = _fields - field
+  def removeField(field: Field):Unit = _fields -= field
 
   def length():Int = _fields.size
 

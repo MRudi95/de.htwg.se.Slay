@@ -25,6 +25,7 @@ object Slay{
 
     do{
       input = readLine()
+      tui.processInput(input)
     }while(input != "q" && input != "quit")
   }
 }

@@ -31,6 +31,17 @@ class TextUI(controller: Controller) extends Observer{
 
   def readPlayerName(player: Int): Unit = println("\n Player " + player + " enter your name:")
 
+  def processInput(input: String): Unit = {
+    val regexIndex = "[A-Z]\\d+".r
+    input match {
+      case "q" =>
+      case "quit" =>
+      case regexIndex(_*) if controller.checkIndex(input) =>
+      case "test" => controller.testStuff()
+      case _ => println("Wrong Input!")
+    }
+  }
+
   override def update(): Unit = println(controller.gridToString)
 }
 
