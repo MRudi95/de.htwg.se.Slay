@@ -36,7 +36,8 @@ class TextUI(controller: Controller) extends Observer{
     input match {
       case "q" =>
       case "quit" =>
-      case regexIndex(_*) if controller.checkIndex(input) =>
+      case "money" => controller.moneymoney()
+      case regexIndex(_*) if controller.checkIndex(input) => println(controller.grid(controller.convertIndex(input)).gamepiece.asInstanceOf[Capital].balance)
       case "test" => controller.testStuff()
       case _ => println("Wrong Input!")
     }

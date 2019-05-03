@@ -20,18 +20,20 @@ class MapReader(val players:Vector[Player]) {
   private def readCSV(map: BufferedSource): (Vector[Field], Int) = {
     var rowIdx = 0
     var grid:Vector[Field] = Vector.empty
+    var idxC = 0
     for(line <- map.getLines()){
       val fields = line.split(";")
       for(field <- fields) {
         field match {
           case "0"  => grid = grid :+ new Field(players(0))
           case "10" => grid = grid :+ new Field(players(1))
-          case "11" => grid = grid :+ new Field(players(1), new Capital(players(1)))
+          case "11" => grid = grid :+ new Field(players(1), new Capital(players(1), idxC))
           case "12" => grid = grid :+ new Field(players(1), Tree())
           case "20" => grid = grid :+ new Field(players(2))
-          case "21" => grid = grid :+ new Field(players(2), new Capital(players(2)))
+          case "21" => grid = grid :+ new Field(players(2), new Capital(players(2), idxC))
           case "22" => grid = grid :+ new Field(players(2), Tree())
         }
+        idxC += 1
       }
       rowIdx += 1
     }
@@ -57,7 +59,7 @@ class MapReader(val players:Vector[Player]) {
 
       if(idxE % (colIdx+1) == 0) neighborE = null else neighborE = grid(idxE)
 
-      if(idxS > rowIdx * colIdx) neighborS = null else neighborS = grid(idxS)
+      if(idxS >= (rowIdx+1) * (colIdx+1)) neighborS = null else neighborS = grid(idxS)
 
       f.setNeighbors(Neighbors(neighborN, neighborW, neighborE, neighborS))
 

@@ -6,7 +6,7 @@ class CapitalSpec extends WordSpec with Matchers {
   "A Capital is the central building of a territory and" when{
     "new" should{
       val playr = Player("", "")
-      val capital = new Capital(playr)
+      val capital = new Capital(playr, 0)
       "have a Player it belongs to" in{
         capital.player should be (playr)
       }
