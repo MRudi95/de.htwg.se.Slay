@@ -7,6 +7,9 @@ class PeasantSpec extends WordSpec with Matchers {
     "new" should{
       val playr = Player("", "")
       val peasant = new Peasant(playr)
+      "have a nice String representation" in {
+        peasant.toString should be("1")
+      }
       "have a Player it belongs to" in{
         peasant.player should be (playr)
       }

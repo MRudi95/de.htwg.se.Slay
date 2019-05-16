@@ -7,6 +7,9 @@ class KnightSpec extends WordSpec with Matchers {
     "new" should{
       val playr = Player("", "")
       val knight = new Knight(playr)
+      "have a nice String representation" in {
+        knight.toString should be("3")
+      }
       "have a Player it belongs to" in{
         knight.player should be (playr)
       }

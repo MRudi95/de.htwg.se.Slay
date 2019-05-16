@@ -6,6 +6,9 @@ class TreeSpec extends WordSpec with Matchers {
   "A Tree is a neutral GamePiece that does not belong to any Player and" when{
     "new" should{
       val tree = Tree()
+      "have a nice String representation" in {
+        tree.toString should be("T")
+      }
       "have no Player" in{
         tree.player should be (null)
       }

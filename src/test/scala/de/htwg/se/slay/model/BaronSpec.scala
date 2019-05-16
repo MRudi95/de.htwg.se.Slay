@@ -7,6 +7,9 @@ class BaronSpec extends WordSpec with Matchers {
     "new" should{
       val playr = Player("", "")
       val baron = new Baron(playr)
+      "have a nice String representation" in {
+        baron.toString should be("4")
+      }
       "have a Player it belongs to" in{
         baron.player should be (playr)
       }

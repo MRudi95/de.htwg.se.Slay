@@ -7,6 +7,9 @@ class SpearmanSpec extends WordSpec with Matchers {
     "new" should{
       val playr = Player("", "")
       val spearman = new Spearman(playr)
+      "have a nice String representation" in {
+        spearman.toString should be("2")
+      }
       "have a Player it belongs to" in{
         spearman.player should be (playr)
       }

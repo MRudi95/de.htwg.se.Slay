@@ -6,6 +6,9 @@ class NoPieceSpec extends WordSpec with Matchers {
   "NoPiece is the default GamePiece when there is no GamePiece on a Field and" when{
     "new" should{
       val noPiece = NoPiece()
+      "have a nice String representation" in {
+        noPiece.toString should be(" ")
+      }
       "have no Player" in{
         noPiece.player should be (null)
       }

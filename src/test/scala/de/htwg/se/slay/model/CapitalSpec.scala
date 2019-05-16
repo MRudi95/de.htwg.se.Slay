@@ -7,6 +7,9 @@ class CapitalSpec extends WordSpec with Matchers {
     "new" should{
       val playr = Player("", "")
       val capital = new Capital(playr, 0)
+      "have a nice String representation" in {
+        capital.toString should be("C")
+      }
       "have a Player it belongs to" in{
         capital.player should be (playr)
       }

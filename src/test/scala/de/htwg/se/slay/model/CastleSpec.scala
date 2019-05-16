@@ -7,6 +7,9 @@ class CastleSpec extends WordSpec with Matchers {
     "new" should{
       val playr = Player("","")
       val castle = Castle(playr)
+      "have a nice String representation" in {
+        castle.toString should be("B")
+      }
       "have a Player it belongs to" in{
         castle.player should be (playr)
       }
