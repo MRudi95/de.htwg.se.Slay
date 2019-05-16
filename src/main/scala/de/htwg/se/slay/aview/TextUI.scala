@@ -32,12 +32,13 @@ class TextUI(controller: Controller) extends Observer{
   def readPlayerName(player: Int): Unit = println("\n Player " + player + " enter your name:")
 
   def processInput(input: String): Unit = {
-    val regexIndex = "[A-Z]\\d+".r
+    val regexIndex = "bal [A-Z]\\d+".r
     input match {
       case "q" =>
       case "quit" =>
       case "money" => controller.moneymoney()
-      case regexIndex(_*) if controller.checkIndex(input) => println(controller.grid(controller.convertIndex(input)).gamepiece.asInstanceOf[Capital].balance)
+      case regexIndex(_*) if controller.checkIndex(input.replaceAll("bal ", "")) && controller.grid(controller.convertIndex(input.replaceAll("bal ", ""))).gamepiece.isInstanceOf[Capital] =>
+        println(controller.grid(controller.convertIndex(input.replaceAll("bal ", ""))).gamepiece.asInstanceOf[Capital].balance)
       case "test" => controller.testStuff()
       case _ => println("Wrong Input!")
     }

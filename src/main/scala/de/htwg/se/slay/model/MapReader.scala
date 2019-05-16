@@ -6,7 +6,7 @@ import scala.io.BufferedSource
 class MapReader(val players:Vector[Player]) {
 
   def gridCreator(mapname:String):(Grid, HashSet[Field]) = {
-    val map: BufferedSource = io.Source.fromFile("src/main/scala/de/htwg/se/slay/maps/" + mapname + ".csv")
+    val map: BufferedSource = io.Source.fromFile("src/main/resources/maps/" + mapname + ".csv")
     val (grid, rowIdx) = readCSV(map)
     map.close
 
