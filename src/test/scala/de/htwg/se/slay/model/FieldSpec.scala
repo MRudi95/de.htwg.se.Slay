@@ -16,6 +16,9 @@ class FieldSpec extends WordSpec with Matchers {
       "have no neighboring Fields set yet" in{
         field.neighbors should be(null)
       }
+      "have no Territory set" in{
+        field.territory should be (null)
+      }
     }
     "its owner changes" should{
       val playr = Player("", "")
@@ -26,7 +29,7 @@ class FieldSpec extends WordSpec with Matchers {
         field.owner should be(playr2)
       }
     }
-    "its GamePiece change" should{
+    "its GamePiece changes" should{
       val playr = Player("", "")
       val field = new Field(playr)
       val gp = Tree()
@@ -50,6 +53,15 @@ class FieldSpec extends WordSpec with Matchers {
       "not be set more than one time" in{
         fieldOne.neighbors should be(neighbors)
         bool2 should be(false)
+      }
+    }
+    "its territory changes" should{
+      val playr = Player("", "")
+      val field = new Field(playr)
+      val ter = new Territory
+      field.territory = ter
+      "have a Territory" in{
+        field.territory should be (ter)
       }
     }
   }
