@@ -1,42 +1,39 @@
 package de.htwg.se.slay.model
 
+import scala.collection.immutable.HashSet
 import scala.io.BufferedSource
 
 class MapReader(val players:Vector[Player]) {
 
-  def gridCreator(mapname:String):Grid = {
-    val map: BufferedSource = io.Source.fromFile("src/main/scala/de/htwg/se/slay/maps/" + mapname + ".csv")
+  def gridCreator(mapname:String):(Grid, HashSet[Field]) = {
+    val map: BufferedSource = io.Source.fromFile("src/main/resources/maps/" + mapname + ".csv")
     val (grid, rowIdx) = readCSV(map)
     map.close
 
     val colIdx = grid.length / (rowIdx+1) - 1
 
     setNeighbors(grid, rowIdx, colIdx)
-    Grid(grid, rowIdx, colIdx)
+
+    (Grid(grid, rowIdx, colIdx), setTerritories(grid))
   }
 
   private def readCSV(map: BufferedSource): (Vector[Field], Int) = {
     var rowIdx = 0
     var grid:Vector[Field] = Vector.empty
+    var idxC = 0
     for(line <- map.getLines()){
       val fields = line.split(";")
       for(field <- fields) {
         field match {
-          case "0"  =>
-            grid = grid :+ new Field(players(0))
-          case "10" =>
-            grid = grid :+ new Field(players(1))
-          case "11" =>
-            grid = grid :+ new Field(players(1), new Capital(players(1)))
-          case "12" =>
-            grid = grid :+ new Field(players(1), Tree())
-          case "20" =>
-            grid = grid :+ new Field(players(2))
-          case "21" =>
-            grid = grid :+ new Field(players(2), new Capital(players(2)))
-          case "22" =>
-            grid = grid :+ new Field(players(2), Tree())
+          case "0"  => grid = grid :+ new Field(players(0))
+          case "10" => grid = grid :+ new Field(players(1))
+          case "11" => grid = grid :+ new Field(players(1), new Capital(players(1), idxC))
+          case "12" => grid = grid :+ new Field(players(1), Tree())
+          case "20" => grid = grid :+ new Field(players(2))
+          case "21" => grid = grid :+ new Field(players(2), new Capital(players(2), idxC))
+          case "22" => grid = grid :+ new Field(players(2), Tree())
         }
+        idxC += 1
       }
       rowIdx += 1
     }
@@ -62,11 +59,46 @@ class MapReader(val players:Vector[Player]) {
 
       if(idxE % (colIdx+1) == 0) neighborE = null else neighborE = grid(idxE)
 
-      if(idxS > rowIdx * colIdx) neighborS = null else neighborS = grid(idxS)
+      if(idxS >= (rowIdx+1) * (colIdx+1)) neighborS = null else neighborS = grid(idxS)
 
       f.setNeighbors(Neighbors(neighborN, neighborW, neighborE, neighborS))
 
       idxF += 1
     }
+  }
+
+  private def setTerritories(grid: Vector[Field]): HashSet[Field] = {
+    var capitals: HashSet[Field] = HashSet()
+    for(field <- grid){
+      if(field.territory == null) {
+        field.territory = new Territory
+        field.territory.addField(field)
+      }
+
+      field.gamepiece match {
+        case _:Capital =>
+          field.territory.setCapital(field)
+          capitals += field
+        case _ =>
+      }
+
+      val east = field.neighbors.neighborEast
+      val south = field.neighbors.neighborSouth
+      if(east != null && east.owner == field.owner) {
+        if(east.territory != null) {
+          field.territory = east.territory
+          field.territory.addField(field)
+        } else {
+          east.territory = field.territory
+          field.territory.addField(east)
+        }
+      }
+      if(south != null && south.owner == field.owner) {
+        field.territory.addField(south)
+        south.territory = field.territory
+      }
+    }
+
+    capitals
   }
 }

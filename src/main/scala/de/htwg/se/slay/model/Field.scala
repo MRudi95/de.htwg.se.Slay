@@ -2,6 +2,7 @@ package de.htwg.se.slay.model
 
 class Field(private var _owner: Player, private var _gamepiece: GamePiece = NoPiece()) {
   private var _neighbors: Neighbors= _
+  private var _territory: Territory = _
 
   def owner:Player = _owner
   def owner_=(owner: Player):Unit = _owner = owner
@@ -13,4 +14,8 @@ class Field(private var _owner: Player, private var _gamepiece: GamePiece = NoPi
   def setNeighbors(neighbors: Neighbors):Boolean = {
     if(_neighbors == null) {_neighbors = neighbors; true} else false
   }
+
+  def territory:Territory = _territory
+  def territory_=(territory: Territory):Unit = _territory = territory
+
 }
