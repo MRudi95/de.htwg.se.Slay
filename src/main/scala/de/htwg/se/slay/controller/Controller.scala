@@ -42,7 +42,7 @@ class Controller extends Observable{
   def moneymoney(): Unit = {
     for(field <- capitals){
       val cap = field.gamepiece.asInstanceOf[Capital]
-      cap.balance += field.territory.length()
+      cap.balance += field.territory.size()
     }
   }
 
@@ -54,7 +54,7 @@ class Controller extends Observable{
     grid(14).territory.capital.owner = Player("asdasd", "\033[106m")
     for(field <- capitals){
       val cap = field.gamepiece.asInstanceOf[Capital]
-      cap.balance += field.territory.length()
+      cap.balance += field.territory.size()
       println(convertIndex(cap.idx) + ":\t" + cap.balance)
     }
 //    for(field <- grid(100).neighbors){

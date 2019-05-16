@@ -17,7 +17,7 @@ class Territory {
 
   def removeField(field: Field):Unit = _fields -= field
 
-  def length():Int = _fields.size
+  def size():Int = _fields.size
 
   def capital: Field = _capital
   def fields: HashSet[Field] = _fields
