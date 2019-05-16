@@ -18,9 +18,8 @@ case class Grid(private val grid:Vector[Field], rowIdx:Int, colIdx:Int) extends 
 
       for (cols <- 0 to colIdx) {
         val idx = rows * (colIdx+1) + cols
-        val gamePiece = grid(idx).gamepiece.toString
         lineOne   += grid(idx).owner.color + "     "
-        lineTwo   += grid(idx).owner.color + "  " + grid(idx).owner.color + B + gamePiece + "  "
+        lineTwo   += grid(idx).owner.color + "  " + grid(idx).owner.color + B + grid(idx).gamepiece.toString + "  "
         lineThree += grid(idx).owner.color + "     "
       }
 
