@@ -44,6 +44,9 @@ class TextUI(controller: Controller) extends Observer{
     }
   }
 
-  override def update(): Unit = println(controller.gridToString)
+  override def update(): Boolean = {
+    println(controller.gridToString)
+    true
+  }
 }
 
