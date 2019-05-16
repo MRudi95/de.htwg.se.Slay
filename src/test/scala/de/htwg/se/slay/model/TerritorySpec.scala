@@ -34,6 +34,18 @@ class TerritorySpec extends WordSpec with Matchers {
         ter3.fields.contains(field) should be (false)
         ter3.size() should be(0)
       }
+
+      ter2.setCapital(field)
+      "not have a Field without a Capital GamePiece" in{
+        ter2.capital should be(null)
+      }
+
+      val field2 = new Field(playr)
+      field2.gamepiece = new Capital(playr, 0)
+      ter3.setCapital(field2)
+      "only have a Field with a Capital GamePiece" in{
+        ter3.capital should be(field2)
+      }
     }
   }
 }
