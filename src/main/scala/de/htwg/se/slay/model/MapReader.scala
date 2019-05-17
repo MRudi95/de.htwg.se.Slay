@@ -5,8 +5,8 @@ import scala.io.BufferedSource
 
 class MapReader(val players:Vector[Player]) {
 
-  def gridCreator(mapname:String):(Grid, HashSet[Field]) = {
-    val map: BufferedSource = io.Source.fromFile("src/main/resources/maps/" + mapname + ".csv")
+  def gridCreator(mapname:String, typ:String = "main"):(Grid, HashSet[Field]) = {
+    val map: BufferedSource = io.Source.fromFile("src/" + typ + "/resources/maps/" + mapname + ".csv")
     val (grid, rowIdx) = readCSV(map)
     map.close
 
