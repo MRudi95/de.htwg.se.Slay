@@ -18,7 +18,7 @@ object Slay{
   tui.readPlayerName(2)
   controller.addPlayer(Player(readLine(), "\033[102m"))
 
-  controller.createGrid()
+  controller.createGrid("Map1")
 
   def main(args: Array[String]) : Unit = {
     var input: String = ""

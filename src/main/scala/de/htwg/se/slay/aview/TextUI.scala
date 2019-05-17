@@ -39,7 +39,7 @@ class TextUI(controller: Controller) extends Observer{
       case "money" => controller.moneymoney()
       case regexIndex(_*) if controller.checkIndex(input.replaceAll("bal ", "")) && controller.grid(controller.convertIndex(input.replaceAll("bal ", ""))).gamepiece.isInstanceOf[Capital] =>
         println(controller.grid(controller.convertIndex(input.replaceAll("bal ", ""))).gamepiece.asInstanceOf[Capital].balance)
-      case "test" => controller.testStuff()
+      //case "test" => controller.testStuff()
       case _ => println("Wrong Input!")
     }
   }
