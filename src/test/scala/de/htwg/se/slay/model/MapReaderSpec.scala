@@ -14,25 +14,27 @@ class MapReaderSpec extends WordSpec with Matchers {
       grid(0).owner should be(players(0))
       grid(1).owner should be(players(1))
       grid(2).owner should be(players(2))
-      grid.length should be(6)
+      grid.length should be(8)
     }
     "read the Fields with Capital GamePieces on it" in{
       capitals.contains(grid(2)) should be (true)
-      capitals.contains(grid(4)) should be (false)
-      capitals.size should be (1)
+      capitals.contains(grid(3)) should be (true)
+      capitals.contains(grid(5)) should be (false)
+      capitals.size should be (2)
     }
     "assign Neighbor relationships to the Fields in the Grid" in{
       grid(0).neighbors.neighborEast should be(grid(1))
       grid(1).neighbors.neighborWest should be(grid(0))
 
       grid(0).neighbors.neighborWest should be(null)
-      grid(0).neighbors.neighborSouth should be(grid(3))
+      grid(0).neighbors.neighborSouth should be(grid(4))
       grid(0).neighbors.neighborNorth should be(null)
     }
     "assign Territory relationships to the Fields in the Grid" in{
       grid(2).territory.fields.contains(grid(2)) should be (true)
       grid(2).territory.fields.contains(grid(5)) should be (true)
-      grid(2).territory.fields.contains(grid(4)) should be (true)
+      grid(2).territory.fields.contains(grid(6)) should be (true)
+      grid(2).territory.fields.contains(grid(7)) should be (true)
       grid(2).territory.fields.contains(grid(1)) should be (false)
       grid(2).territory.capital should be (grid(2))
     }
