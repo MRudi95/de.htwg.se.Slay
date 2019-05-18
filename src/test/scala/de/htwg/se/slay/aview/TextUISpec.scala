@@ -26,11 +26,20 @@ class TextUISpec extends WordSpec with Matchers{
       "prompt a players name" in{
         tui.readPlayerName(1)
       }
+
       controller.addPlayer(Player("1",""))
       controller.addPlayer(Player("2",""))
       controller.createGrid("Test", "test")
       "print the updated grid" in{
         tui.update()
+      }
+
+      "process inputs" in{
+        tui.processInput("q")
+        tui.processInput("quit")
+        tui.processInput("money")
+        tui.processInput("bal C1")
+        tui.processInput("asdasd")
       }
     }
   }
