@@ -14,19 +14,17 @@ class TextUI(controller: Controller) extends Observer{
   private val RED = "\033[41m"    //Red Background
   private val GREEN = "\033[42m"  //Green Background
 
-  def printGrid(grid:Grid): Unit = println(grid.toString)
-
   def welcomeScreen(): Unit = {
     println("\n========== WELCOME TO SLAY ==========\n" +
             "\t Do You want to play a Game?\n\n" +
             "\t\t  " + B + GREEN + " YES " + R + "\t\t" + B + RED + " no " + R)
   }
 
-  def processWelcome(input: String): Unit = {
+  def processWelcome(input: String): Boolean = {
     if(input.toUpperCase != "YES"){
       println("Ok, bye!")
-      System.exit(0)
-    }
+      true
+    } else false
   }
 
   def readPlayerName(player: Int): Unit = println("\n Player " + player + " enter your name:")

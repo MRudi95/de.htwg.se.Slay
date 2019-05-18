@@ -1,6 +1,7 @@
 package de.htwg.se.slay.aview
 
 import de.htwg.se.slay.controller.Controller
+import de.htwg.se.slay.model.Player
 import org.scalatest._
 
 class TextUISpec extends WordSpec with Matchers{
@@ -23,6 +24,12 @@ class TextUISpec extends WordSpec with Matchers{
 
       "prompt a players name" in{
         tui.readPlayerName(1)
+      }
+      controller.addPlayer(Player("1",""))
+      controller.addPlayer(Player("2",""))
+      controller.createGrid("Test", "test")
+      "print the updated grid" in{
+        tui.update()
       }
     }
   }

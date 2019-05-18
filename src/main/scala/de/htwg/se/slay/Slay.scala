@@ -11,7 +11,7 @@ object Slay{
   val tui = new TextUI(controller)
 
   tui.welcomeScreen()
-  tui.processWelcome(readLine())
+  if(tui.processWelcome(readLine())) System.exit(0)
 
   tui.readPlayerName(1)
   controller.addPlayer(Player(readLine(), "\033[103m"))
