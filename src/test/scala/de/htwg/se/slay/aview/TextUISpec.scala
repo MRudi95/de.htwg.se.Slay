@@ -20,6 +20,7 @@ class TextUISpec extends WordSpec with Matchers{
 
       "process the Welcome" in{
         tui.processWelcome("yes")
+        tui.processWelcome("no")
       }
 
       "prompt a players name" in{
