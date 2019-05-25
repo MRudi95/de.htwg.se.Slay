@@ -47,10 +47,10 @@ class TextUI(controller: Controller) extends Observer{
         println("balance: " + controller.grid(convertIndex(c)).territory.capital.balance)
       case buy(c) if checkIndex(c) && checkNoPiece(convertIndex(c)) =>
         controller.buyPeasant(convertIndex(c))
-      case plc(c) if checkIndex(c) && controller.grid(convertIndex(c)).gamepiece.isInstanceOf[NoPiece] =>
+      case plc(c) if checkIndex(c) && checkNoPiece(convertIndex(c)) =>
         controller.placeCastle(convertIndex(c))
-      case mov(c1, c2) =>
-      case cmb(c1, c2) =>
+      case mov(c1, c2) if checkIndex(c1) && checkIndex(c2) =>
+      case cmb(c1, c2) if checkIndex(c1) && checkIndex(c2) =>
       case _ => println("Wrong Input!")
     }
   }
