@@ -1,5 +1,7 @@
 package de.htwg.se.slay.util
 
+import de.htwg.se.slay.controller.{Event, Success}
+
 class Observable {
   var subscribers: Vector[Observer] = Vector()
 
@@ -7,5 +9,5 @@ class Observable {
 
   def remove(s: Observer): Unit = subscribers = subscribers.filterNot(o => o == s)
 
-  def notifyObservers(): Unit = subscribers.foreach(o => o.update())
+  def notifyObservers(e: Event = new Success): Unit = subscribers.foreach(o => o.update(e))
 }

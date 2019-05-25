@@ -43,8 +43,8 @@ class TerritorySpec extends WordSpec with Matchers {
       val field2 = new Field(playr)
       field2.gamepiece = new Capital(playr, 0)
       ter3.setCapital(field2)
-      "only have a Field with a Capital GamePiece" in{
-        ter3.capital should be(field2)
+      "only have a Capital GamePiece" in{
+        ter3.capital should be(field2.gamepiece)
       }
     }
   }

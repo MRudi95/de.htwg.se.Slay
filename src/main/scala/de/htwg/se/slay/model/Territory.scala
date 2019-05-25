@@ -3,12 +3,12 @@ package de.htwg.se.slay.model
 import scala.collection.immutable.HashSet
 
 class Territory {
-  private var _capital: Field = _
+  private var _capital: Capital = _
   private var _fields: HashSet[Field] = HashSet()
 
   def setCapital(field: Field): Boolean = {
     field.gamepiece match{
-      case _:Capital => _capital = field; true
+      case capital:Capital => _capital = capital; true
       case _ => false
     }
   }
@@ -19,6 +19,6 @@ class Territory {
 
   def size():Int = _fields.size
 
-  def capital: Field = _capital
+  def capital: Capital = _capital
   def fields: HashSet[Field] = _fields
 }

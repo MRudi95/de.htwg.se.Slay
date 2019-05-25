@@ -21,23 +21,21 @@ class Controller extends Observable{
     notifyObservers()
   }
 
-  def checkIndex(idx: String): Boolean ={
-    //still needs alot of other possibilities
-    val cols = idx.charAt(0).toInt - 65
-    val rows = idx.charAt(1).asDigit - 1
-    if(cols > grid.colIdx || rows > grid.rowIdx) false else true
+  def buyPeasant(c: Int): Unit = {
+    if (grid(c).territory.capital.balance >= 10) {
+      grid(c).territory.capital.balance -= 10
+      grid(c).gamepiece = new Peasant(grid(c).owner)
+      notifyObservers()
+    } else notifyObservers(new MoneyError)
+
   }
 
-  def convertIndex(idx: Int): String ={
-    val cols = idx % (grid.colIdx+1) + 65
-    val rows = idx / (grid.colIdx+1) + 1
-    cols.toChar + rows.toString
-  }
-
-  def convertIndex(idx: String): Int ={
-    val cols = idx.charAt(0).toInt - 65
-    val rows = idx.charAt(1).asDigit - 1
-    rows * (cols+1) + cols
+  def placeCastle(c: Int): Unit ={
+    if (grid(c).territory.capital.balance >= 15) {
+      grid(c).territory.capital.balance -= 15
+      grid(c).gamepiece = Castle(grid(c).owner)
+      notifyObservers()
+    } else notifyObservers(new MoneyError)
   }
 
   def moneymoney(): Unit = {
@@ -45,6 +43,7 @@ class Controller extends Observable{
       val cap = field.gamepiece.asInstanceOf[Capital]
       cap.balance += field.territory.size()
     }
+    notifyObservers()
   }
 
 }

@@ -36,7 +36,7 @@ class MapReaderSpec extends WordSpec with Matchers {
       grid(2).territory.fields.contains(grid(6)) should be (true)
       grid(2).territory.fields.contains(grid(7)) should be (true)
       grid(2).territory.fields.contains(grid(1)) should be (false)
-      grid(2).territory.capital should be (grid(2))
+      grid(2).territory.capital should be (grid(2).gamepiece)
     }
   }
 }

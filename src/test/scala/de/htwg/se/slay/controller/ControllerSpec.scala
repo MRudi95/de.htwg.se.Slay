@@ -40,28 +40,6 @@ class ControllerSpec extends WordSpec with Matchers with PrivateMethodTester {
         controller.gridToString should be (controller.grid.toString)
       }
 
-      "be able to check if an Index in the format 'A1' is valid to access the Grid" in{
-        //still needs alot of other possibilities
-        controller.checkIndex("A1") should be (true)
-        controller.checkIndex("D2") should be (true)
-        controller.checkIndex("A7") should be (false)
-        controller.checkIndex("D9") should be (false)
-      }
-
-      "be able to convert an Index in the format 'A1' to an Integer Index" in{
-        controller.convertIndex("A1") should be (0)
-        controller.convertIndex("B1") should be (1)
-        controller.convertIndex("C1") should be (2)
-        controller.convertIndex("D4") should be (15)
-      }
-
-      "be able to convert an Index from Integer to the format 'A1'" in{
-        controller.convertIndex(0) should be ("A1")
-        controller.convertIndex(1) should be ("B1")
-        controller.convertIndex(2) should be ("C1")
-        controller.convertIndex(15) should be ("D4")
-      }
-
       controller.moneymoney()
       "have money added to the capitals" in{
         controller.grid(2).gamepiece.asInstanceOf[Capital].balance should be (14)

@@ -1,5 +1,6 @@
 package de.htwg.se.slay.util
 
+import de.htwg.se.slay.controller.Event
 import org.scalatest.{Matchers, WordSpec}
 
 class ObservableSpec extends WordSpec with Matchers {
@@ -8,7 +9,7 @@ class ObservableSpec extends WordSpec with Matchers {
     val observer = new Observer {
       var updated: Boolean = false
       def isUpdated: Boolean = updated
-      override def update: Boolean = {updated = true; updated}
+      override def update(e: Event): Boolean = {updated = true; updated}
     }
     "add an Observer" in {
       observable.add(observer)
