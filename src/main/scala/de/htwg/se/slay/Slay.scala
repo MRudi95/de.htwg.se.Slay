@@ -22,7 +22,7 @@ object Slay{
 
   def main(args: Array[String]) : Unit = {
     var input: String = ""
-
+    controller.nextturn()
     do{
       input = readLine()
       tui.processInput(input)

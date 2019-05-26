@@ -1,6 +1,6 @@
 package de.htwg.se.slay.aview
 
-import de.htwg.se.slay.controller.{Controller, Success}
+import de.htwg.se.slay.controller.{Controller, SuccessEvent}
 import de.htwg.se.slay.model.Player
 import org.scalatest._
 
@@ -31,7 +31,7 @@ class TextUISpec extends WordSpec with Matchers{
       controller.addPlayer(Player("2",""))
       controller.createGrid("Test", "test")
       "print the updated grid" in{
-        tui.update(new Success)
+        tui.update(SuccessEvent())
       }
 
       "process inputs" in{

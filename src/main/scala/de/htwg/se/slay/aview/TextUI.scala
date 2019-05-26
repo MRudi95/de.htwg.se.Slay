@@ -1,7 +1,7 @@
 package de.htwg.se.slay.aview
 
 
-import de.htwg.se.slay.controller.{Controller, Event, MoneyError, Success}
+import de.htwg.se.slay.controller._
 import de.htwg.se.slay.model._
 import de.htwg.se.slay.util.Observer
 
@@ -42,9 +42,9 @@ class TextUI(controller: Controller) extends Observer{
       case "quit" =>
       case "undo" =>
       case "redo" =>
-      case "end" => controller.moneymoney()
+      case "end" => controller.nextturn()
       case bal(c) if checkIndex(c) =>
-        println("balance: " + controller.grid(convertIndex(c)).territory.capital.balance)
+        controller.checkBalance(convertIndex(c))
       case buy(c) if checkIndex(c) && checkNoPiece(convertIndex(c)) =>
         controller.buyPeasant(convertIndex(c))
       case plc(c) if checkIndex(c) && checkNoPiece(convertIndex(c)) =>
@@ -81,13 +81,17 @@ class TextUI(controller: Controller) extends Observer{
 
   override def update(e: Event): Boolean = {
     e match{
-      case _:Success =>
+      case _: SuccessEvent =>
         println(controller.gridToString); true
-      case _:MoneyError =>
+      case _: MoneyErrorEvent =>
         println("Not enough Money!"); true
+      case p: PlayerEvent =>
+        println("It is your turn " + p.name.toUpperCase + " !"); true
+      case b: BalanceEvent =>
+        println("balance: " + b.bal); true
+      case _: OwnerErrorEvent =>
+        println("You are not the Owner of this!"); true
     }
-
-
   }
 }
 

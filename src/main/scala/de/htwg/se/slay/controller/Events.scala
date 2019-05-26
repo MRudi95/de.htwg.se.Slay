@@ -1,7 +1,9 @@
 package de.htwg.se.slay.controller
 
-trait Event{
-}
+trait Event{}
 
-class Success extends Event
-class MoneyError extends Event
+case class SuccessEvent() extends Event
+case class MoneyErrorEvent() extends Event
+class PlayerEvent(val name: String) extends Event
+class BalanceEvent(val bal: Int) extends Event
+case class OwnerErrorEvent() extends Event

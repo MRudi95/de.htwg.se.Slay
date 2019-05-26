@@ -1,7 +1,7 @@
 package de.htwg.se.slay.controller
 
 import de.htwg.se.slay.model._
-import de.htwg.se.slay.util.Observable
+import de.htwg.se.slay.util.{Observable, StatePlayerTurn}
 
 import scala.collection.immutable.HashSet
 
@@ -9,6 +9,11 @@ class Controller extends Observable{
   var players: Vector[Player] = Vector(Player("Player0", "\033[104m"))
   var grid: Grid = _
   var capitals: HashSet[Field] = _
+
+  val playerturn: List[PlayerTurn] = List(Player1Turn(), Player2Turn(), Player0Turn())
+  val nextplayer: Iterator[PlayerTurn] = Iterator.continually(playerturn).flatten
+  var state: Int = 1
+
 
   def gridToString: String = grid.toString
 
@@ -21,21 +26,32 @@ class Controller extends Observable{
     notifyObservers()
   }
 
-  def buyPeasant(c: Int): Unit = {
-    if (grid(c).territory.capital.balance >= 10) {
+
+  private def checkOwner(c: Int):Boolean ={
+    if(grid(c).owner == players(state)) true
+    else {notifyObservers(OwnerErrorEvent()); false}
+  }
+
+  def checkBalance(c: Int): Unit ={
+    if(checkOwner(c))
+      notifyObservers(new BalanceEvent(grid(c).territory.capital.balance))
+  }
+
+  def buyPeasant(c: Int): Unit ={
+    if(checkOwner(c) && grid(c).territory.capital.balance >= 10) {
       grid(c).territory.capital.balance -= 10
       grid(c).gamepiece = new Peasant(grid(c).owner)
       notifyObservers()
-    } else notifyObservers(new MoneyError)
+    } else notifyObservers(MoneyErrorEvent())
 
   }
 
   def placeCastle(c: Int): Unit ={
-    if (grid(c).territory.capital.balance >= 15) {
+    if (checkOwner(c) && grid(c).territory.capital.balance >= 15) {
       grid(c).territory.capital.balance -= 15
       grid(c).gamepiece = Castle(grid(c).owner)
       notifyObservers()
-    } else notifyObservers(new MoneyError)
+    } else notifyObservers(MoneyErrorEvent())
   }
 
   def moneymoney(): Unit = {
@@ -43,7 +59,14 @@ class Controller extends Observable{
       val cap = field.gamepiece.asInstanceOf[Capital]
       cap.balance += field.territory.size()
     }
-    notifyObservers()
   }
 
+  def nextturn(): Unit = {
+    StatePlayerTurn.handle(nextplayer.next(), this)
+  }
+
+  def turnPlayer(p: Int): Unit ={
+    state = p
+    notifyObservers(new PlayerEvent(players(p).name))
+  }
 }
