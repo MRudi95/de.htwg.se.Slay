@@ -1,7 +1,7 @@
 package de.htwg.se.slay.controller
 
 import de.htwg.se.slay.model._
-import de.htwg.se.slay.util.{Observable, StatePlayerTurn}
+import de.htwg.se.slay.util.{Observable, UndoManager}
 
 import scala.collection.immutable.HashSet
 
@@ -13,6 +13,8 @@ class Controller extends Observable{
   val playerturn: List[PlayerTurn] = List(Player1Turn(), Player2Turn(), Player0Turn())
   val nextplayer: Iterator[PlayerTurn] = Iterator.continually(playerturn).flatten
   var state: Int = 1
+
+  val undoManager = new UndoManager
 
 
   def gridToString: String = grid.toString
@@ -71,6 +73,7 @@ class Controller extends Observable{
 
   def turnPlayer(p: Int): Unit ={
     state = p
+    undoManager.reset()
     notifyObservers(new PlayerEvent(players(p).name))
   }
 }
