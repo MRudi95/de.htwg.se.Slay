@@ -20,7 +20,7 @@ class Controller extends Observable{
   def addPlayer(player: Player): Unit = players = players :+ player
 
   def createGrid(mapname: String, typ: String = "main"): Unit = {
-    val (g, c) = new MapReader(players).gridCreator(mapname, typ)
+    val (g, c) = new SquareMapBuilder(players).gridCreator(mapname, typ)
     grid = g
     capitals = c
     notifyObservers()
@@ -37,13 +37,17 @@ class Controller extends Observable{
       notifyObservers(new BalanceEvent(grid(c).territory.capital.balance))
   }
 
+  private def checkNoPiece(idx: Int): Boolean ={
+    if(grid(idx).gamepiece.isInstanceOf[NoPiece] || grid(idx).gamepiece.isInstanceOf[Tree]) true
+    else {notifyObservers(GamePieceErrorEvent()); false}
+  }
+
   def buyPeasant(c: Int): Unit ={
     if(checkOwner(c) && grid(c).territory.capital.balance >= 10) {
       grid(c).territory.capital.balance -= 10
       grid(c).gamepiece = new Peasant(grid(c).owner)
       notifyObservers()
     } else notifyObservers(MoneyErrorEvent())
-
   }
 
   def placeCastle(c: Int): Unit ={

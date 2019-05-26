@@ -3,9 +3,9 @@ package de.htwg.se.slay.model
 import scala.collection.immutable.HashSet
 import scala.io.BufferedSource
 
-class MapReader(val players:Vector[Player]) {
+class SquareMapBuilder(val players:Vector[Player]) extends MapBuilder {
 
-  def gridCreator(mapname:String, typ:String = "main"):(Grid, HashSet[Field]) = {
+  override def gridCreator(mapname:String, typ:String = "main"):(Grid, HashSet[Field]) = {
     val map: BufferedSource = io.Source.fromFile("src/" + typ + "/resources/maps/" + mapname + ".csv")
     val (grid, rowIdx) = readCSV(map)
     map.close
@@ -17,7 +17,7 @@ class MapReader(val players:Vector[Player]) {
     (Grid(grid, rowIdx, colIdx), setTerritories(grid))
   }
 
-  private def readCSV(map: BufferedSource): (Vector[Field], Int) = {
+  protected override def readCSV(map: BufferedSource): (Vector[Field], Int) = {
     var rowIdx = 0
     var grid:Vector[Field] = Vector.empty
     var idxC = 0
@@ -40,7 +40,7 @@ class MapReader(val players:Vector[Player]) {
     (grid, rowIdx-1)
   }
 
-  private def setNeighbors(grid: Vector[Field], rowIdx: Int, colIdx: Int): Unit = {
+  protected override def setNeighbors(grid: Vector[Field], rowIdx: Int, colIdx: Int): Unit = {
     var neighborN:Field = null
     var neighborW:Field = null
     var neighborE:Field = null
@@ -67,7 +67,7 @@ class MapReader(val players:Vector[Player]) {
     }
   }
 
-  private def setTerritories(grid: Vector[Field]): HashSet[Field] = {
+  protected override def setTerritories(grid: Vector[Field]): HashSet[Field] = {
     var capitals: HashSet[Field] = HashSet()
     for(field <- grid){
       if(field.territory == null) {

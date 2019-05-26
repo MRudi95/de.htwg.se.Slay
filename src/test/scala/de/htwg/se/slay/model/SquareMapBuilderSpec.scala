@@ -4,10 +4,10 @@ import org.scalatest.{Matchers, WordSpec}
 
 import scala.collection.immutable.HashSet
 
-class MapReaderSpec extends WordSpec with Matchers {
+class SquareMapBuilderSpec extends WordSpec with Matchers {
   "A MapReader" should {
     val players: Vector[Player] = Vector(Player("0",""), Player("1",""), Player("2",""))
-    val reader = new MapReader(players)
+    val reader = new SquareMapBuilder(players)
     val (grid: Grid, capitals: HashSet[Field]) = reader.gridCreator("Test", "test")
 
     "read a Map from a .csv into a Grid and assigns it to its given players" in{

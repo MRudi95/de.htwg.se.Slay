@@ -2,7 +2,6 @@ package de.htwg.se.slay.aview
 
 
 import de.htwg.se.slay.controller._
-import de.htwg.se.slay.model._
 import de.htwg.se.slay.util.Observer
 
 class TextUI(controller: Controller) extends Observer{
@@ -29,6 +28,7 @@ class TextUI(controller: Controller) extends Observer{
 
   def readPlayerName(player: Int): Unit = println("\n Player " + player + " enter your name:")
 
+
   def processInput(input: String): Unit = {
     val coord = "[A-Z]\\d+".r
     val bal = s"bal ($coord)".r
@@ -45,9 +45,9 @@ class TextUI(controller: Controller) extends Observer{
       case "end" => controller.nextturn()
       case bal(c) if checkIndex(c) =>
         controller.checkBalance(convertIndex(c))
-      case buy(c) if checkIndex(c) && checkNoPiece(convertIndex(c)) =>
+      case buy(c) if checkIndex(c) =>
         controller.buyPeasant(convertIndex(c))
-      case plc(c) if checkIndex(c) && checkNoPiece(convertIndex(c)) =>
+      case plc(c) if checkIndex(c) =>
         controller.placeCastle(convertIndex(c))
       case mov(c1, c2) if checkIndex(c1) && checkIndex(c2) =>
       case cmb(c1, c2) if checkIndex(c1) && checkIndex(c2) =>
@@ -55,9 +55,6 @@ class TextUI(controller: Controller) extends Observer{
     }
   }
 
-  def checkNoPiece(idx: Int): Boolean ={
-    controller.grid(idx).gamepiece.isInstanceOf[NoPiece] || controller.grid(idx).gamepiece.isInstanceOf[Tree]
-  }
 
   def checkIndex(idx: String): Boolean ={
     //need better option for cols extraction
@@ -79,6 +76,7 @@ class TextUI(controller: Controller) extends Observer{
     rows * (controller.grid.colIdx+1) + cols
   }
 
+
   override def update(e: Event): Boolean = {
     e match{
       case _: SuccessEvent =>
@@ -91,6 +89,8 @@ class TextUI(controller: Controller) extends Observer{
         println("balance: " + b.bal); true
       case _: OwnerErrorEvent =>
         println("You are not the Owner of this!"); true
+      case _: GamePieceErrorEvent =>
+        println("There already is a GamePiece there1"); true
     }
   }
 }
