@@ -40,9 +40,10 @@ class TextUI(controller: Controller) extends Observer{
     input match {
       case "q" =>
       case "quit" =>
-      case "undo" =>
-      case "redo" =>
+      case "undo" => controller.undoManager.undoStep()
+      case "redo" => controller.undoManager.redoStep()
       case "end" => controller.nextturn()
+      case "ff20" =>
       case bal(c) if checkIndex(c) =>
         controller.checkBalance(convertIndex(c))
       case buy(c) if checkIndex(c) =>
