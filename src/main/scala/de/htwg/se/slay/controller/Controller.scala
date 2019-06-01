@@ -29,7 +29,7 @@ class Controller extends Observable{
   }
 
 
-  private def checkOwner(c: Int):Boolean ={
+  def checkOwner(c: Int):Boolean ={
     if(grid(c).owner == players(state)) true
     else {notifyObservers(OwnerErrorEvent()); false}
   }
@@ -39,23 +39,29 @@ class Controller extends Observable{
       notifyObservers(new BalanceEvent(grid(c).territory.capital.balance))
   }
 
-  private def checkNoPiece(idx: Int): Boolean ={
+  def checkNoPiece(idx: Int): Boolean ={
     if(grid(idx).gamepiece.isInstanceOf[NoPiece] || grid(idx).gamepiece.isInstanceOf[Tree]) true
     else {notifyObservers(GamePieceErrorEvent()); false}
   }
 
+//  def buyPeasant(c: Int): Unit ={
+//    if(checkOwner(c) && grid(c).territory.capital.balance >= 10) {
+//      grid(c).territory.capital.balance -= 10
+//      grid(c).gamepiece = new Peasant(grid(c).owner)
+//      notifyObservers()
+//    } else notifyObservers(MoneyErrorEvent())
+//  }
+
   def buyPeasant(c: Int): Unit ={
-    if(checkOwner(c) && grid(c).territory.capital.balance >= 10) {
-      grid(c).territory.capital.balance -= 10
-      grid(c).gamepiece = new Peasant(grid(c).owner)
+    if(checkOwner(c) && grid(c).territory.capital.balance >= 10){
+      undoManager.doStep(BuyCommand(c, this))
       notifyObservers()
     } else notifyObservers(MoneyErrorEvent())
   }
 
   def placeCastle(c: Int): Unit ={
     if (checkOwner(c) && grid(c).territory.capital.balance >= 15) {
-      grid(c).territory.capital.balance -= 15
-      grid(c).gamepiece = Castle(grid(c).owner)
+      undoManager.doStep(CastleCommand(c, this))
       notifyObservers()
     } else notifyObservers(MoneyErrorEvent())
   }
@@ -75,5 +81,20 @@ class Controller extends Observable{
     state = p
     undoManager.reset()
     notifyObservers(new PlayerEvent(players(p).name))
+  }
+
+
+  def undo():Unit = {
+    if(undoManager.undoStep())
+      notifyObservers()
+    else
+      notifyObservers(UndoErrorEvent())
+  }
+
+  def redo():Unit = {
+    if(undoManager.redoStep())
+      notifyObservers()
+    else
+      notifyObservers(RedoErrorEvent())
   }
 }

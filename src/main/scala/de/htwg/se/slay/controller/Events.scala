@@ -8,3 +8,5 @@ class PlayerEvent(val name: String) extends Event
 class BalanceEvent(val bal: Int) extends Event
 case class OwnerErrorEvent() extends Event
 case class GamePieceErrorEvent() extends Event
+case class UndoErrorEvent() extends Event
+case class RedoErrorEvent() extends Event

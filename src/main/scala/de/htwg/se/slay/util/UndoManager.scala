@@ -8,23 +8,25 @@ class UndoManager {
     undoStack = command::undoStack
     command.doStep()
   }
-  def undoStep():Unit  = {
+  def undoStep():Boolean  = {
     undoStack match {
-      case  Nil =>
+      case  Nil => false
       case head::stack => {
         head.undoStep()
         undoStack=stack
         redoStack= head::redoStack
+        true
       }
     }
   }
-  def redoStep():Unit = {
+  def redoStep():Boolean = {
     redoStack match {
-      case Nil =>
+      case Nil => false
       case head::stack => {
         head.redoStep()
         redoStack=stack
         undoStack=head::undoStack
+        true
       }
     }
   }

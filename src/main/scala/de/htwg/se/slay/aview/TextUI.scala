@@ -40,8 +40,8 @@ class TextUI(controller: Controller) extends Observer{
     input match {
       case "q" =>
       case "quit" =>
-      case "undo" => controller.undoManager.undoStep()
-      case "redo" => controller.undoManager.redoStep()
+      case "undo" => controller.undo()
+      case "redo" => controller.redo()
       case "end" => controller.nextturn()
       case "ff20" =>
       case bal(c) if checkIndex(c) =>
@@ -92,6 +92,10 @@ class TextUI(controller: Controller) extends Observer{
         println("You are not the Owner of this!"); true
       case _: GamePieceErrorEvent =>
         println("There already is a GamePiece there1"); true
+      case _: UndoErrorEvent =>
+        println("Nothing to undo!"); true
+      case _: RedoErrorEvent =>
+        println("Nothing to redo!"); true
     }
   }
 }
