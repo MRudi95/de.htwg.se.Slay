@@ -40,13 +40,30 @@ class Controller extends Observable{
   }
 
   private def checkNoPiece(idx: Int): Boolean ={
-    if(grid(idx).gamepiece.isInstanceOf[NoPiece] || grid(idx).gamepiece.isInstanceOf[Tree]) true
-    else {notifyObservers(GamePieceErrorEvent()); false}
+    grid(idx).gamepiece match {
+      case _:NoPiece => true
+      case _:Tree => true
+      case _ =>
+        notifyObservers(GamePieceErrorEvent())
+        false
+    }
   }
 
   private def checkBalance(c: Int, bal:Int): Boolean ={
     if(grid(c).territory.capital.balance >= bal) true
     else {notifyObservers(MoneyErrorEvent()); false}
+  }
+
+  private def checkCombine(c1: Int, c2: Int): Boolean ={
+    (grid(c1).gamepiece, grid(c2).gamepiece) match {
+      case (_: Peasant, _: Peasant) => true
+      case (_: Peasant, _: Spearman) | (_: Spearman, _: Peasant) => true
+      case (_: Peasant, _: Knight) | (_: Knight, _: Peasant) => true
+      case (_: Spearman, _: Spearman) => true
+      case _ =>
+        notifyObservers(UnitErrorEvent())
+        false
+    }
   }
 
 
@@ -65,29 +82,12 @@ class Controller extends Observable{
   }
 
   def combineUnit(c1: Int, c2: Int): Unit = {
-    if(checkOwner(c1) && checkOwner(c2)) {
-      (grid(c1).gamepiece, grid(c2).gamepiece) match {
-        case (_: Peasant, _: Peasant) =>
-          grid(c1).gamepiece = new Spearman(grid(c1).owner)
-          grid(c2).gamepiece = NoPiece()
-          notifyObservers()
-        case (_: Peasant, _: Spearman) | (_: Spearman, _: Peasant) =>
-          grid(c1).gamepiece = new Knight(grid(c1).owner)
-          grid(c2).gamepiece = NoPiece()
-          notifyObservers()
-        case (_: Peasant, _: Knight) | (_: Knight, _: Peasant) =>
-          grid(c1).gamepiece = new Baron(grid(c1).owner)
-          grid(c2).gamepiece = NoPiece()
-          notifyObservers()
-        case (_: Spearman, _: Spearman) =>
-          grid(c1).gamepiece = new Baron(grid(c1).owner)
-          grid(c2).gamepiece = NoPiece()
-          notifyObservers()
-        case _ =>
-          notifyObservers(UnitErrorEvent())
-      }
+    if(checkOwner(c1) && checkOwner(c2) && checkCombine(c1, c2)) {
+      undoManager.doStep(new CombineCommand(c1, c2, this))
+      notifyObservers()
     }
   }
+
 
 
 
