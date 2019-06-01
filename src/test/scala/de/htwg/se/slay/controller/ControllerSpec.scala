@@ -64,6 +64,14 @@ class ControllerSpec extends WordSpec with Matchers{
         controller.state = 2
         controller.buyPeasant(5)
         controller.grid(5).gamepiece.getClass should be (classOf[Peasant])
+
+        controller.grid(5).gamepiece = Tree()
+        controller.grid(2).gamepiece.asInstanceOf[Capital].balance = 5
+        controller.buyPeasant(5) //not enough money
+        controller.grid(5).gamepiece.getClass should be (classOf[Tree])
+
+        controller.buyPeasant(2) //wrong gamepiece
+        controller.grid(2).gamepiece.getClass should be (classOf[Capital])
       }
 
       "place a Castle, when the owner is right, NoPiece or Tree is on the Field," +
@@ -76,12 +84,36 @@ class ControllerSpec extends WordSpec with Matchers{
 
       "combine two Units, when the owner is right, and the Units are combinable" in{
         controller.state = 2
+
         controller.grid(5).gamepiece = new Peasant(controller.grid(5).owner)
         controller.grid(6).gamepiece = new Peasant(controller.grid(6).owner)
-
         controller.combineUnit(5, 6)
         controller.grid(5).gamepiece.getClass should be (classOf[Spearman])
         controller.grid(6).gamepiece.getClass should be (classOf[NoPiece])
+
+        controller.grid(5).gamepiece = new Spearman(controller.grid(5).owner)
+        controller.grid(6).gamepiece = new Spearman(controller.grid(6).owner)
+        controller.combineUnit(5, 6)
+        controller.grid(5).gamepiece.getClass should be (classOf[Baron])
+        controller.grid(6).gamepiece.getClass should be (classOf[NoPiece])
+
+        controller.grid(5).gamepiece = new Peasant(controller.grid(5).owner)
+        controller.grid(6).gamepiece = new Spearman(controller.grid(6).owner)
+        controller.combineUnit(5, 6)
+        controller.grid(5).gamepiece.getClass should be (classOf[Knight])
+        controller.grid(6).gamepiece.getClass should be (classOf[NoPiece])
+
+        controller.grid(5).gamepiece = new Peasant(controller.grid(5).owner)
+        controller.grid(6).gamepiece = new Knight(controller.grid(6).owner)
+        controller.combineUnit(5, 6)
+        controller.grid(5).gamepiece.getClass should be (classOf[Baron])
+        controller.grid(6).gamepiece.getClass should be (classOf[NoPiece])
+
+        controller.grid(5).gamepiece = new Knight(controller.grid(5).owner)
+        controller.grid(6).gamepiece = new Knight(controller.grid(6).owner)
+        controller.combineUnit(5, 6) //wrong Units
+        controller.grid(5).gamepiece.getClass should be (classOf[Knight])
+        controller.grid(6).gamepiece.getClass should be (classOf[Knight])
       }
 
       "be able to undo and redo Commands" in{
