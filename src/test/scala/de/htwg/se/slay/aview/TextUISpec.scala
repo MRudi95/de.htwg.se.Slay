@@ -53,7 +53,7 @@ class TextUISpec extends WordSpec with Matchers{
         tui.processInput("buy C1")
         tui.processInput("plc C1")
         tui.processInput("mov C1 C3")
-        tui.processInput("cmb C1 C3")
+        tui.processInput("cmb C1 B1")
         tui.processInput("asdasd")
       }
 
