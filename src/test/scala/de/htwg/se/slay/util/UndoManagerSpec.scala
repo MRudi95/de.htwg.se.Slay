@@ -6,19 +6,19 @@ import org.scalatest.{Matchers, WordSpec}
 
 class UndoManagerSpec extends WordSpec with Matchers{
   "An UndoManager is responsible for undo/redo operations and" should{
-    val undoManager = new UndoManager
     val controller = new Controller
     val playr1 = Player("1","")
     val playr2 = Player("2","")
     controller.addPlayer(playr1)
     controller.addPlayer(playr2)
-
     controller.createGrid("Test", "test")
 
     "reset its undo- and redoStack" in{
+      val undoManager = new UndoManager
       undoManager.reset()
     }
     "add a Command to its undoStack and  execute that Command" in{
+      val undoManager = new UndoManager
       undoManager.doStep(BuyCommand(6, controller))
     }
     "undo the top Command from its undoStack and move it to the redoStack" in{

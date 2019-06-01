@@ -3,7 +3,7 @@ package de.htwg.se.slay.controller
 import de.htwg.se.slay.model.{Capital, Player}
 import org.scalatest._
 
-class ControllerSpec extends WordSpec with Matchers with PrivateMethodTester {
+class ControllerSpec extends WordSpec with Matchers{
   "A Controller controlls the game and" when{
     "new" should{
       val controller = new Controller
