@@ -37,11 +37,6 @@ class CombineCommand(c1:Int, c2: Int, ctrl:Controller) extends Command{
   }
 
   override def redoStep(): Unit = {
-    val tmp_mem1 = ctrl.grid(c1).gamepiece
-    val tmp_mem2 = ctrl.grid(c2).gamepiece
-    ctrl.grid(c1).gamepiece = memento1
-    ctrl.grid(c2).gamepiece = memento2
-    memento1 = tmp_mem1
-    memento2 = tmp_mem2
+    undoStep()
   }
 }
