@@ -1,6 +1,7 @@
 package de.htwg.se.slay
 
 import de.htwg.se.slay.aview.TextUI
+import de.htwg.se.slay.aview.gui.SwingGUI
 import de.htwg.se.slay.controller.Controller
 import de.htwg.se.slay.model.Player
 
@@ -19,6 +20,8 @@ object Slay{
   controller.addPlayer(Player(readLine(), "\033[102m"))
 
   controller.createGrid("Map1")
+
+  val gui = new SwingGUI(controller)
 
   def main(args: Array[String]) : Unit = {
     var input: String = ""
