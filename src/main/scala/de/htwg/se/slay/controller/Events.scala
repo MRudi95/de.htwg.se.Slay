@@ -10,3 +10,4 @@ case class OwnerErrorEvent() extends Event
 case class GamePieceErrorEvent() extends Event
 case class UndoErrorEvent() extends Event
 case class RedoErrorEvent() extends Event
+case class UnitErrorEvent() extends Event

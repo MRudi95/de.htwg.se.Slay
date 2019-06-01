@@ -53,6 +53,7 @@ class TextUI(controller: Controller) extends Observer{
         controller.placeCastle(convertIndex(c))
       case mov(c1, c2) if checkIndex(c1) && checkIndex(c2) =>
       case cmb(c1, c2) if checkIndex(c1) && checkIndex(c2) =>
+        controller.combineUnit(convertIndex(c1), convertIndex(c2))
       case _ => println("Wrong Input!")
     }
   }
@@ -94,6 +95,8 @@ class TextUI(controller: Controller) extends Observer{
         println("You are not the Owner of this!"); true
       case _: GamePieceErrorEvent =>
         println("There already is a GamePiece there!"); true
+      case _: UndoErrorEvent =>
+        println("Can't combine those Units!"); true
       case _: UndoErrorEvent =>
         println("Nothing to undo!"); true
       case _: RedoErrorEvent =>

@@ -46,7 +46,7 @@ class Controller extends Observable{
 
   private def checkBalance(c: Int, bal:Int): Boolean ={
     if(grid(c).territory.capital.balance >= bal) true
-    else notifyObservers(MoneyErrorEvent()); false
+    else {notifyObservers(MoneyErrorEvent()); false}
   }
 
 
@@ -61,6 +61,31 @@ class Controller extends Observable{
     if (checkOwner(c) && checkNoPiece(c) && checkBalance(c, 15)) {
       undoManager.doStep(CastleCommand(c, this))
       notifyObservers()
+    }
+  }
+
+  def combineUnit(c1: Int, c2: Int): Unit = {
+    if(checkOwner(c1) && checkOwner(c2)) {
+      (grid(c1).gamepiece, grid(c2).gamepiece) match {
+        case (_: Peasant, _: Peasant) =>
+          grid(c1).gamepiece = new Spearman(grid(c1).owner)
+          grid(c2).gamepiece = NoPiece()
+          notifyObservers()
+        case (_: Peasant, _: Spearman) | (_: Spearman, _: Peasant) =>
+          grid(c1).gamepiece = new Knight(grid(c1).owner)
+          grid(c2).gamepiece = NoPiece()
+          notifyObservers()
+        case (_: Peasant, _: Knight) | (_: Knight, _: Peasant) =>
+          grid(c1).gamepiece = new Baron(grid(c1).owner)
+          grid(c2).gamepiece = NoPiece()
+          notifyObservers()
+        case (_: Spearman, _: Spearman) =>
+          grid(c1).gamepiece = new Baron(grid(c1).owner)
+          grid(c2).gamepiece = NoPiece()
+          notifyObservers()
+        case _ =>
+          notifyObservers(UnitErrorEvent())
+      }
     }
   }
 
