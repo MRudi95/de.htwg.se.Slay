@@ -28,43 +28,43 @@ class Controller extends Observable{
     notifyObservers()
   }
 
-
-  def checkOwner(c: Int):Boolean ={
-    if(grid(c).owner == players(state)) true
-    else {notifyObservers(OwnerErrorEvent()); false}
-  }
-
-  def checkBalance(c: Int): Unit ={
+  def seeBalance(c: Int): Unit ={
     if(checkOwner(c))
       notifyObservers(new BalanceEvent(grid(c).territory.capital.balance))
   }
 
-  def checkNoPiece(idx: Int): Boolean ={
+
+  private def checkOwner(c: Int):Boolean ={
+    if(grid(c).owner == players(state)) true
+    else {notifyObservers(OwnerErrorEvent()); false}
+  }
+
+  private def checkNoPiece(idx: Int): Boolean ={
     if(grid(idx).gamepiece.isInstanceOf[NoPiece] || grid(idx).gamepiece.isInstanceOf[Tree]) true
     else {notifyObservers(GamePieceErrorEvent()); false}
   }
 
-//  def buyPeasant(c: Int): Unit ={
-//    if(checkOwner(c) && grid(c).territory.capital.balance >= 10) {
-//      grid(c).territory.capital.balance -= 10
-//      grid(c).gamepiece = new Peasant(grid(c).owner)
-//      notifyObservers()
-//    } else notifyObservers(MoneyErrorEvent())
-//  }
+  private def checkBalance(c: Int, bal:Int): Boolean ={
+    if(grid(c).territory.capital.balance >= bal) true
+    else notifyObservers(MoneyErrorEvent()); false
+  }
+
 
   def buyPeasant(c: Int): Unit ={
-    if(checkOwner(c) && grid(c).territory.capital.balance >= 10){
+    if(checkOwner(c) && checkNoPiece(c) && checkBalance(c, 10)){
       undoManager.doStep(BuyCommand(c, this))
       notifyObservers()
-    } else notifyObservers(MoneyErrorEvent())
+    }
   }
 
   def placeCastle(c: Int): Unit ={
-    if (checkOwner(c) && grid(c).territory.capital.balance >= 15) {
+    if (checkOwner(c) && checkNoPiece(c) && checkBalance(c, 15)) {
       undoManager.doStep(CastleCommand(c, this))
       notifyObservers()
-    } else notifyObservers(MoneyErrorEvent())
+    }
   }
+
+
 
   def moneymoney(): Unit = {
     for(field <- capitals){
@@ -82,6 +82,7 @@ class Controller extends Observable{
     undoManager.reset()
     notifyObservers(new PlayerEvent(players(p).name))
   }
+
 
 
   def undo():Unit = {

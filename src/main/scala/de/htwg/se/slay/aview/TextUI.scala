@@ -29,6 +29,7 @@ class TextUI(controller: Controller) extends Observer{
   def readPlayerName(player: Int): Unit = println("\n Player " + player + " enter your name:")
 
 
+
   def processInput(input: String): Unit = {
     val coord = "[A-Z]\\d+".r
     val bal = s"bal ($coord)".r
@@ -45,7 +46,7 @@ class TextUI(controller: Controller) extends Observer{
       case "end" => controller.nextturn()
       case "ff20" =>
       case bal(c) if checkIndex(c) =>
-        controller.checkBalance(convertIndex(c))
+        controller.seeBalance(convertIndex(c))
       case buy(c) if checkIndex(c) =>
         controller.buyPeasant(convertIndex(c))
       case plc(c) if checkIndex(c) =>
@@ -78,6 +79,7 @@ class TextUI(controller: Controller) extends Observer{
   }
 
 
+
   override def update(e: Event): Boolean = {
     e match{
       case _: SuccessEvent =>
@@ -91,7 +93,7 @@ class TextUI(controller: Controller) extends Observer{
       case _: OwnerErrorEvent =>
         println("You are not the Owner of this!"); true
       case _: GamePieceErrorEvent =>
-        println("There already is a GamePiece there1"); true
+        println("There already is a GamePiece there!"); true
       case _: UndoErrorEvent =>
         println("Nothing to undo!"); true
       case _: RedoErrorEvent =>
