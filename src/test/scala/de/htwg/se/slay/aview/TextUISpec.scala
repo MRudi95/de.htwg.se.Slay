@@ -37,8 +37,15 @@ class TextUISpec extends WordSpec with Matchers{
       "process inputs" in{
         tui.processInput("q")
         tui.processInput("quit")
-        tui.processInput("money")
+        tui.processInput("undo")
+        tui.processInput("redo")
+        tui.processInput("end")
+        tui.processInput("ff20")
         tui.processInput("bal C1")
+        tui.processInput("buy C1")
+        tui.processInput("plc C1")
+        tui.processInput("mov C1 C3")
+        tui.processInput("cmb C1 C3")
         tui.processInput("asdasd")
       }
 
