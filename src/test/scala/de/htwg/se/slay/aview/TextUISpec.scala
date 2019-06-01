@@ -1,6 +1,6 @@
 package de.htwg.se.slay.aview
 
-import de.htwg.se.slay.controller.{Controller, SuccessEvent}
+import de.htwg.se.slay.controller._
 import de.htwg.se.slay.model.Player
 import org.scalatest._
 
@@ -30,8 +30,16 @@ class TextUISpec extends WordSpec with Matchers{
       controller.addPlayer(Player("1",""))
       controller.addPlayer(Player("2",""))
       controller.createGrid("Test", "test")
-      "print the updated grid" in{
+      "update the grid or react to certain Events" in{
         tui.update(SuccessEvent())
+        tui.update(MoneyErrorEvent())
+        tui.update(new PlayerEvent(controller.players(1).toString))
+        tui.update(new BalanceEvent(20))
+        tui.update(OwnerErrorEvent())
+        tui.update(GamePieceErrorEvent())
+        tui.update(UnitErrorEvent())
+        tui.update(UndoErrorEvent())
+        tui.update(RedoErrorEvent())
       }
 
       "process inputs" in{
@@ -48,6 +56,7 @@ class TextUISpec extends WordSpec with Matchers{
         tui.processInput("cmb C1 C3")
         tui.processInput("asdasd")
       }
+
 
       "be able to check if an Index in the format 'A1' is valid to access the Grid" in{
         //still needs alot of other possibilities

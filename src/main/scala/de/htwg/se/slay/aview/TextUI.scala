@@ -95,7 +95,7 @@ class TextUI(controller: Controller) extends Observer{
         println("You are not the Owner of this!"); true
       case _: GamePieceErrorEvent =>
         println("There already is a GamePiece there!"); true
-      case _: UndoErrorEvent =>
+      case _: UnitErrorEvent =>
         println("Can't combine those Units!"); true
       case _: UndoErrorEvent =>
         println("Nothing to undo!"); true
