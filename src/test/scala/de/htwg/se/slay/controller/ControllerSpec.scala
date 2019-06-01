@@ -1,6 +1,6 @@
 package de.htwg.se.slay.controller
 
-import de.htwg.se.slay.model.{Capital, Player}
+import de.htwg.se.slay.model._
 import org.scalatest._
 
 class ControllerSpec extends WordSpec with Matchers{
@@ -44,6 +44,58 @@ class ControllerSpec extends WordSpec with Matchers{
       "have money added to the capitals" in{
         controller.grid(2).gamepiece.asInstanceOf[Capital].balance should be (14)
         controller.grid(3).gamepiece.asInstanceOf[Capital].balance should be (11)
+      }
+    }
+    "doing actions on the game" should{
+      val controller = new Controller
+      val playr1 = Player("1","")
+      val playr2 = Player("2","")
+      controller.addPlayer(playr1)
+      controller.addPlayer(playr2)
+      controller.createGrid("Test", "test")
+
+      "notify the Observers with the balance of a capital" in{
+        controller.state = 2
+        controller.seeBalance(2)
+      }
+
+      "place a Peasant, when the owner is right, NoPiece or Tree is on the Field," +
+        " and the territory has a balance of at least 10" in {
+        controller.state = 2
+        controller.buyPeasant(5)
+        controller.grid(5).gamepiece.getClass should be (classOf[Peasant])
+      }
+
+      "place a Castle, when the owner is right, NoPiece or Tree is on the Field," +
+        " and the territory has a balance of at least 15" in {
+        controller.state = 2
+        controller.grid(2).gamepiece.asInstanceOf[Capital].balance = 15
+        controller.placeCastle(6)
+        controller.grid(6).gamepiece.getClass should be (classOf[Castle])
+      }
+
+      "combine two Units, when the owner is right, and the Units are combinable" in{
+        controller.state = 2
+        controller.grid(5).gamepiece = new Peasant(controller.grid(5).owner)
+        controller.grid(6).gamepiece = new Peasant(controller.grid(6).owner)
+
+        controller.combineUnit(5, 6)
+        controller.grid(5).gamepiece.getClass should be (classOf[Spearman])
+        controller.grid(6).gamepiece.getClass should be (classOf[NoPiece])
+      }
+
+      "be able to undo and redo Commands" in{
+        val gp = controller.grid(7).gamepiece
+        controller.state = 2
+        controller.grid(2).gamepiece.asInstanceOf[Capital].balance = 10
+        controller.buyPeasant(7)
+        controller.grid(7).gamepiece.getClass should be (classOf[Peasant])
+
+        controller.undo()
+        controller.grid(7).gamepiece should be (gp)
+
+        controller.redo()
+        controller.grid(7).gamepiece.getClass should be (classOf[Peasant])
       }
     }
   }
