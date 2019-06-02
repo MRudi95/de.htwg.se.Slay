@@ -1,19 +1,21 @@
 package de.htwg.se.slay.aview.gui
 
 import de.htwg.se.slay.controller._
+import de.htwg.se.slay.model.{Capital, NoPiece, Tree}
 import de.htwg.se.slay.util.Observer
-
+import javax.swing.ImageIcon
 
 import scala.swing._
 import scala.swing.Swing.LineBorder
 
 class SwingGUI(controller: Controller) extends Frame with Observer{
+  val iconLoc = "src/main/resources/icons/"
 
   title = "Slay Scala"
 
   def gridPanel: GridPanel = new GridPanel(controller.grid.rowIdx+1, controller.grid.colIdx+1){
     for{f <- controller.grid} {
-      contents += new FlowPanel(){
+      contents += new Label(){
         border = LineBorder(java.awt.Color.BLACK, 1)
         background = {
           if(f.owner == controller.players(0)) java.awt.Color.BLUE else
@@ -21,6 +23,12 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
           if(f.owner == controller.players(2)) java.awt.Color.GREEN else
             java.awt.Color.WHITE
         }
+        icon = f.gamepiece match{
+          case _:NoPiece  => null
+          case _:Tree     => new ImageIcon(iconLoc + "tree.png")
+          case _:Capital  => new ImageIcon(iconLoc + "capital.png")
+        }
+        opaque = true
         preferredSize = new Dimension(64, 64)
       }
     }
