@@ -6,9 +6,10 @@ import de.htwg.se.slay.controller._
 import de.htwg.se.slay.model._
 import de.htwg.se.slay.util.Observer
 
+import scala.collection.mutable.ListBuffer
 import scala.swing._
 import scala.swing.Swing._
-import scala.swing.event.MouseClicked
+import scala.swing.event.{ButtonClicked, MouseClicked}
 
 class SwingGUI(controller: Controller) extends Frame with Observer{
   controller.add(this)
@@ -20,6 +21,8 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
 
   var fields: Vector[Label] = Vector.empty
   title = "Slay Scala"
+
+  var hiliteList: ListBuffer[Label] = ListBuffer.empty
 
   val gridPanel: GridPanel = new GridPanel(controller.grid.rowIdx+1, controller.grid.colIdx+1){
     var idx = 0
@@ -47,8 +50,12 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
         reactions += {
           case mc:MouseClicked =>
             mc.peer.getButton match {
-              case java.awt.event.MouseEvent.BUTTON1 => border = LineBorder(Color.WHITE, 3)
-              case java.awt.event.MouseEvent.BUTTON3 => border = LineBorder(Color.BLACK, 1)
+              case java.awt.event.MouseEvent.BUTTON1 =>
+                border = LineBorder(Color.WHITE, 3)
+                if(!hiliteList.contains(this)) hiliteList += this
+              case java.awt.event.MouseEvent.BUTTON3 =>
+                border = LineBorder(Color.BLACK, 1)
+                hiliteList -= this
               case _ =>
           }
         }
@@ -60,17 +67,56 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
     }
   }
 
+  val buttonPanel: FlowPanel = new FlowPanel(){
+    background = new Color(50, 50, 50)
+
+    val buyButton: Button = new Button("Buy"){
+      enabled = false
+      listenTo(mouse.clicks)
+      reactions += {
+        case _: MouseClicked =>
+          if (hiliteList.length == 1) {
+            enabled = true
+
+          }
+          else {
+            enabled = false
+          }
+      }
+    }
+    val combineButton: Button = new Button("Combine")
+    val moveButton: Button = new Button("Move")
+    val balButton: Button = new Button("Balance")
+    val endButton: Button = new Button("End Turn")
+    val surButton: Button = new Button("Surrender")
+
+    buyButton.reactions += {
+      case ButtonClicked(this.buyButton) if buyButton.enabled => println("yay")
+    }
+
+    contents += buyButton
+    contents += combineButton
+    contents += moveButton
+    contents += balButton
+    contents += endButton
+    contents += surButton
+
+
+  }
+
   contents = new BorderPanel {
     add(gridPanel, BorderPanel.Position.Center)
+    add(buttonPanel, BorderPanel.Position.South)
   }
 
 
   visible = true
 
+
+
   def redraw(): Unit ={
     for{f <- fields}{
       val idx = f.name.toInt
-      //println(idx)
       f.background = {
         if(controller.grid(idx).owner == controller.players(0)) water else
         if(controller.grid(idx).owner == controller.players(1)) p1Color else
@@ -88,9 +134,12 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
         case _:Spearman => Icon(icons + "spearman.gif")
         case _:Knight   => Icon(icons + "knight.gif")
         case _:Baron    => Icon(icons + "baron.gif")
+        case _          => null
       }
     }
   }
+
+
 
   override def update(e: Event): Boolean = {
     e match{
@@ -99,7 +148,7 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
       case _: MoneyErrorEvent =>
         println("Not enough Money!"); true
       case p: PlayerEvent =>
-        println("It is your turn " + p.name.toUpperCase + " !"); true
+        /*println("It is your turn " + p.name.toUpperCase + " !");*/ true
       case b: BalanceEvent =>
         println("balance: " + b.bal); true
       case _: OwnerErrorEvent =>
