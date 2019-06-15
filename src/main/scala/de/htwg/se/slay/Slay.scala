@@ -9,16 +9,11 @@ import scala.io.StdIn.readLine
 
 object Slay{
   val controller = new Controller
-  val tui = new TextUI(controller)
   val gui = new SwingGUI(controller)
+  val tui = new TextUI(controller)
+
 
   StateStartUp.handle(WelcomeScreen(), controller)
-  //StateStartUp.handle(ReadPlayerName(1), controller)
-  //controller.addPlayer(Player(readLine(), "\033[103m"))
-  //StateStartUp.handle(ReadPlayerName(2), controller)
-  //controller.addPlayer(Player(readLine(), "\033[102m"))
-
-  controller.createGrid("Map1")
 
   def main(args: Array[String]) : Unit = {
     var input: String = ""

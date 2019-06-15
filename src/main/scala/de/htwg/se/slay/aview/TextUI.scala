@@ -23,15 +23,14 @@ class TextUI(controller: Controller) extends Observer{
     println("\n========== WELCOME TO SLAY ==========\n" +
             "\t Do You want to play a Game?\n\n" +
             "\t\t  " + B + GREEN + " YES " + R + "\t\t" + B + RED + " no " + R)
-    //processWelcome(readLine())
-  }
 
-  def processWelcome(input: String): Unit = {
-    if(input.toUpperCase != "YES"){
-      println("Ok, bye!")
-      System.exit(0)
-    } else{
-      StateStartUp.handle(ReadPlayerName(1), controller)
+    readLine().toUpperCase match {
+      case "YES" =>
+        StateStartUp.handle(ReadPlayerName(1), controller)
+      case "" =>
+      case _ =>
+        println("Ok, bye!")
+        System.exit(0)
     }
   }
 
@@ -42,8 +41,9 @@ class TextUI(controller: Controller) extends Observer{
         controller.addPlayer(Player(readLine(), P1COLOR))
       case 2 =>
         controller.addPlayer(Player(readLine(), P2COLOR))
-      case _ => println("oopsie")
+      case _ =>
     }
+    StateStartUp.handle(ReadPlayerName(player+1), controller)
   }
 
 
@@ -106,9 +106,7 @@ class TextUI(controller: Controller) extends Observer{
       case _: GridCreatedEvent =>
         println(controller.gridToString); true
       case _: WelcomeEvent =>
-        welcomeScreen()
-
-        true
+        welcomeScreen(); true
       case r: ReadPlayerEvent =>
         readPlayerName(r.player)
 

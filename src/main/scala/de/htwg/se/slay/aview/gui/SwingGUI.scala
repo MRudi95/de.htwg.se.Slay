@@ -5,6 +5,7 @@ import java.awt.Color
 import de.htwg.se.slay.controller._
 import de.htwg.se.slay.model._
 import de.htwg.se.slay.util.Observer
+import javax.swing.JPanel
 
 import scala.collection.mutable.ListBuffer
 import scala.swing._
@@ -30,6 +31,23 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
 
   val welcomePanel: GridPanel = new GridPanel(3, 1){
     background = new Color(50, 50, 50)
+    preferredSize = (480, 240)
+
+    val yesButton: Button = new Button("YES"){
+      background = new Color(48, 219, 48) //green
+    }
+    val noButton: Button = new Button("no"){
+      background = new Color(232, 74, 74) //red
+    }
+    listenTo(yesButton, noButton)
+
+    reactions += {
+      case ButtonClicked(this.yesButton) =>
+        StateStartUp.handle(ReadPlayerName(1), controller)
+      case ButtonClicked(this.noButton) =>
+        System.exit(0)
+    }
+
     contents += new Label("WELCOME TO SLAY"){
       foreground = new Color(222, 222, 222)
       font = new Font("Arial", 1, 36)
@@ -40,44 +58,36 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
     }
     contents += new FlowPanel(){
       opaque = false
-
-      val yesButton: Button = new Button("YES"){
-        background = new Color(48, 219, 48) //green
-      }
-      val noButton: Button = new Button("no"){
-        background = new Color(232, 74, 74) //red
-      }
-
-      listenTo(yesButton, noButton)
       contents += (yesButton, noButton)
-
-      reactions += {
-        case ButtonClicked(this.yesButton) =>
-          StateStartUp.handle(ReadPlayerName(1), controller)
-        case ButtonClicked(this.noButton) =>
-          System.exit(0)
-      }
     }
-
-    preferredSize = (480, 240)
   }
 
   def readPlayerPanel(player:Int): GridPanel = new GridPanel(3, 1){
     background = new Color(50, 50, 50)
+    preferredSize = (480, 240)
 
+    val nameField: TextField = new TextField(30)
     val okButton: Button = new Button("OK")
     listenTo(okButton)
     reactions += {
       case ButtonClicked(this.okButton) =>
-
+        controller.addPlayer(Player(nameField.text, "\033[10" + (4-player) + "m"))
+        StateStartUp.handle(ReadPlayerName(player+1), controller)
     }
 
     contents += new Label("Player " + player + " enter your name:"){
       foreground = new Color(222, 222, 222)
       font = new Font("Arial", 0, 20)
     }
-    contents += new TextField()
-    contents += okButton
+    contents += new BorderPanel(){
+      opaque = false
+      add(new FlowPanel(nameField){
+        opaque = false
+      }, BorderPanel.Position.South)
+    }
+    contents += new FlowPanel(okButton){
+      opaque = false
+    }
 
 
   }
@@ -200,6 +210,7 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
   }
 
 
+
   override def update(e: Event): Boolean = {
     e match{
       case _: SuccessEvent =>
@@ -210,6 +221,7 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
         contents = welcomePanel; true
       case r: ReadPlayerEvent =>
         contents = readPlayerPanel(r.player)
+        repaint()
         true
       case _: MoneyErrorEvent =>
         println("Not enough Money!"); true

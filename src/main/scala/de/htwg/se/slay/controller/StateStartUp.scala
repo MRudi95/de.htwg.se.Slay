@@ -18,6 +18,10 @@ object StateStartUp {
   }
 
   def readName(player:Int, c: Controller): Unit = {
-    c.notifyObservers(ReadPlayerEvent(player))
+    if(player <= 2)
+      c.notifyObservers(ReadPlayerEvent(player))
+    else
+      c.createGrid("Map1")
   }
+
 }
