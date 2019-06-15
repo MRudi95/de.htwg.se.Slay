@@ -20,53 +20,69 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
   val p2Color: Color = new Color(52, 226, 58) //green
 
   var fields: Vector[Label] = Vector.empty
+
   title = "Slay Scala"
+  visible = true
+  override def closeOperation(): Unit = System.exit(0)
 
   var hiliteList: ListBuffer[Label] = ListBuffer.empty
 
-  val gridPanel: GridPanel = new GridPanel(controller.grid.rowIdx+1, controller.grid.colIdx+1){
-    var idx = 0
-    for{f <- controller.grid} {
-      val field = new Label(){
-        border = LineBorder(Color.BLACK, 1)
-        background = {
-          if(f.owner == controller.players(0)) water else
-          if(f.owner == controller.players(1)) p1Color else
-          if(f.owner == controller.players(2)) p2Color else
-            Color.WHITE
-        }
-        icon = f.gamepiece match{
-          case _:NoPiece  => null
-          case _:Tree     => Icon(icons + "tree.png")
-          case _:Capital  => Icon(icons + "capital.png")
-          case _          => null
-        }
 
-        name = idx.toString
-
-        opaque = true
-        preferredSize = new Dimension(64, 64)
-
-        listenTo(mouse.clicks)
-        reactions += {
-          case mc:MouseClicked =>
-            mc.peer.getButton match {
-              case java.awt.event.MouseEvent.BUTTON1 =>
-                border = LineBorder(Color.WHITE, 3)
-                if(!hiliteList.contains(this)) hiliteList += this
-              case java.awt.event.MouseEvent.BUTTON3 =>
-                border = LineBorder(Color.BLACK, 1)
-                hiliteList -= this
-              case _ =>
-          }
-        }
-      }
-      fields = fields :+ field
-      contents += field
-
-      idx += 1
+  val welcomePanel: GridPanel = new GridPanel(3, 1){
+    background = new Color(50, 50, 50)
+    contents += new Label("WELCOME TO SLAY"){
+      foreground = new Color(222, 222, 222)
+      font = new Font("Arial", 1, 36)
     }
+    contents += new Label("Do You want to play a Game?"){
+      foreground = new Color(222, 222, 222)
+      font = new Font("Arial", 0, 20)
+    }
+    contents += new FlowPanel(){
+      opaque = false
+
+      val yesButton: Button = new Button("YES"){
+        background = new Color(48, 219, 48) //green
+      }
+      val noButton: Button = new Button("no"){
+        background = new Color(232, 74, 74) //red
+      }
+
+      listenTo(yesButton, noButton)
+      contents += (yesButton, noButton)
+
+      reactions += {
+        case ButtonClicked(this.yesButton) =>
+          StateStartUp.handle(ReadPlayerName(1), controller)
+        case ButtonClicked(this.noButton) =>
+          System.exit(0)
+      }
+    }
+
+    preferredSize = (480, 240)
   }
+
+  def readPlayerPanel(player:Int): GridPanel = new GridPanel(3, 1){
+    background = new Color(50, 50, 50)
+
+    val okButton: Button = new Button("OK")
+    listenTo(okButton)
+    reactions += {
+      case ButtonClicked(this.okButton) =>
+
+    }
+
+    contents += new Label("Player " + player + " enter your name:"){
+      foreground = new Color(222, 222, 222)
+      font = new Font("Arial", 0, 20)
+    }
+    contents += new TextField()
+    contents += okButton
+
+
+  }
+
+  var gridPanel: GridPanel = new GridPanel(1, 1)
 
   val buttonPanel: FlowPanel = new FlowPanel(){
     background = new Color(50, 50, 50)
@@ -105,15 +121,58 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
 
   }
 
-  contents = new BorderPanel {
-    add(gridPanel, BorderPanel.Position.Center)
-    add(buttonPanel, BorderPanel.Position.South)
+
+  def gameScreen(): Unit ={
+    gridPanel = createGridPanel
+    contents = new BorderPanel {
+      add(gridPanel, BorderPanel.Position.Center)
+      add(buttonPanel, BorderPanel.Position.South)
+    }
   }
 
+  def createGridPanel: GridPanel = new GridPanel(controller.grid.rowIdx+1, controller.grid.colIdx+1){
+    var idx = 0
+    for{f <- controller.grid} {
+      val field = new Label(){
+        border = LineBorder(Color.BLACK, 1)
+        background = {
+          if(f.owner == controller.players(0)) water else
+          if(f.owner == controller.players(1)) p1Color else
+          if(f.owner == controller.players(2)) p2Color else
+            Color.WHITE
+        }
+        icon = f.gamepiece match{
+          case _:NoPiece  => null
+          case _:Tree     => Icon(icons + "tree.png")
+          case _:Capital  => Icon(icons + "capital.png")
+          case _          => null
+        }
 
-  visible = true
+        name = idx.toString
 
+        opaque = true
+        preferredSize = new Dimension(64, 64)
 
+        listenTo(mouse.clicks)
+        reactions += {
+          case mc:MouseClicked =>
+            mc.peer.getButton match {
+              case java.awt.event.MouseEvent.BUTTON1 =>
+                border = LineBorder(Color.WHITE, 3)
+                if(!hiliteList.contains(this)) hiliteList += this
+              case java.awt.event.MouseEvent.BUTTON3 =>
+                border = LineBorder(Color.BLACK, 1)
+                hiliteList -= this
+              case _ =>
+            }
+        }
+      }
+      fields = fields :+ field
+      contents += field
+
+      idx += 1
+    }
+  }
 
   def redraw(): Unit ={
     for{f <- fields}{
@@ -141,11 +200,17 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
   }
 
 
-
   override def update(e: Event): Boolean = {
     e match{
       case _: SuccessEvent =>
         redraw(); true
+      case _: GridCreatedEvent =>
+        gameScreen(); true
+      case _: WelcomeEvent =>
+        contents = welcomePanel; true
+      case r: ReadPlayerEvent =>
+        contents = readPlayerPanel(r.player)
+        true
       case _: MoneyErrorEvent =>
         println("Not enough Money!"); true
       case p: PlayerEvent =>

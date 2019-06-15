@@ -25,7 +25,7 @@ class Controller extends Observable{
     val (g, c) = new SquareMapBuilder(players).gridCreator(mapname, typ)
     grid = g
     capitals = c
-    notifyObservers()
+    notifyObservers(GridCreatedEvent())
   }
 
   def seeBalance(c: Int): Unit ={

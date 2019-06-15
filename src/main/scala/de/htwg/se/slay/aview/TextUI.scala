@@ -1,32 +1,50 @@
 package de.htwg.se.slay.aview
 
 
+import de.htwg.se.slay.Slay.controller
 import de.htwg.se.slay.controller._
+import de.htwg.se.slay.model.Player
 import de.htwg.se.slay.util.Observer
+
+import scala.io.StdIn.readLine
 
 class TextUI(controller: Controller) extends Observer{
 
   controller.add(this)
 
-  private val R = "\033[0m"       //Color Reset
-  private val B = "\033[1;97m"    //Text Color Black
-  private val RED = "\033[41m"    //Red Background
-  private val GREEN = "\033[42m"  //Green Background
+  private val R = "\033[0m"         //Color Reset
+  private val B = "\033[1;97m"      //Text Color Black
+  private val RED = "\033[41m"      //Red Background
+  private val GREEN = "\033[42m"    //Green Background
+  private val P1COLOR = "\033[103m" //Yellow
+  private val P2COLOR = "\033[102m" //Green
 
   def welcomeScreen(): Unit = {
     println("\n========== WELCOME TO SLAY ==========\n" +
             "\t Do You want to play a Game?\n\n" +
             "\t\t  " + B + GREEN + " YES " + R + "\t\t" + B + RED + " no " + R)
+    //processWelcome(readLine())
   }
 
-  def processWelcome(input: String): Boolean = {
+  def processWelcome(input: String): Unit = {
     if(input.toUpperCase != "YES"){
       println("Ok, bye!")
-      true
-    } else false
+      System.exit(0)
+    } else{
+      StateStartUp.handle(ReadPlayerName(1), controller)
+    }
   }
 
-  def readPlayerName(player: Int): Unit = println("\n Player " + player + " enter your name:")
+  def readPlayerName(player: Int): Unit = {
+    println("\n Player " + player + " enter your name:")
+    player match{
+      case 1 =>
+        controller.addPlayer(Player(readLine(), P1COLOR))
+      case 2 =>
+        controller.addPlayer(Player(readLine(), P2COLOR))
+      case _ => println("oopsie")
+    }
+  }
 
 
 
@@ -84,6 +102,8 @@ class TextUI(controller: Controller) extends Observer{
   override def update(e: Event): Boolean = {
     e match{
       case _: SuccessEvent =>
+        println(controller.gridToString); true
+      case _: GridCreatedEvent =>
         println(controller.gridToString); true
       case _: WelcomeEvent =>
         welcomeScreen()

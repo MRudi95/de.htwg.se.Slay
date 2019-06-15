@@ -6,6 +6,7 @@ case class SuccessEvent() extends Event
 
 case class WelcomeEvent() extends Event
 case class ReadPlayerEvent(player:Int) extends Event
+case class GridCreatedEvent() extends Event
 
 case class MoneyErrorEvent() extends Event
 class PlayerEvent(val name: String) extends Event

@@ -10,18 +10,15 @@ import scala.io.StdIn.readLine
 object Slay{
   val controller = new Controller
   val tui = new TextUI(controller)
+  val gui = new SwingGUI(controller)
 
   StateStartUp.handle(WelcomeScreen(), controller)
-  if(tui.processWelcome(readLine())) System.exit(0)
-
-  StateStartUp.handle(ReadPlayerName(1), controller)
-  controller.addPlayer(Player(readLine(), "\033[103m"))
-  StateStartUp.handle(ReadPlayerName(2), controller)
-  controller.addPlayer(Player(readLine(), "\033[102m"))
+  //StateStartUp.handle(ReadPlayerName(1), controller)
+  //controller.addPlayer(Player(readLine(), "\033[103m"))
+  //StateStartUp.handle(ReadPlayerName(2), controller)
+  //controller.addPlayer(Player(readLine(), "\033[102m"))
 
   controller.createGrid("Map1")
-
-  val gui = new SwingGUI(controller)
 
   def main(args: Array[String]) : Unit = {
     var input: String = ""
@@ -30,5 +27,6 @@ object Slay{
       input = readLine()
       tui.processInput(input)
     }while(input != "q" && input != "quit")
+    System.exit(0)
   }
 }
