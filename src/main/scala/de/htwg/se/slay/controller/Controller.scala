@@ -123,4 +123,9 @@ class Controller extends Observable{
     else
       notifyObservers(RedoErrorEvent())
   }
+
+
+  def welcomeScreen():Unit = {
+
+  }
 }

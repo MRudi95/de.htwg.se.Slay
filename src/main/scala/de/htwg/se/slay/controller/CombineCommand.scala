@@ -24,6 +24,7 @@ class CombineCommand(c1:Int, c2: Int, ctrl:Controller) extends Command{
       case (_: Spearman, _: Spearman) =>
         ctrl.grid(c1).gamepiece = new Baron(ctrl.grid(c1).owner)
         ctrl.grid(c2).gamepiece = NoPiece()
+      case _ =>
     }
   }
 

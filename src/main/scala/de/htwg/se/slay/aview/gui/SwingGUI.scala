@@ -36,6 +36,7 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
           case _:NoPiece  => null
           case _:Tree     => Icon(icons + "tree.png")
           case _:Capital  => Icon(icons + "capital.png")
+          case _          => null
         }
 
         name = idx.toString
@@ -88,6 +89,7 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
         case _:Spearman => Icon(icons + "spearman.gif")
         case _:Knight   => Icon(icons + "knight.gif")
         case _:Baron    => Icon(icons + "baron.gif")
+        case _          => null
       }
     }
   }
@@ -112,6 +114,7 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
         println("Nothing to undo!"); true
       case _: RedoErrorEvent =>
         println("Nothing to redo!"); true
+      case _ => false
     }
   }
 }

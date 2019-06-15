@@ -85,6 +85,14 @@ class TextUI(controller: Controller) extends Observer{
     e match{
       case _: SuccessEvent =>
         println(controller.gridToString); true
+      case _: WelcomeEvent =>
+        welcomeScreen()
+
+        true
+      case r: ReadPlayerEvent =>
+        readPlayerName(r.player)
+
+        true
       case _: MoneyErrorEvent =>
         println("Not enough Money!"); true
       case p: PlayerEvent =>
@@ -101,6 +109,7 @@ class TextUI(controller: Controller) extends Observer{
         println("Nothing to undo!"); true
       case _: RedoErrorEvent =>
         println("Nothing to redo!"); true
+      case _ => false
     }
   }
 }

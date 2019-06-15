@@ -2,7 +2,7 @@ package de.htwg.se.slay
 
 import de.htwg.se.slay.aview.TextUI
 import de.htwg.se.slay.aview.gui.SwingGUI
-import de.htwg.se.slay.controller.Controller
+import de.htwg.se.slay.controller._
 import de.htwg.se.slay.model.Player
 
 import scala.io.StdIn.readLine
@@ -11,12 +11,12 @@ object Slay{
   val controller = new Controller
   val tui = new TextUI(controller)
 
-  tui.welcomeScreen()
+  StateStartUp.handle(WelcomeScreen(), controller)
   if(tui.processWelcome(readLine())) System.exit(0)
 
-  tui.readPlayerName(1)
+  StateStartUp.handle(ReadPlayerName(1), controller)
   controller.addPlayer(Player(readLine(), "\033[103m"))
-  tui.readPlayerName(2)
+  StateStartUp.handle(ReadPlayerName(2), controller)
   controller.addPlayer(Player(readLine(), "\033[102m"))
 
   controller.createGrid("Map1")
