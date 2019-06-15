@@ -5,7 +5,6 @@ import java.awt.Color
 import de.htwg.se.slay.controller._
 import de.htwg.se.slay.model._
 import de.htwg.se.slay.util.Observer
-import javax.swing.JPanel
 
 import scala.collection.mutable.ListBuffer
 import scala.swing._
@@ -220,9 +219,7 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
       case _: WelcomeEvent =>
         contents = welcomePanel; true
       case r: ReadPlayerEvent =>
-        contents = readPlayerPanel(r.player)
-        repaint()
-        true
+        contents = readPlayerPanel(r.player); true
       case _: MoneyErrorEvent =>
         println("Not enough Money!"); true
       case p: PlayerEvent =>

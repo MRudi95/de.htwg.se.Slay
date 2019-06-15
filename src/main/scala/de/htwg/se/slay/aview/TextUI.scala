@@ -1,7 +1,8 @@
 package de.htwg.se.slay.aview
 
 
-import de.htwg.se.slay.Slay.controller
+import java.lang.IllegalMonitorStateException
+
 import de.htwg.se.slay.controller._
 import de.htwg.se.slay.model.Player
 import de.htwg.se.slay.util.Observer
@@ -34,14 +35,20 @@ class TextUI(controller: Controller) extends Observer{
     }
   }
 
-  def readPlayerName(player: Int): Unit = {
+  def readPlayerName(player: Int): Unit= {
     println("\n Player " + player + " enter your name:")
-    player match{
-      case 1 =>
-        controller.addPlayer(Player(readLine(), P1COLOR))
-      case 2 =>
-        controller.addPlayer(Player(readLine(), P2COLOR))
-      case _ =>
+
+    notify() //dat exception though, but need that context switch
+
+    val name = readLine()
+    if(name != "") {
+      player match {
+        case 1 =>
+          controller.addPlayer(Player(name, P1COLOR))
+        case 2 =>
+          controller.addPlayer(Player(name, P2COLOR))
+        case _ =>
+      }
     }
     StateStartUp.handle(ReadPlayerName(player+1), controller)
   }
@@ -108,9 +115,7 @@ class TextUI(controller: Controller) extends Observer{
       case _: WelcomeEvent =>
         welcomeScreen(); true
       case r: ReadPlayerEvent =>
-        readPlayerName(r.player)
-
-        true
+        readPlayerName(r.player); true
       case _: MoneyErrorEvent =>
         println("Not enough Money!"); true
       case p: PlayerEvent =>

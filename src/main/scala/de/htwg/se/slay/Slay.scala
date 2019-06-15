@@ -3,7 +3,6 @@ package de.htwg.se.slay
 import de.htwg.se.slay.aview.TextUI
 import de.htwg.se.slay.aview.gui.SwingGUI
 import de.htwg.se.slay.controller._
-import de.htwg.se.slay.model.Player
 
 import scala.io.StdIn.readLine
 
