@@ -11,10 +11,9 @@ object Slay{
   val gui = new SwingGUI(controller)
   val tui = new TextUI(controller)
 
-
-  StateStartUp.handle(WelcomeScreen(), controller)
-
   def main(args: Array[String]) : Unit = {
+    StateStartUp.handle(WelcomeScreen(), controller)
+
     var input: String = ""
     controller.nextturn()
     do{
