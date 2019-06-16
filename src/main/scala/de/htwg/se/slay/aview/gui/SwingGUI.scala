@@ -9,7 +9,7 @@ import de.htwg.se.slay.util.Observer
 import scala.collection.mutable.ListBuffer
 import scala.swing._
 import scala.swing.Swing._
-import scala.swing.event.{ButtonClicked, MouseClicked}
+import scala.swing.event.{ButtonClicked, Key, MouseClicked}
 
 
 class SwingGUI(controller: Controller) extends Frame with Observer{
@@ -30,7 +30,7 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
 
 
   val welcomePanel: GridPanel = new GridPanel(3, 1){
-    background = new Color(50, 50, 50)
+    background = new Color(50, 50, 50) //dark gray
     preferredSize = (480, 240)
 
     val yesButton: Button = new Button("YES"){
@@ -49,11 +49,11 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
     }
 
     contents += new Label("WELCOME TO SLAY"){
-      foreground = new Color(222, 222, 222)
+      foreground = new Color(222, 222, 222) //white
       font = new Font("Arial", 1, 36)
     }
     contents += new Label("Do You want to play a Game?"){
-      foreground = new Color(222, 222, 222)
+      foreground = new Color(222, 222, 222) //white
       font = new Font("Arial", 0, 20)
     }
     contents += new FlowPanel(){
@@ -95,10 +95,17 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
 
   }
 
+  val menu: MenuBar = new MenuBar{
+    contents += new Menu("Edit"){
+      contents += new MenuItem(Action("Undo"){ controller.undo() })
+      contents += new MenuItem(Action("Redo"){ controller.redo() })
+    }
+  }
+
   var gridPanel: GridPanel = new GridPanel(1, 1)
 
   val buttonPanel: FlowPanel = new FlowPanel(){
-    background = new Color(50, 50, 50)
+    opaque = false
 
     val buyButton: Button = new Button("Buy"){
 //      enabled = false
@@ -134,12 +141,30 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
 
   }
 
+  val turnField: TextField = new TextField(){
+    editable = false
+    opaque = false
+    foreground = new Color(222, 222, 222) //white
+    font = new Font("Arial", 0, 20)
+  } //maybe use later
+
+  val statusField: TextField = new TextField(){
+    editable = false
+    opaque = false
+    foreground = new Color(222, 222, 222) //white
+    font = new Font("Arial", 0, 20)
+  }
+
 
   def gameScreen(): Unit ={
     gridPanel = createGridPanel
     contents = new BorderPanel {
+      add(menu, BorderPanel.Position.North)
       add(gridPanel, BorderPanel.Position.Center)
-      add(buttonPanel, BorderPanel.Position.South)
+      add(new GridPanel(2, 1){
+        background = new Color(50, 50, 50) //dark gray
+        contents += (buttonPanel, statusField)
+      }, BorderPanel.Position.South)
     }
   }
 
@@ -232,21 +257,21 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
       case r: ReadPlayerEvent =>
         contents = readPlayerPanel(r.player); true
       case _: MoneyErrorEvent =>
-        println("Not enough Money!"); true
+        statusField.text = "Not enough Money!"; true
       case p: PlayerEvent =>
-        /*println("It is your turn " + p.name.toUpperCase + " !");*/ true
+        statusField.text = "It is your turn " + p.name.toUpperCase + " !"; true
       case b: BalanceEvent =>
-        println("balance: " + b.bal); true
+        statusField.text = "balance: " + b.bal; true
       case _: OwnerErrorEvent =>
-        println("You are not the Owner of this!"); true
+        statusField.text = "You are not the Owner of this!"; true
       case _: GamePieceErrorEvent =>
-        println("There already is a GamePiece there!"); true
+        statusField.text = "There already is a GamePiece there!"; true
       case _: UnitErrorEvent =>
-        println("Can't combine those Units!"); true
+        statusField.text = "Can't combine those Units!"; true
       case _: UndoErrorEvent =>
-        println("Nothing to undo!"); true
+        statusField.text = "Nothing to undo!"; true
       case _: RedoErrorEvent =>
-        println("Nothing to redo!"); true
+        statusField.text = "Nothing to redo!"; true
       case v: VictoryEvent =>
         Dialog.showMessage(this, v.name.toUpperCase + " has won the Game!", title="VICTORY"); true
       case _ => false
