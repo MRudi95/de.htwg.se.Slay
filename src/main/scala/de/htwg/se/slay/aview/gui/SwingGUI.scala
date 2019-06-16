@@ -124,21 +124,23 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
     val endButton: Button = new Button("End Turn")
     val surButton: Button = new Button("Surrender")
 
+    contents += (buyButton, combineButton, moveButton, balButton, endButton, surButton)
     listenTo(buyButton, combineButton, moveButton, balButton, endButton, surButton)
+
     reactions += {
       case ButtonClicked(this.buyButton) =>
+        controller.buyPeasant(hiliteList.head.name.toInt)
+      case ButtonClicked(this.combineButton) =>
+        controller.combineUnit(hiliteList.head.name.toInt, hiliteList(1).name.toInt)
+      case ButtonClicked(this.moveButton) =>
+
+      case ButtonClicked(this.balButton) =>
+        controller.seeBalance(hiliteList.head.name.toInt)
+      case ButtonClicked(this.endButton) =>
+        controller.nextturn()
       case ButtonClicked(this.surButton) =>
         surrender()
     }
-
-    contents += buyButton
-    contents += combineButton
-    contents += moveButton
-    contents += balButton
-    contents += endButton
-    contents += surButton
-
-
   }
 
   val turnField: TextField = new TextField(){
@@ -261,7 +263,7 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
       case p: PlayerEvent =>
         statusField.text = "It is your turn " + p.name.toUpperCase + " !"; true
       case b: BalanceEvent =>
-        statusField.text = "balance: " + b.bal; true
+        statusField.text = "Balance: " + b.bal; true
       case _: OwnerErrorEvent =>
         statusField.text = "You are not the Owner of this!"; true
       case _: GamePieceErrorEvent =>
