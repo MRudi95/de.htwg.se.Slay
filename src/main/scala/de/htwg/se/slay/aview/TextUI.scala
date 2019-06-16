@@ -1,13 +1,11 @@
 package de.htwg.se.slay.aview
 
-
-import java.lang.IllegalMonitorStateException
-
 import de.htwg.se.slay.controller._
 import de.htwg.se.slay.model.Player
 import de.htwg.se.slay.util.Observer
 
 import scala.io.StdIn.readLine
+
 
 class TextUI(controller: Controller) extends Observer{
 
@@ -69,7 +67,7 @@ class TextUI(controller: Controller) extends Observer{
       case "undo" => controller.undo()
       case "redo" => controller.redo()
       case "end" => controller.nextturn()
-      case "ff20" =>
+      case "ff20" => controller.surrender()
       case bal(c) if checkIndex(c) =>
         controller.seeBalance(convertIndex(c))
       case buy(c) if checkIndex(c) =>
@@ -132,6 +130,8 @@ class TextUI(controller: Controller) extends Observer{
         println("Nothing to undo!"); true
       case _: RedoErrorEvent =>
         println("Nothing to redo!"); true
+      case v: VictoryEvent =>
+        println(v.name.toUpperCase + " has won the Game!"); true
       case _ => false
     }
   }

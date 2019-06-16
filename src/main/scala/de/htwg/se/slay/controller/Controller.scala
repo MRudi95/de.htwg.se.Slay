@@ -125,7 +125,11 @@ class Controller extends Observable{
   }
 
 
-  def welcomeScreen():Unit = {
-
+  def surrender():Unit = {
+    state match {
+      case 1 => notifyObservers(VictoryEvent(players(state+1).name))
+      case 2 => notifyObservers(VictoryEvent(players(state-1).name))
+      case _ =>
+    }
   }
 }

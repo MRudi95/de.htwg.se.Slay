@@ -11,6 +11,7 @@ import scala.swing._
 import scala.swing.Swing._
 import scala.swing.event.{ButtonClicked, MouseClicked}
 
+
 class SwingGUI(controller: Controller) extends Frame with Observer{
   controller.add(this)
 
@@ -69,6 +70,9 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
     val okButton: Button = new Button("OK")
     listenTo(okButton)
     reactions += {
+      case ButtonClicked(this.okButton) if nameField.text == "" =>
+        controller.addPlayer(Player("Player " + player , "\033[10" + (4-player) + "m"))
+        StateStartUp.handle(ReadPlayerName(player+1), controller)
       case ButtonClicked(this.okButton) =>
         controller.addPlayer(Player(nameField.text, "\033[10" + (4-player) + "m"))
         StateStartUp.handle(ReadPlayerName(player+1), controller)
@@ -97,18 +101,15 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
     background = new Color(50, 50, 50)
 
     val buyButton: Button = new Button("Buy"){
-      enabled = false
-      listenTo(mouse.clicks)
-      reactions += {
-        case _: MouseClicked =>
-          if (hiliteList.length == 1) {
-            enabled = true
-
-          }
-          else {
-            enabled = false
-          }
-      }
+//      enabled = false
+//      listenTo(mouse.clicks)
+//      reactions += {
+//        case _: MouseClicked =>
+//          if (hiliteList.length == 1)
+//            enabled = true
+//          else
+//            enabled = false
+//      }
     }
     val combineButton: Button = new Button("Combine")
     val moveButton: Button = new Button("Move")
@@ -116,8 +117,11 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
     val endButton: Button = new Button("End Turn")
     val surButton: Button = new Button("Surrender")
 
-    buyButton.reactions += {
-      case ButtonClicked(this.buyButton) if buyButton.enabled => println("yay")
+    listenTo(buyButton, combineButton, moveButton, balButton, endButton, surButton)
+    reactions += {
+      case ButtonClicked(this.buyButton) =>
+      case ButtonClicked(this.surButton) =>
+        surrender()
     }
 
     contents += buyButton
@@ -208,6 +212,13 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
     }
   }
 
+  def surrender(): Unit = {
+    val res = Dialog.showConfirmation(this,
+      "Do you really want to surrender?",
+      optionType=Dialog.Options.YesNo)
+    if (res == Dialog.Result.Ok)
+      controller.surrender()
+  }
 
 
   override def update(e: Event): Boolean = {
@@ -236,6 +247,8 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
         println("Nothing to undo!"); true
       case _: RedoErrorEvent =>
         println("Nothing to redo!"); true
+      case v: VictoryEvent =>
+        Dialog.showMessage(this, v.name.toUpperCase + " has won the Game!", title="VICTORY"); true
       case _ => false
     }
   }
