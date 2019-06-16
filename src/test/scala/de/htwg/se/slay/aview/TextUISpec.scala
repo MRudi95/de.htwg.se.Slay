@@ -15,11 +15,11 @@ class TextUISpec extends WordSpec with Matchers{
       }
 
       "print a Welcome Screen" in{
-        tui.welcomeScreen()
+        //tui.welcomeScreen()
       }
 
       "prompt a players name" in{
-        tui.readPlayerName(1)
+        //tui.readPlayerName(1)
       }
 
       controller.addPlayer(Player("1",""))
