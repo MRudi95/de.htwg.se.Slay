@@ -75,6 +75,7 @@ class TextUI(controller: Controller) extends Observer{
       case plc(c) if checkIndex(c) =>
         controller.placeCastle(convertIndex(c))
       case mov(c1, c2) if checkIndex(c1) && checkIndex(c2) =>
+        controller.moveUnit(convertIndex(c1), convertIndex(c2))
       case cmb(c1, c2) if checkIndex(c1) && checkIndex(c2) =>
         controller.combineUnit(convertIndex(c1), convertIndex(c2))
       case _ => println("Wrong Input!")

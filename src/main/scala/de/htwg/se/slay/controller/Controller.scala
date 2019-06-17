@@ -66,6 +66,10 @@ class Controller extends Observable{
     }
   }
 
+  private def checkMove(c1: Int, c2: Int): Boolean ={
+    true
+  }
+
 
   def buyPeasant(c: Int): Unit ={
     if(checkOwner(c) && checkNoPiece(c) && checkBalance(c, 10)){
@@ -84,6 +88,13 @@ class Controller extends Observable{
   def combineUnit(c1: Int, c2: Int): Unit = {
     if(checkOwner(c1) && checkOwner(c2) && checkCombine(c1, c2)) {
       undoManager.doStep(new CombineCommand(c1, c2, this))
+      notifyObservers()
+    }
+  }
+
+  def moveUnit(c1: Int, c2: Int): Unit = {
+    if(checkOwner(c1) && checkMove(c1, c2)){
+      undoManager.doStep(new MoveCommand(c1, c2, this))
       notifyObservers()
     }
   }

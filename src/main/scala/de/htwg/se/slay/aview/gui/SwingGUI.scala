@@ -133,7 +133,7 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
       case ButtonClicked(this.combineButton) =>
         controller.combineUnit(hiliteList.head.name.toInt, hiliteList(1).name.toInt)
       case ButtonClicked(this.moveButton) =>
-
+        controller.moveUnit(hiliteList.head.name.toInt, hiliteList(1).name.toInt)
       case ButtonClicked(this.balButton) =>
         controller.seeBalance(hiliteList.head.name.toInt)
       case ButtonClicked(this.endButton) =>
