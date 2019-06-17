@@ -28,11 +28,11 @@ class TextUISpec extends WordSpec with Matchers{
       "update the grid or react to certain Events" in{
         tui.update(SuccessEvent())
         tui.update(MoneyErrorEvent())
-        tui.update(new PlayerEvent(controller.players(1).toString))
-        tui.update(new BalanceEvent(20))
+        tui.update(PlayerEvent(controller.players(1).toString))
+        tui.update(BalanceEvent(20))
         tui.update(OwnerErrorEvent())
         tui.update(GamePieceErrorEvent())
-        tui.update(UnitErrorEvent())
+        tui.update(CombineErrorEvent())
         tui.update(UndoErrorEvent())
         tui.update(RedoErrorEvent())
       }

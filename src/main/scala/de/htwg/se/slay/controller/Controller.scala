@@ -30,7 +30,7 @@ class Controller extends Observable{
 
   def seeBalance(c: Int): Unit ={
     if(checkOwner(c))
-      notifyObservers(new BalanceEvent(grid(c).territory.capital.balance))
+      notifyObservers(BalanceEvent(grid(c).territory.capital.balance))
   }
 
 
@@ -61,7 +61,7 @@ class Controller extends Observable{
       case (_: Peasant, _: Knight) | (_: Knight, _: Peasant) => true
       case (_: Spearman, _: Spearman) => true
       case _ =>
-        notifyObservers(UnitErrorEvent())
+        notifyObservers(CombineErrorEvent())
         false
     }
   }
@@ -116,7 +116,7 @@ class Controller extends Observable{
   def turnPlayer(p: Int): Unit ={
     state = p
     undoManager.reset()
-    notifyObservers(new PlayerEvent(players(p).name))
+    notifyObservers(PlayerEvent(players(p).name))
   }
 
 

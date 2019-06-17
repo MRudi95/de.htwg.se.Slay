@@ -128,18 +128,19 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
     listenTo(buyButton, combineButton, moveButton, balButton, endButton, surButton)
 
     reactions += {
-      case ButtonClicked(this.buyButton) =>
+      case ButtonClicked(this.buyButton) if hiliteList.length == 1 =>
         controller.buyPeasant(hiliteList.head.name.toInt)
-      case ButtonClicked(this.combineButton) =>
+      case ButtonClicked(this.combineButton) if hiliteList.length == 2 =>
         controller.combineUnit(hiliteList.head.name.toInt, hiliteList(1).name.toInt)
-      case ButtonClicked(this.moveButton) =>
+      case ButtonClicked(this.moveButton) if hiliteList.length == 2 =>
         controller.moveUnit(hiliteList.head.name.toInt, hiliteList(1).name.toInt)
-      case ButtonClicked(this.balButton) =>
+      case ButtonClicked(this.balButton) if hiliteList.length == 1 =>
         controller.seeBalance(hiliteList.head.name.toInt)
       case ButtonClicked(this.endButton) =>
         controller.nextturn()
       case ButtonClicked(this.surButton) =>
         surrender()
+      case _ =>
     }
   }
 
@@ -197,8 +198,11 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
         reactions += {
           case mc:MouseClicked =>
             mc.peer.getButton match {
-              case java.awt.event.MouseEvent.BUTTON1 =>
+              case java.awt.event.MouseEvent.BUTTON1 if hiliteList.isEmpty =>
                 border = LineBorder(Color.WHITE, 3)
+                hiliteList += this
+              case java.awt.event.MouseEvent.BUTTON1 if hiliteList.length == 1 =>
+                border = LineBorder(Color.RED, 3)
                 if(!hiliteList.contains(this)) hiliteList += this
               case java.awt.event.MouseEvent.BUTTON3 =>
                 border = LineBorder(Color.BLACK, 1)
@@ -268,7 +272,7 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
         statusField.text = "You are not the Owner of this!"; true
       case _: GamePieceErrorEvent =>
         statusField.text = "There already is a GamePiece there!"; true
-      case _: UnitErrorEvent =>
+      case _: CombineErrorEvent =>
         statusField.text = "Can't combine those Units!"; true
       case _: UndoErrorEvent =>
         statusField.text = "Nothing to undo!"; true
