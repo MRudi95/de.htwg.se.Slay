@@ -44,6 +44,7 @@ class Controller extends Observable{
     grid(idx).gamepiece match {
       case _:NoPiece => true
       case _:Tree => true
+      case _:Grave => true
       case _ =>
         notifyObservers(GamePieceErrorEvent())
         false
@@ -133,7 +134,18 @@ class Controller extends Observable{
   def moneymoney(): Unit = {
     for(field <- capitals){
       val cap = field.gamepiece.asInstanceOf[Capital]
-      cap.balance += field.territory.size()
+      cap.balance += field.territory.size
+      cap.balance -= field.territory.armyCost
+      if(cap.balance <= 0){
+        cap.balance = 0
+        field.territory.fields.foreach(x => x.gamepiece match{
+          case _:UnitGamePiece =>
+            field.territory.removeUnit(_)
+            x.gamepiece = Grave()
+          case _ =>
+        })
+        notifyObservers()
+      }
     }
   }
 
