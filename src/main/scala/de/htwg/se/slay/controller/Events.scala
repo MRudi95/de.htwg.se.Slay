@@ -19,7 +19,8 @@ case class MoneyErrorEvent() extends Event
 case class OwnerErrorEvent() extends Event
 case class GamePieceErrorEvent() extends Event
 case class CombineErrorEvent() extends Event
-case class MoveErrorEvent() extends Event
+case class MoveErrorEvent(reason: String = "") extends Event
+case class MovableErrorEvent() extends Event
 
 case class UndoErrorEvent() extends Event
 case class RedoErrorEvent() extends Event

@@ -34,6 +34,7 @@ class Controller extends Observable{
   }
 
 
+
   private def checkOwner(c: Int):Boolean ={
     if(grid(c).owner == players(state)) true
     else {notifyObservers(OwnerErrorEvent()); false}
@@ -66,9 +67,36 @@ class Controller extends Observable{
     }
   }
 
+  private var moveErrorMsg: String = ""
   private def checkMove(c1: Int, c2: Int): Boolean ={
-    true
+      if(checkMoveOwner(c1, c2) && checkMoveNeighbor(c1, c2) && checkMoveStrength(c1, c2)
+        || checkMoveTerritory(c1, c2)) true
+      else {notifyObservers(MoveErrorEvent(moveErrorMsg)); false}
   }
+
+  private def checkMoveTerritory(c1: Int, c2:Int): Boolean =
+    grid(c1).territory == grid(c2).territory && checkNoPiece(c2)
+
+  private def checkMoveOwner(c1: Int, c2:Int): Boolean =
+    grid(c2).owner != players(0) && grid(c2).owner != grid(c1).owner
+
+  private def checkMoveNeighbor(c1: Int, c2:Int): Boolean ={
+    if(grid(c2).neighbors.exists(x => x.territory == grid(c1).territory)) true
+    else {moveErrorMsg = "Not a neighboring field!"; false}
+  }
+
+  private def checkMoveStrength(c1: Int, c2:Int): Boolean ={
+    if(grid(c2).gamepiece.strength < grid(c1).gamepiece.strength
+      && !grid(c2).neighbors.exists(x => x.territory == grid(c2).territory
+      && x.gamepiece.strength >= grid(c1).gamepiece.strength)) true
+    else {moveErrorMsg = "Your Unit is too weak!"; false}
+  }
+
+  private def checkMovable(c: Int): Boolean ={
+    if(grid(c).gamepiece.isInstanceOf[UnitGamePiece]) true
+    else {notifyObservers(MovableErrorEvent()); false}
+  }
+
 
 
   def buyPeasant(c: Int): Unit ={
@@ -93,7 +121,7 @@ class Controller extends Observable{
   }
 
   def moveUnit(c1: Int, c2: Int): Unit = {
-    if(checkOwner(c1) && checkMove(c1, c2)){
+    if(checkOwner(c1) && checkMovable(c1) && checkMove(c1, c2)){
       undoManager.doStep(new MoveCommand(c1, c2, this))
       notifyObservers()
     }

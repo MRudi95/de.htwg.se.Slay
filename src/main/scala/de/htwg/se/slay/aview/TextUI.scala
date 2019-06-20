@@ -127,8 +127,10 @@ class TextUI(controller: Controller) extends Observer{
         println("There already is a GamePiece there!"); true
       case _: CombineErrorEvent =>
         println("Can't combine those Units!"); true
-      case _: MoveErrorEvent =>
-        println("Can't move there!"); true
+      case m: MoveErrorEvent =>
+        println("Can't move there! " + m.reason); true
+      case _: MovableErrorEvent =>
+        println("This Unit is not movable!!"); true
       case _: UndoErrorEvent =>
         println("Nothing to undo!"); true
       case _: RedoErrorEvent =>

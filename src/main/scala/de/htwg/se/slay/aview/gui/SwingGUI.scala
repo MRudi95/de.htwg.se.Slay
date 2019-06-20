@@ -274,8 +274,10 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
         statusField.text = "There already is a GamePiece there!"; true
       case _: CombineErrorEvent =>
         statusField.text = "Can't combine those Units!"; true
-      case _: MoveErrorEvent =>
-        statusField.text = "Can't move there!"; true
+      case m: MoveErrorEvent =>
+        statusField.text = "Can't move there! " + m.reason; true
+      case _: MovableErrorEvent =>
+        statusField.text = "This Unit is not movable!"; true
       case _: UndoErrorEvent =>
         statusField.text = "Nothing to undo!"; true
       case _: RedoErrorEvent =>
