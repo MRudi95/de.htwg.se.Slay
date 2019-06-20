@@ -98,6 +98,11 @@ class Controller extends Observable{
     else {notifyObservers(MovableErrorEvent()); false}
   }
 
+  private def checkMoved(c: Int): Boolean ={
+    if(!grid(c).gamepiece.asInstanceOf[UnitGamePiece].hasMoved) true
+    else {notifyObservers(MovedErrorEvent()); false}
+  }
+
 
 
   def buyPeasant(c: Int): Unit ={
@@ -122,8 +127,8 @@ class Controller extends Observable{
   }
 
   def moveUnit(c1: Int, c2: Int): Unit = {
-    if(checkOwner(c1) && checkMovable(c1) && checkMove(c1, c2)){
-      undoManager.doStep(new MoveCommand(c1, c2, this))
+    if(checkOwner(c1) && checkMovable(c1) && checkMoved(c1) && checkMove(c1, c2)){
+      undoManager.doStep(new MoveCommand(grid(c1), grid(c2), this))
       notifyObservers()
     }
   }
@@ -156,6 +161,11 @@ class Controller extends Observable{
   def turnPlayer(p: Int): Unit ={
     state = p
     undoManager.reset()
+    grid.foreach(_.gamepiece match{
+      case gp:UnitGamePiece => gp.hasMoved = false
+      case _ =>
+    })
+    notifyObservers()
     notifyObservers(PlayerEvent(players(p).name))
   }
 

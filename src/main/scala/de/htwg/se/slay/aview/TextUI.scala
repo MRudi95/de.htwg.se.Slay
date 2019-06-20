@@ -130,7 +130,9 @@ class TextUI(controller: Controller) extends Observer{
       case m: MoveErrorEvent =>
         println("Can't move there! " + m.reason); true
       case _: MovableErrorEvent =>
-        println("This Unit is not movable!!"); true
+        println("This Unit is not movable!"); true
+      case _: MovedErrorEvent =>
+        println("This Unit has already moved this turn!"); true
       case _: UndoErrorEvent =>
         println("Nothing to undo!"); true
       case _: RedoErrorEvent =>

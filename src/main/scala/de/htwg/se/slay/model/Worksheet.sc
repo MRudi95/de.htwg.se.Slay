@@ -1,17 +1,16 @@
-case class field(a:Int, b:Int)
+import de.htwg.se.slay.model.{Field, Player, Territory}
 
-val field1 = field(1, 1)
-field1.a
-field1.b
+val field = new Field(Player("",""))
+val field2 = new Field(Player("",""))
+val ter1 = new Territory()
+val ter2 = new Territory()
 
-case class Landscape(x:Int , y:Int)
+ter1.addField(field)
+ter1.addField(field2)
 
-val land = Landscape(30, 30)
-land.x
-land.y
+ter2.addField(field)
 
-case class characters(x: Char, y: Int)
+var list = List(ter1, ter2)
 
-val person1 = characters('a', 1)
-person1.x
-person1.y
+val ter3 = list.maxBy(_.size())
+list = list.filterNot(_ == ter3)

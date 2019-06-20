@@ -190,6 +190,8 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
         }
 
         name = idx.toString
+        font = new Font("Arial", 1, 22)
+        foreground = Color.RED
 
         opaque = true
         preferredSize = new Dimension(64, 64)
@@ -240,6 +242,12 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
         case _:Baron    => Icon(icons + "baron.gif")
         case _          => null
       }
+
+      controller.grid(idx).gamepiece match {
+        case unit:UnitGamePiece if unit.hasMoved => f.text = "."
+        case unit:UnitGamePiece if !unit.hasMoved => f.text = ""
+        case _ => f.text = ""
+      }
     }
   }
 
@@ -278,6 +286,8 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
         statusField.text = "Can't move there! " + m.reason; true
       case _: MovableErrorEvent =>
         statusField.text = "This Unit is not movable!"; true
+      case _: MovedErrorEvent =>
+        statusField.text = "This Unit has already moved this turn!"; true
       case _: UndoErrorEvent =>
         statusField.text = "Nothing to undo!"; true
       case _: RedoErrorEvent =>
