@@ -188,8 +188,14 @@ class Controller extends Observable{
 
   def surrender():Unit = {
     state match {
-      case 1 => notifyObservers(VictoryEvent(players(state+1).name))
-      case 2 => notifyObservers(VictoryEvent(players(state-1).name))
+      case 1 =>
+        grid.foreach(f => if(f.owner != players(0)) f.owner = players(state+1))
+        notifyObservers()
+        notifyObservers(VictoryEvent(players(state+1).name))
+      case 2 =>
+        grid.foreach(f => if(f.owner != players(0)) f.owner = players(state-1))
+        notifyObservers()
+        notifyObservers(VictoryEvent(players(state-1).name))
       case _ =>
     }
   }
