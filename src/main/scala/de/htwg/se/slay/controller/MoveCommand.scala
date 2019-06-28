@@ -3,6 +3,8 @@ package de.htwg.se.slay.controller
 import de.htwg.se.slay.model._
 import de.htwg.se.slay.util.Command
 
+import scala.util.Random
+
 class MoveCommand(f1: Field, f2: Field, ctrl:Controller) extends Command{
   var gp1Mem: GamePiece = f1.gamepiece
 
@@ -79,10 +81,30 @@ class MoveCommand(f1: Field, f2: Field, ctrl:Controller) extends Command{
               tmp_ter.addField(f)
               f.territory = tmp_ter
               f.gamepiece match {
-                case gp:UnitGamePiece => tmp_ter.addUnit(gp)
+                case gp:UnitGamePiece =>
+                  terMem.removeUnit(gp)
+                  tmp_ter.addUnit(gp)
                 case _ =>
               }
             }
+            if(tmp_ter.size() >= 2){
+              tmp_ter.fields.find(_.gamepiece.isInstanceOf[NoPiece]) match{
+                case Some(newCapital) =>
+                  newCapital.gamepiece = new Capital(newCapital.owner, 0)
+                  tmp_ter.setCapital(newCapital)
+                  tmp_ter.capital.balance = 0
+                  ctrl.capitals += newCapital
+                  println(newCapital.territory.size())
+                  println(newCapital.territory.armyCost)
+                case None =>
+                  val f = tmp_ter.fields.toIndexedSeq(Random.nextInt(tmp_ter.fields.size))
+                  f.gamepiece = new Capital(f.owner, 0)
+                  tmp_ter.setCapital(f)
+                  tmp_ter.capital.balance = 0
+                  ctrl.capitals += f
+              }
+            }
+            splitTerritory = splitTerritory :+ tmp_ter
           }
 
         )

@@ -21,11 +21,11 @@ class Territory {
 
   def addUnit(unit: UnitGamePiece):Unit = {
     _units += unit
-    _armyCost += unit.price
+    _armyCost += unit.cost
   }
   def removeUnit(unit: UnitGamePiece):Unit = {
     _units -= unit
-    _armyCost -= unit.price
+    _armyCost -= unit.cost
   }
 
   def capital: Capital = _capital
