@@ -1,6 +1,6 @@
 package de.htwg.se.slay.model
 
-class Capital(val player: Player, val idx: Int) extends GamePiece {
+class Capital(val player: Player) extends GamePiece {
   val strength: Int = 1
   var balance: Int = 10
 

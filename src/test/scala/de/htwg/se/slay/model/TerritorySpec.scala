@@ -15,7 +15,7 @@ class TerritorySpec extends WordSpec with Matchers {
         ter.fields should be(HashSet[Field]())
       }
       "have a size of 0" in{
-        ter.size() should be(0)
+        ter.size should be(0)
       }
 
       val playr = Player("", "")
@@ -24,7 +24,7 @@ class TerritorySpec extends WordSpec with Matchers {
       ter2.addField(field)
       "have added Fields" in{
         ter2.fields.contains(field) should be (true)
-        ter2.size() should be(1)
+        ter2.size should be(1)
       }
 
       val ter3 = new Territory
@@ -32,7 +32,7 @@ class TerritorySpec extends WordSpec with Matchers {
       ter3.removeField(field)
       "not have removed Fields" in{
         ter3.fields.contains(field) should be (false)
-        ter3.size() should be(0)
+        ter3.size should be(0)
       }
 
       ter2.setCapital(field)
@@ -41,7 +41,7 @@ class TerritorySpec extends WordSpec with Matchers {
       }
 
       val field2 = new Field(playr)
-      field2.gamepiece = new Capital(playr, 0)
+      field2.gamepiece = new Capital(playr)
       ter3.setCapital(field2)
       "only have a Capital GamePiece" in{
         ter3.capital should be(field2.gamepiece)

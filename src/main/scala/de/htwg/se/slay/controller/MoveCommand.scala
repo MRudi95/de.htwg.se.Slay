@@ -18,6 +18,8 @@ class MoveCommand(f1: Field, f2: Field, ctrl:Controller) extends Command{
   var caplist: List[Option[Field]] = Nil
   var biggestTer: Territory = _
 
+  var splitTer: Territory = terMem
+  var splitTerritory: List[(Territory, Field,  GamePiece)] = List((splitTer, null, null))
 
 
   override def doStep(): Unit = {
@@ -27,6 +29,7 @@ class MoveCommand(f1: Field, f2: Field, ctrl:Controller) extends Command{
     terMem = f2.territory
     gp2Mem match{
       case _:UnitGamePiece => terMem.removeUnit(_)
+      case _:Capital => ctrl.capitals -= f2
       case _ =>
     }
 
@@ -77,56 +80,61 @@ class MoveCommand(f1: Field, f2: Field, ctrl:Controller) extends Command{
       }
     )
 
-    var splitTerritory: List[Territory] = List(terMem)
+
     terMem.fields.find(_.gamepiece.isInstanceOf[Capital]) match{
       case Some(field) =>
         splitTerList.foreach(list =>
           if(!list.contains(field)) {
-            list.foreach(terMem.removeField(_))
-            val tmp_ter = new Territory()
-            list.foreach { f =>
-              tmp_ter.addField(f)
-              f.territory = tmp_ter
-              f.gamepiece match {
-                case gp:UnitGamePiece =>
-                  terMem.removeUnit(gp)
-                  tmp_ter.addUnit(gp)
-                case _ =>
-              }
-            }
-            if(tmp_ter.size >= 2){
-              tmp_ter.fields.find(_.gamepiece.isInstanceOf[NoPiece]) match{
-                case Some(newCapital) =>
-                  newCapital.gamepiece = new Capital(newCapital.owner, 0)
-                  tmp_ter.setCapital(newCapital)
-                  tmp_ter.capital.balance = 0
-                  ctrl.capitals += newCapital
-                  println(newCapital.territory.size)
-                  println(newCapital.territory.armyCost)
-                case None =>
-                  val f = tmp_ter.fields.toIndexedSeq(Random.nextInt(tmp_ter.fields.size))
-                  f.gamepiece = new Capital(f.owner, 0)
-                  tmp_ter.setCapital(f)
-                  tmp_ter.capital.balance = 0
-                  ctrl.capitals += f
-              }
-            }
-            splitTerritory = splitTerritory :+ tmp_ter
+            list.foreach(splitTer.removeField(_))
+            splitTer.fields.foreach(_.territory = splitTer)
+
+            splitTerList.foreach(list => splittingTerritories(list))
           }
 
         )
       case None =>
+        splitTerritory = List()
+        splitTerList.foreach(list => splittingTerritories(list))
     }
-
   }
 
-  def recursion(f: Field, list: Set[Field]): Set[Field] ={
+  private def recursion(f: Field, list: Set[Field]): Set[Field] ={
     var recList = list + f
     f.neighbors.foreach(field =>
       if(field != null && field.owner == ownerMem && !recList.contains(field))
         recList ++= recursion(field, recList)
     )
     recList
+  }
+
+  private def splittingTerritories(list: Set[Field]) :Unit ={
+    val tmp_ter = new Territory()
+    list.foreach { f =>
+      tmp_ter.addField(f)
+      f.territory = tmp_ter
+      f.gamepiece match {
+        case gp: UnitGamePiece =>
+          splitTer.removeUnit(gp)
+          tmp_ter.addUnit(gp)
+        case _ =>
+      }
+    }
+    var tmp_gp: GamePiece = null
+    var newCap: Field = null
+    if (tmp_ter.size >= 2) {
+      tmp_ter.fields.find(_.gamepiece.isInstanceOf[NoPiece]) match {
+        case Some(field) =>
+          newCap = field
+        case None =>
+          newCap = tmp_ter.fields.toIndexedSeq(Random.nextInt(tmp_ter.fields.size))
+      }
+      tmp_gp = newCap.gamepiece
+      newCap.gamepiece = new Capital(newCap.owner)
+      tmp_ter.setCapital(newCap)
+      tmp_ter.capital.balance = 0
+      ctrl.capitals += newCap
+    }
+    splitTerritory = splitTerritory :+ (tmp_ter, newCap, tmp_gp)
   }
 
 
@@ -145,6 +153,11 @@ class MoveCommand(f1: Field, f2: Field, ctrl:Controller) extends Command{
     f2.territory.removeField(f2)
     f2.territory = terMem
     f2.territory.addField(f2)
+    gp2Mem match{
+      case _:UnitGamePiece => f2.territory.addUnit(_)
+      case _:Capital => ctrl.capitals += f2
+      case _ =>
+    }
 
     gp1Mem = tmp_gp1
     gp2Mem = tmp_gp2
@@ -173,6 +186,14 @@ class MoveCommand(f1: Field, f2: Field, ctrl:Controller) extends Command{
       case None =>
     }
 
+
+    terMem.fields.foreach(_.territory = terMem)
+    splitTerritory.foreach{
+      case (_, cap, gp) if gp != null =>
+        ctrl.capitals -= cap
+        cap.gamepiece = gp
+      case (_,_,_) =>
+    }
   }
 
   override def redoStep(): Unit = {
@@ -189,6 +210,11 @@ class MoveCommand(f1: Field, f2: Field, ctrl:Controller) extends Command{
     f2.territory.removeField(f2)
     f2.territory = terMem
     f2.territory.addField(f2)
+    gp2Mem match{
+      case _:UnitGamePiece => f2.territory.removeUnit(_)
+      case _:Capital => ctrl.capitals -= f2
+      case _ =>
+    }
 
     gp1Mem = tmp_gp1
     gp2Mem = tmp_gp2
@@ -213,5 +239,13 @@ class MoveCommand(f1: Field, f2: Field, ctrl:Controller) extends Command{
         biggestTer.addField(f)}
     }
 
+
+    splitTerritory.foreach{
+      case (ter, cap, _) if cap != null =>
+        ctrl.capitals += cap
+        cap.gamepiece = ter.capital
+      case (ter,_,_) =>
+        ter.fields.foreach(_.territory = ter)
+    }
   }
 }
