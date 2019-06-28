@@ -25,6 +25,10 @@ class MoveCommand(f1: Field, f2: Field, ctrl:Controller) extends Command{
     gp2Mem = f2.gamepiece
     ownerMem = f2.owner
     terMem = f2.territory
+    gp2Mem match{
+      case _:UnitGamePiece => terMem.removeUnit(_)
+      case _ =>
+    }
 
     f1.gamepiece = NoPiece()
     f2.gamepiece = gp1Mem
@@ -42,7 +46,7 @@ class MoveCommand(f1: Field, f2: Field, ctrl:Controller) extends Command{
       case (o, _) if o == ownerMem => splitTerList = Set(x)::splitTerList
       case _ =>
     })
-    biggestTer = cmbTerList.maxBy(_.size())
+    biggestTer = cmbTerList.maxBy(_.size)
     cmbTerList = cmbTerList.filterNot(_ == biggestTer)
 
 
@@ -55,7 +59,10 @@ class MoveCommand(f1: Field, f2: Field, ctrl:Controller) extends Command{
     }
 
     cmbTerList.foreach{ ter =>
-      if(ter.capital != null) biggestTer.capital.balance += ter.capital.balance
+      if(ter.capital != null) {
+        biggestTer.capital.balance += ter.capital.balance
+        biggestTer.armyCost += ter.armyCost
+      }
       ter.fields.foreach{ f =>
         f.territory = biggestTer
         biggestTer.addField(f)}
@@ -87,14 +94,14 @@ class MoveCommand(f1: Field, f2: Field, ctrl:Controller) extends Command{
                 case _ =>
               }
             }
-            if(tmp_ter.size() >= 2){
+            if(tmp_ter.size >= 2){
               tmp_ter.fields.find(_.gamepiece.isInstanceOf[NoPiece]) match{
                 case Some(newCapital) =>
                   newCapital.gamepiece = new Capital(newCapital.owner, 0)
                   tmp_ter.setCapital(newCapital)
                   tmp_ter.capital.balance = 0
                   ctrl.capitals += newCapital
-                  println(newCapital.territory.size())
+                  println(newCapital.territory.size)
                   println(newCapital.territory.armyCost)
                 case None =>
                   val f = tmp_ter.fields.toIndexedSeq(Random.nextInt(tmp_ter.fields.size))
@@ -114,13 +121,12 @@ class MoveCommand(f1: Field, f2: Field, ctrl:Controller) extends Command{
   }
 
   def recursion(f: Field, list: Set[Field]): Set[Field] ={
-    var reclist = list + f
+    var recList = list + f
     f.neighbors.foreach(field =>
-      if(field != null && field.owner == ownerMem && !reclist.contains(field))
-        reclist ++= recursion(field, reclist)
+      if(field != null && field.owner == ownerMem && !recList.contains(field))
+        recList ++= recursion(field, recList)
     )
-
-    reclist
+    recList
   }
 
 
@@ -147,7 +153,10 @@ class MoveCommand(f1: Field, f2: Field, ctrl:Controller) extends Command{
 
 
     cmbTerList.foreach{ ter =>
-      if(ter.capital != null) biggestTer.capital.balance -= ter.capital.balance
+      if(ter.capital != null) {
+        biggestTer.capital.balance -= ter.capital.balance
+        biggestTer.armyCost -= ter.armyCost
+      }
       ter.fields.foreach{ f =>
         f.territory = ter
         biggestTer.removeField(f)}
@@ -195,7 +204,10 @@ class MoveCommand(f1: Field, f2: Field, ctrl:Controller) extends Command{
     }
 
     cmbTerList.foreach{ ter =>
-      if(ter.capital != null) biggestTer.capital.balance += ter.capital.balance
+      if(ter.capital != null) {
+        biggestTer.capital.balance += ter.capital.balance
+        biggestTer.armyCost += ter.armyCost
+      }
       ter.fields.foreach{ f =>
         f.territory = biggestTer
         biggestTer.addField(f)}

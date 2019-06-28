@@ -29,8 +29,10 @@ class Controller extends Observable{
   }
 
   def seeBalance(c: Int): Unit ={
-    if(checkOwner(c))
-      notifyObservers(BalanceEvent(grid(c).territory.capital.balance))
+    if(checkOwner(c)){
+      val ter = grid(c).territory
+      notifyObservers(BalanceEvent(ter.capital.balance, ter.size, ter.armyCost))
+    }
   }
 
 

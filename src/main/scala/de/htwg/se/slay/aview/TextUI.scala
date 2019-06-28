@@ -120,7 +120,7 @@ class TextUI(controller: Controller) extends Observer{
       case p: PlayerEvent =>
         println("It is your turn " + p.name.toUpperCase + " !"); true
       case b: BalanceEvent =>
-        println("balance: " + b.bal); true
+        println("balance: " + b.bal + "\tincome: " + b.inc + "\tarmycost: " + b.cost); true
       case _: OwnerErrorEvent =>
         println("You are not the Owner of this!"); true
       case _: GamePieceErrorEvent =>

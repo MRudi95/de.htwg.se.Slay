@@ -275,7 +275,7 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
       case p: PlayerEvent =>
         statusField.text = "It is your turn " + p.name.toUpperCase + " !"; true
       case b: BalanceEvent =>
-        statusField.text = "Balance: " + b.bal; true
+        statusField.text = "Balance: " + b.bal + "\tIncome: " + b.inc + "\tArmyCost: " + b.cost; true
       case _: OwnerErrorEvent =>
         statusField.text = "You are not the Owner of this!"; true
       case _: GamePieceErrorEvent =>

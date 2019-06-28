@@ -29,7 +29,7 @@ class TextUISpec extends WordSpec with Matchers{
         tui.update(SuccessEvent())
         tui.update(MoneyErrorEvent())
         tui.update(PlayerEvent(controller.players(1).toString))
-        tui.update(BalanceEvent(20))
+        tui.update(BalanceEvent(20, 20, 20))
         tui.update(OwnerErrorEvent())
         tui.update(GamePieceErrorEvent())
         tui.update(CombineErrorEvent())

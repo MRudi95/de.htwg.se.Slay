@@ -11,7 +11,7 @@ case class GridCreatedEvent() extends Event
 
 
 case class PlayerEvent(name: String) extends Event
-case class BalanceEvent(bal: Int) extends Event
+case class BalanceEvent(bal: Int, inc: Int, cost: Int) extends Event
 case class VictoryEvent(name: String) extends Event
 
 
