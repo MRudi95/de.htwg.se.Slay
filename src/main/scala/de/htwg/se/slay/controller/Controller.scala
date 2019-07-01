@@ -148,7 +148,7 @@ class Controller extends Observable{
       val cap = field.gamepiece.asInstanceOf[Capital]
       cap.balance += field.territory.size
       cap.balance -= field.territory.armyCost
-      if(cap.balance <= 0){
+      if(cap.balance < 0){
         cap.balance = 0
         field.territory.fields.foreach(x => x.gamepiece match{
           case _:UnitGamePiece =>
