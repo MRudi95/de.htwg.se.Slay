@@ -13,7 +13,7 @@ class ControllerSpec extends WordSpec with Matchers{
       val playr1 = new Player("1","")
       controller.addPlayer(playr1)
       "have added Players" in{
-        controller.players(1) should be (playr1)
+        controller.players(3) should be (playr1)
       }
       "have no Grid yet" in{
         controller.grid should be (null)
