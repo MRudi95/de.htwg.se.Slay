@@ -5,7 +5,7 @@ import org.scalatest._
 class GridSpec extends WordSpec with Matchers{
   "A Grid contains all the Fields of the Map and" when{
     "created" should{
-      val playr = Player("","")
+      val playr = new Player("","")
       val field = new Field(playr)
       val fields = Vector[Field](field, field, field, field, field, field)
       val grid = Grid(fields, 1, 2)

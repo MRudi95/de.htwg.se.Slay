@@ -83,15 +83,13 @@ class MoveCommand(f1: Field, f2: Field, ctrl:Controller) extends Command{
 
     terMem.fields.find(_.gamepiece.isInstanceOf[Capital]) match{
       case Some(field) =>
-        splitTerList.foreach(list =>
-          if(!list.contains(field)) {
+        splitTerList.foreach { list =>
+          if (!list.contains(field)) {
             list.foreach(splitTer.removeField(_))
             splitTer.fields.foreach(_.territory = splitTer)
-
-            splitTerList.foreach(list => splittingTerritories(list))
+            splittingTerritories(list)
           }
-
-        )
+        }
       case None =>
         splitTerritory = List()
         splitTerList.foreach(list => splittingTerritories(list))

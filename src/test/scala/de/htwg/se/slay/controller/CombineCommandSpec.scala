@@ -6,10 +6,6 @@ import org.scalatest.{Matchers, WordSpec}
 class CombineCommandSpec extends WordSpec with Matchers{
   "A CombineCommand is used to combine two UnitGamePieces and" should{
     val controller = new Controller
-    val playr1 = Player("1","")
-    val playr2 = Player("2","")
-    controller.addPlayer(playr1)
-    controller.addPlayer(playr2)
     controller.createGrid("Test", "test")
 
     "save the old GamePieces" in{

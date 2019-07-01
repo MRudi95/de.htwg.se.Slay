@@ -6,10 +6,6 @@ import org.scalatest.{Matchers, WordSpec}
 class CastleCommandSpec extends WordSpec with Matchers{
   "A CastleCommand is used to purchase a Castle and" should{
     val controller = new Controller
-    val playr1 = Player("1","")
-    val playr2 = Player("2","")
-    controller.addPlayer(playr1)
-    controller.addPlayer(playr2)
     controller.createGrid("Test", "test")
 
     "place a Castle on a Field given by an Index" in{

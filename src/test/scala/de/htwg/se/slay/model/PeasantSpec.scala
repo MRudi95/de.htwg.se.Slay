@@ -5,7 +5,7 @@ import org.scalatest._
 class PeasantSpec extends WordSpec with Matchers {
   "A Peasant is the first and weakest Unit and" when{
     "new" should{
-      val playr = Player("", "")
+      val playr = new Player("", "")
       val peasant = new Peasant(playr)
       "have a nice String representation" in {
         peasant.toString should be("1")
@@ -27,7 +27,7 @@ class PeasantSpec extends WordSpec with Matchers {
       }
     }
     "it has moved in a turn" should{
-      val playr = Player("", "")
+      val playr = new Player("", "")
       val peasant = new Peasant(playr)
       peasant.hasMoved = true
       "have moved as true" in{
@@ -35,7 +35,7 @@ class PeasantSpec extends WordSpec with Matchers {
       }
     }
     "a new turn starts" should{
-      val playr = Player("", "")
+      val playr = new Player("", "")
       val peasant = new Peasant(playr)
       peasant.hasMoved = false
       "have hasMoved set as true" in{

@@ -86,8 +86,19 @@ class SquareMapBuilder(val players:Vector[Player]) extends MapBuilder {
       val south = field.neighbors.neighborSouth
       if(east != null && east.owner == field.owner) {
         if(east.territory != null) {
-          field.territory = east.territory
-          field.territory.addField(field)
+          if(field.territory.size == 1) {
+            field.territory = east.territory
+            field.territory.addField(field)
+          } else{
+            east.territory.fields.find(_.gamepiece.isInstanceOf[Capital]) match{
+              case Some(capField) => field.territory.setCapital(capField)
+              case None =>
+            }
+            east.territory.fields.foreach { f =>
+              f.territory = field.territory
+              field.territory.addField(f)
+            }
+          }
         } else {
           east.territory = field.territory
           field.territory.addField(east)

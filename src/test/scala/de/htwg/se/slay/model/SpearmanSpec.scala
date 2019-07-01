@@ -5,7 +5,7 @@ import org.scalatest._
 class SpearmanSpec extends WordSpec with Matchers {
   "A Spearman is the second Unit and" when{
     "new" should{
-      val playr = Player("", "")
+      val playr = new Player("", "")
       val spearman = new Spearman(playr)
       "have a nice String representation" in {
         spearman.toString should be("2")
@@ -27,7 +27,7 @@ class SpearmanSpec extends WordSpec with Matchers {
       }
     }
     "it has moved in a turn" should{
-      val playr = Player("", "")
+      val playr = new Player("", "")
       val spearman = new Spearman(playr)
       spearman.hasMoved = true
       "have moved as true" in{
@@ -35,7 +35,7 @@ class SpearmanSpec extends WordSpec with Matchers {
       }
     }
     "a new turn starts" should{
-      val playr = Player("", "")
+      val playr = new Player("", "")
       val spearman = new Spearman(playr)
       spearman.hasMoved = false
       "have hasMoved set as true" in{

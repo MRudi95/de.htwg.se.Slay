@@ -5,7 +5,7 @@ import org.scalatest._
 class KnightSpec extends WordSpec with Matchers {
   "A Knight is the third Unit and" when{
     "new" should{
-      val playr = Player("", "")
+      val playr = new Player("", "")
       val knight = new Knight(playr)
       "have a nice String representation" in {
         knight.toString should be("3")
@@ -27,7 +27,7 @@ class KnightSpec extends WordSpec with Matchers {
       }
     }
     "it has moved in a turn" should{
-      val playr = Player("", "")
+      val playr = new Player("", "")
       val knight = new Knight(playr)
       knight.hasMoved = true
       "have moved as true" in{
@@ -35,7 +35,7 @@ class KnightSpec extends WordSpec with Matchers {
       }
     }
     "a new turn starts" should{
-      val playr = Player("", "")
+      val playr = new Player("", "")
       val knight = new Knight(playr)
       knight.hasMoved = false
       "have hasMoved set as true" in{

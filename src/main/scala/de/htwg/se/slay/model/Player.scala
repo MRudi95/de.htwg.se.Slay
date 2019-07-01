@@ -1,5 +1,5 @@
 package de.htwg.se.slay.model
 
-case class Player(name: String, color: String) {
+class Player(var name: String, val color: String) {
   override def toString: String = name
 }

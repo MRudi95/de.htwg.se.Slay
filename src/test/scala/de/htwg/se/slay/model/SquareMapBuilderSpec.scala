@@ -6,7 +6,10 @@ import scala.collection.immutable.HashSet
 
 class SquareMapBuilderSpec extends WordSpec with Matchers {
   "A MapReader" should {
-    val players: Vector[Player] = Vector(Player("0",""), Player("1",""), Player("2",""))
+    val players: Vector[Player] = Vector(
+      new Player("0",""),
+      new Player("1",""),
+      new Player("2",""))
     val reader = new SquareMapBuilder(players)
     val (grid: Grid, capitals: HashSet[Field]) = reader.gridCreator("Test", "test")
 

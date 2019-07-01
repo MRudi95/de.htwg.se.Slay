@@ -7,8 +7,8 @@ import org.scalatest.{Matchers, WordSpec}
 class UndoManagerSpec extends WordSpec with Matchers{
   "An UndoManager is responsible for undo/redo operations and" should{
     val controller = new Controller
-    val playr1 = Player("1","")
-    val playr2 = Player("2","")
+    val playr1 = new Player("1","")
+    val playr2 = new Player("2","")
     controller.addPlayer(playr1)
     controller.addPlayer(playr2)
     controller.createGrid("Test", "test")

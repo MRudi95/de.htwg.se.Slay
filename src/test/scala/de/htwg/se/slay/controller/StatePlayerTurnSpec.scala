@@ -10,10 +10,6 @@ class StatePlayerTurnSpec extends WordSpec with Matchers{
     }
 
     val controller = new Controller
-    val playr1 = Player("1","")
-    val playr2 = Player("2","")
-    controller.addPlayer(playr1)
-    controller.addPlayer(playr2)
     controller.createGrid("Test", "test")
 
     "handle Player0Turn" in {

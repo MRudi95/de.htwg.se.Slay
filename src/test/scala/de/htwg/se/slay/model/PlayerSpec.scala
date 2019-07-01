@@ -5,7 +5,7 @@ import org.scalatest._
 class PlayerSpec extends WordSpec with Matchers {
   "A Player" when {
     "new" should {
-      val player = Player("Your Name", "\033[44m")
+      val player = new Player("Your Name", "\033[44m")
       "have a name"  in {
         player.name should be("Your Name")
       }
@@ -14,9 +14,6 @@ class PlayerSpec extends WordSpec with Matchers {
       }
       "have a Color as ANSI escape code" in {
         player.color should be ("\033[44m")
-      }
-      "unapply for code coverage" in {
-        Player.unapply(player).get should be(("Your Name", "\033[44m"))
       }
     }
   }

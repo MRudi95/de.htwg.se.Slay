@@ -12,8 +12,9 @@ object Slay{
   val tui = new TextUI(controller)
 
   def main(args: Array[String]) : Unit = {
-    StateStartUp.handle(WelcomeScreen(), controller)
+    //StateStartUp.handle(WelcomeScreen(), controller)
 
+    controller.createGrid("Map1")
     var input: String = ""
     controller.nextturn()
     do{

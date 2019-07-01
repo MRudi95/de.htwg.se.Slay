@@ -10,7 +10,7 @@ class ControllerSpec extends WordSpec with Matchers{
       "have Player0 as default" in{
         controller.players(0).name should be ("Player0")
       }
-      val playr1 = Player("1","")
+      val playr1 = new Player("1","")
       controller.addPlayer(playr1)
       "have added Players" in{
         controller.players(1) should be (playr1)
@@ -24,11 +24,6 @@ class ControllerSpec extends WordSpec with Matchers{
     }
     "creating a Grid" should{
       val controller = new Controller
-      val playr1 = Player("1","")
-      val playr2 = Player("2","")
-      controller.addPlayer(playr1)
-      controller.addPlayer(playr2)
-
       controller.createGrid("Test", "test")
       "have a Grid" in{
         controller.grid should not be null
@@ -48,10 +43,6 @@ class ControllerSpec extends WordSpec with Matchers{
     }
     "doing actions on the game" should{
       val controller = new Controller
-      val playr1 = Player("1","")
-      val playr2 = Player("2","")
-      controller.addPlayer(playr1)
-      controller.addPlayer(playr2)
       controller.createGrid("Test", "test")
 
       "notify the Observers with the balance of a capital" in{

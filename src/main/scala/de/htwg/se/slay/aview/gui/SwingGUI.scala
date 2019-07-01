@@ -9,7 +9,7 @@ import de.htwg.se.slay.util.Observer
 import scala.collection.mutable.ListBuffer
 import scala.swing._
 import scala.swing.Swing._
-import scala.swing.event.{ButtonClicked, Key, MouseClicked}
+import scala.swing.event.{ButtonClicked, MouseClicked}
 
 
 class SwingGUI(controller: Controller) extends Frame with Observer{
@@ -71,10 +71,10 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
     listenTo(okButton)
     reactions += {
       case ButtonClicked(this.okButton) if nameField.text == "" =>
-        controller.addPlayer(Player("Player " + player , "\033[10" + (4-player) + "m"))
+        controller.addPlayer(new Player("Player " + player , "\033[10" + (4-player) + "m"))
         StateStartUp.handle(ReadPlayerName(player+1), controller)
       case ButtonClicked(this.okButton) =>
-        controller.addPlayer(Player(nameField.text, "\033[10" + (4-player) + "m"))
+        controller.addPlayer(new Player(nameField.text, "\033[10" + (4-player) + "m"))
         StateStartUp.handle(ReadPlayerName(player+1), controller)
     }
 
@@ -100,6 +100,24 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
       contents += new MenuItem(Action("Undo"){ controller.undo() })
       contents += new MenuItem(Action("Redo"){ controller.redo() })
     }
+    contents += new Menu("Names"){
+      contents += new MenuItem(Action("Player 1"){
+        val res = Dialog.showInput(this, "Enter your new name:", "Name Change", Dialog.Message.Info, initial = "")
+        res match {
+          case Some(name) =>
+            controller.changeName(name, 1)
+          case None =>
+        }
+      })
+      contents += new MenuItem(Action("Player 2"){
+        val res = Dialog.showInput(this, "Enter your new name:", "Name Change", Dialog.Message.Info, initial = "")
+        res match {
+          case Some(name) =>
+            controller.changeName(name, 2)
+          case None =>
+        }
+      })
+    }
   }
 
   var gridPanel: GridPanel = new GridPanel(1, 1)
@@ -120,12 +138,13 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
     }
     val combineButton: Button = new Button("Combine")
     val moveButton: Button = new Button("Move")
+    val castleButton: Button = new Button("Castle")
     val balButton: Button = new Button("Balance")
     val endButton: Button = new Button("End Turn")
     val surButton: Button = new Button("Surrender")
 
-    contents += (buyButton, combineButton, moveButton, balButton, endButton, surButton)
-    listenTo(buyButton, combineButton, moveButton, balButton, endButton, surButton)
+    contents += (buyButton, combineButton, moveButton, castleButton, balButton, endButton, surButton)
+    listenTo(buyButton, combineButton, moveButton, castleButton, balButton, endButton, surButton)
 
     reactions += {
       case ButtonClicked(this.buyButton) if hiliteList.length == 1 =>
@@ -134,6 +153,8 @@ class SwingGUI(controller: Controller) extends Frame with Observer{
         controller.combineUnit(hiliteList.head.name.toInt, hiliteList(1).name.toInt)
       case ButtonClicked(this.moveButton) if hiliteList.length == 2 =>
         controller.moveUnit(hiliteList.head.name.toInt, hiliteList(1).name.toInt)
+      case ButtonClicked(this.castleButton) if hiliteList.length == 1 =>
+        controller.placeCastle(hiliteList.head.name.toInt)
       case ButtonClicked(this.balButton) if hiliteList.length == 1 =>
         controller.seeBalance(hiliteList.head.name.toInt)
       case ButtonClicked(this.endButton) =>

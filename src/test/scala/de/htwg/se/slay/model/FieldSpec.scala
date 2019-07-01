@@ -5,7 +5,7 @@ import org.scalatest._
 class FieldSpec extends WordSpec with Matchers {
   "A Field is the central property Players try to own to win the game and" when {
     "new" should {
-      val playr = Player("", "")
+      val playr = new Player("", "")
       val field = new Field(playr)
       "have a Player who owns the Field" in {
         field.owner should be(playr)
@@ -21,16 +21,16 @@ class FieldSpec extends WordSpec with Matchers {
       }
     }
     "its owner changes" should{
-      val playr = Player("", "")
+      val playr = new Player("", "")
       val field = new Field(playr)
-      val playr2 = Player("","")
+      val playr2 = new Player("","")
       field.owner = playr2
       "have the new owner" in{
         field.owner should be(playr2)
       }
     }
     "its GamePiece changes" should{
-      val playr = Player("", "")
+      val playr = new Player("", "")
       val field = new Field(playr)
       val gp = Tree()
       field.gamepiece = gp
@@ -39,7 +39,7 @@ class FieldSpec extends WordSpec with Matchers {
       }
     }
     "setting the neighboring Fields" should{
-      val playr = Player("", "")
+      val playr = new Player("", "")
       val fieldOne = new Field(playr)
       val fieldTwo = new Field(playr)
       val neighbors = Neighbors(fieldTwo, fieldOne, fieldOne, fieldTwo)
@@ -56,7 +56,7 @@ class FieldSpec extends WordSpec with Matchers {
       }
     }
     "its territory changes" should{
-      val playr = Player("", "")
+      val playr =  new Player("", "")
       val field = new Field(playr)
       val ter = new Territory
       field.territory = ter

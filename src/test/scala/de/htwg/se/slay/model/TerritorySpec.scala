@@ -18,7 +18,7 @@ class TerritorySpec extends WordSpec with Matchers {
         ter.size should be(0)
       }
 
-      val playr = Player("", "")
+      val playr = new Player("", "")
       val field = new Field(playr)
       val ter2 = new Territory
       ter2.addField(field)

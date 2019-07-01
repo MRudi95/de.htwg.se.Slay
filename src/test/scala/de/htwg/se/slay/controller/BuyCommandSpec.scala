@@ -6,10 +6,6 @@ import org.scalatest.{Matchers, WordSpec}
 class BuyCommandSpec extends WordSpec with Matchers{
   "A BuyCommand is used to purchase a Peasant and" should{
     val controller = new Controller
-    val playr1 = Player("1","")
-    val playr2 = Player("2","")
-    controller.addPlayer(playr1)
-    controller.addPlayer(playr2)
     controller.createGrid("Test", "test")
 
     "place a Peasant on a Field given by an Index" in{

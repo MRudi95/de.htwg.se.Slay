@@ -5,7 +5,7 @@ import org.scalatest._
 class CapitalSpec extends WordSpec with Matchers {
   "A Capital is the central building of a territory and" when{
     "new" should{
-      val playr = Player("", "")
+      val playr = new Player("", "")
       val capital = new Capital(playr)
       "have a nice String representation" in {
         capital.toString should be("C")

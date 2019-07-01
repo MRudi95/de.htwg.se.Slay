@@ -42,9 +42,9 @@ class TextUI(controller: Controller) extends Observer{
     if(name != "") {
       player match {
         case 1 =>
-          controller.addPlayer(Player(name, P1COLOR))
+          controller.addPlayer(new Player(name, P1COLOR))
         case 2 =>
-          controller.addPlayer(Player(name, P2COLOR))
+          controller.addPlayer(new Player(name, P2COLOR))
         case _ =>
       }
     }

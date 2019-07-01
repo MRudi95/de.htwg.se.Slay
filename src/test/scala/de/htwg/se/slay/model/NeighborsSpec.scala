@@ -5,7 +5,7 @@ import org.scalatest.{Matchers, WordSpec}
 class NeighborsSpec extends WordSpec with Matchers {
   "A Neighbors object is all the neighboring Fields surrounding a specific Field that" when{
     "created" should{
-      val playr = Player("", "")
+      val playr = new Player("", "")
       val fieldN = new Field(playr)
       val fieldW = new Field(playr)
       val fieldE = null

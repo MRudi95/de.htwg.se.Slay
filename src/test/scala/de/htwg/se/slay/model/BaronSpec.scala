@@ -5,7 +5,7 @@ import org.scalatest._
 class BaronSpec extends WordSpec with Matchers {
   "A Baron is the fourth and strongesst Unit and" when{
     "new" should{
-      val playr = Player("", "")
+      val playr = new Player("", "")
       val baron = new Baron(playr)
       "have a nice String representation" in {
         baron.toString should be("4")
@@ -27,7 +27,7 @@ class BaronSpec extends WordSpec with Matchers {
       }
     }
     "it has moved in a turn" should{
-      val playr = Player("", "")
+      val playr = new Player("", "")
       val baron = new Baron(playr)
       baron.hasMoved = true
       "have moved as true" in{
@@ -35,7 +35,7 @@ class BaronSpec extends WordSpec with Matchers {
       }
     }
     "a new turn starts" should{
-      val playr = Player("", "")
+      val playr = new Player("", "")
       val baron = new Baron(playr)
       baron.hasMoved = false
       "have hasMoved set as true" in{

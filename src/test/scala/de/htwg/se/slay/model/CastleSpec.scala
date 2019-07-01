@@ -5,7 +5,7 @@ import org.scalatest._
 class CastleSpec extends WordSpec with Matchers {
   "A Castle is an immovable GamePiece that can be used for defense and" when{
     "new" should{
-      val playr = Player("","")
+      val playr = new Player("","")
       val castle = Castle(playr)
       "have a nice String representation" in {
         castle.toString should be("B")

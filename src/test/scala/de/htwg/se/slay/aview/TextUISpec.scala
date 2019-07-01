@@ -22,8 +22,6 @@ class TextUISpec extends WordSpec with Matchers{
         //tui.readPlayerName(1)
       }
 
-      controller.addPlayer(Player("1",""))
-      controller.addPlayer(Player("2",""))
       controller.createGrid("Test", "test")
       "update the grid or react to certain Events" in{
         tui.update(SuccessEvent())
