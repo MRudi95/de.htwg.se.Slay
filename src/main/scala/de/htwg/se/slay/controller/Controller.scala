@@ -6,7 +6,10 @@ import de.htwg.se.slay.util.{Observable, UndoManager}
 import scala.collection.immutable.HashSet
 
 class Controller extends Observable{
-  var players: Vector[Player] = Vector(new Player("Player0", "\033[104m"), new Player("Player 1", "\033[103m"), new Player("Player 2", "\033[102m"))
+  var players: Vector[Player] = Vector(
+    new Player("Player0", "\033[104m"),
+    new Player("Player 1", "\033[103m"),
+    new Player("Player 2", "\033[102m"))
   var grid: Grid = _
   var capitals: HashSet[Field] = _
 
