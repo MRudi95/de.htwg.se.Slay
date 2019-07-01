@@ -43,7 +43,7 @@ class SquareMapBuilderSpec extends WordSpec with Matchers {
     }
 
     "special case \"U-formation\"" in{
-      reader.gridCreator("Map1")
+      reader.gridCreator("TestSpecialCases", "test")
     }
   }
 }
