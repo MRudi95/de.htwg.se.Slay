@@ -15,10 +15,8 @@ class TextUI(controller: Controller) extends Observer{
   private val B = "\033[1;97m"      //Text Color Black
   private val RED = "\033[41m"      //Red Background
   private val GREEN = "\033[42m"    //Green Background
-  private val P1COLOR = "\033[103m" //Yellow
-  private val P2COLOR = "\033[102m" //Green
 
-  def welcomeScreen(): Unit = {
+/*  def welcomeScreen(): Unit = {
     println("\n========== WELCOME TO SLAY ==========\n" +
             "\t Do You want to play a Game?\n\n" +
             "\t\t  " + B + GREEN + " YES " + R + "\t\t" + B + RED + " no " + R)
@@ -31,9 +29,9 @@ class TextUI(controller: Controller) extends Observer{
         println("Ok, bye!")
         System.exit(0)
     }
-  }
+  }*/
 
-  def readPlayerName(player: Int): Unit= {
+/*  def readPlayerName(player: Int): Unit= {
     println("\n Player " + player + " enter your name:")
 
     notify() //dat exception though, but need that context switch
@@ -49,9 +47,7 @@ class TextUI(controller: Controller) extends Observer{
       }
     }
     StateStartUp.handle(ReadPlayerName(player+1), controller)
-  }
-
-
+  }*/
 
   def processInput(input: String): Unit = {
     val coord = "[A-Z]\\d+".r
@@ -111,10 +107,10 @@ class TextUI(controller: Controller) extends Observer{
         println(controller.gridToString); true
       case _: GridCreatedEvent =>
         println(controller.gridToString); true
-      case _: WelcomeEvent =>
-        welcomeScreen(); true
-      case r: ReadPlayerEvent =>
-        readPlayerName(r.player); true
+//      case _: WelcomeEvent =>
+//        welcomeScreen(); true
+//      case r: ReadPlayerEvent =>
+//        readPlayerName(r.player); true
       case _: MoneyErrorEvent =>
         println("Not enough Money!"); true
       case p: PlayerEvent =>

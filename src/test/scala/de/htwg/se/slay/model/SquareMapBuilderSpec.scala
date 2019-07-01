@@ -41,5 +41,9 @@ class SquareMapBuilderSpec extends WordSpec with Matchers {
       grid(2).territory.fields.contains(grid(1)) should be (false)
       grid(2).territory.capital should be (grid(2).gamepiece)
     }
+
+    "special case \"U-formation\"" in{
+      reader.gridCreator("Map1")
+    }
   }
 }

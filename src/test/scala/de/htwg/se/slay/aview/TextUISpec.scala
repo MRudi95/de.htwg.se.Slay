@@ -1,7 +1,6 @@
 package de.htwg.se.slay.aview
 
 import de.htwg.se.slay.controller._
-import de.htwg.se.slay.model.Player
 import org.scalatest._
 
 class TextUISpec extends WordSpec with Matchers{
@@ -12,14 +11,6 @@ class TextUISpec extends WordSpec with Matchers{
 
       "be in the controllers subscribers list" in{
         controller.subscribers.contains(tui)
-      }
-
-      "print a Welcome Screen" in{
-        //tui.welcomeScreen()
-      }
-
-      "prompt a players name" in{
-        //tui.readPlayerName(1)
       }
 
       controller.createGrid("Test", "test")
@@ -33,6 +24,10 @@ class TextUISpec extends WordSpec with Matchers{
         tui.update(CombineErrorEvent())
         tui.update(UndoErrorEvent())
         tui.update(RedoErrorEvent())
+        tui.update(MoveErrorEvent())
+        tui.update(MovableErrorEvent())
+        tui.update(MovedErrorEvent())
+        tui.update(WelcomeEvent()) //do nothing
       }
 
       "process inputs" in{
@@ -45,7 +40,7 @@ class TextUISpec extends WordSpec with Matchers{
         tui.processInput("bal C1")
         tui.processInput("buy C1")
         tui.processInput("plc C1")
-        tui.processInput("mov C1 C3")
+        tui.processInput("mov C1 C2")
         tui.processInput("cmb C1 B1")
         tui.processInput("asdasd")
       }
