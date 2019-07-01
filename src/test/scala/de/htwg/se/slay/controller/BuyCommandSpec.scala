@@ -1,6 +1,6 @@
 package de.htwg.se.slay.controller
 
-import de.htwg.se.slay.model.{Peasant, Player}
+import de.htwg.se.slay.model.Peasant
 import org.scalatest.{Matchers, WordSpec}
 
 class BuyCommandSpec extends WordSpec with Matchers{
@@ -21,7 +21,7 @@ class BuyCommandSpec extends WordSpec with Matchers{
     }
 
     "undo and redo the Command" in{
-      val bc: BuyCommand = BuyCommand(5, controller)
+      val bc = BuyCommand(5, controller)
       val gp = controller.grid(5).gamepiece
       bc.doStep()
       bc.memento should be (gp)

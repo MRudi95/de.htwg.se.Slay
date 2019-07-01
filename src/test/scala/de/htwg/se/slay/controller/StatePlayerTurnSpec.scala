@@ -1,6 +1,5 @@
 package de.htwg.se.slay.controller
 
-import de.htwg.se.slay.model.Player
 import org.scalatest.{Matchers, WordSpec}
 
 class StatePlayerTurnSpec extends WordSpec with Matchers{
