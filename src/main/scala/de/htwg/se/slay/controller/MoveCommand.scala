@@ -43,12 +43,15 @@ class MoveCommand(f1: Field, f2: Field, ctrl:Controller) extends Command{
     f2.territory.addField(f2)
 
 
-    f2.neighbors.foreach(x => (x.owner, x.territory) match{
-      case (o, ter) if o == f2.owner && ter == f2.territory =>
-      case (o, ter) if o == f2.owner && !cmbTerList.contains(ter) => cmbTerList = ter::cmbTerList
-      case (o, _) if o == ownerMem => splitTerList = Set(x)::splitTerList
-      case _ =>
-    })
+    f2.neighbors.foreach(x =>
+      if(x != null){
+        (x.owner, x.territory) match{
+          case (o, ter) if o == f2.owner && ter == f2.territory =>
+          case (o, ter) if o == f2.owner && !cmbTerList.contains(ter) => cmbTerList = ter::cmbTerList
+          case (o, _) if o == ownerMem => splitTerList = Set(x)::splitTerList
+          case _ =>
+        }
+      })
     biggestTer = cmbTerList.maxBy(_.size)
     cmbTerList = cmbTerList.filterNot(_ == biggestTer)
 

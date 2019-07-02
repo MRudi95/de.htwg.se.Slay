@@ -92,14 +92,23 @@ class Controller extends Observable{
     grid(c2).owner != players(0) && grid(c2).owner != grid(c1).owner
 
   private def checkMoveNeighbor(c1: Int, c2:Int): Boolean ={
-    if(grid(c2).neighbors.exists(x => x.territory == grid(c1).territory)) true
+    if(grid(c2).neighbors.exists{x =>
+      if(x != null)x.territory == grid(c1).territory
+      else false
+      }
+    ) true
     else {moveErrorMsg = "Not a neighboring field!"; false}
   }
 
   private def checkMoveStrength(c1: Int, c2:Int): Boolean ={
     if(grid(c2).gamepiece.strength < grid(c1).gamepiece.strength
-      && !grid(c2).neighbors.exists(x => x.territory == grid(c2).territory
-      && x.gamepiece.strength >= grid(c1).gamepiece.strength)) true
+      && !grid(c2).neighbors.exists{x =>
+      if(x != null)
+        x.territory == grid(c2).territory && x.gamepiece.strength >= grid(c1).gamepiece.strength
+      else
+        false
+      }
+    ) true
     else {moveErrorMsg = "Your Unit is too weak!"; false}
   }
 
