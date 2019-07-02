@@ -163,8 +163,8 @@ class Controller extends Observable{
       if(cap.balance < 0){
         cap.balance = 0
         field.territory.fields.foreach(x => x.gamepiece match{
-          case _:UnitGamePiece =>
-            field.territory.removeUnit(_)
+          case unit:UnitGamePiece =>
+            field.territory.removeUnit(unit)
             x.gamepiece = Grave()
           case _ =>
         })

@@ -31,6 +31,8 @@ class CombineCommand(c1:Int, c2: Int, ctrl:Controller) extends Command{
     }
 
     ctrl.grid(c1).territory.addUnit(ctrl.grid(c1).gamepiece.asInstanceOf[UnitGamePiece])
+    if(memento1.asInstanceOf[UnitGamePiece].hasMoved || memento2.asInstanceOf[UnitGamePiece].hasMoved)
+      ctrl.grid(c1).gamepiece.asInstanceOf[UnitGamePiece].hasMoved = true
   }
 
   override def undoStep(): Unit = {
