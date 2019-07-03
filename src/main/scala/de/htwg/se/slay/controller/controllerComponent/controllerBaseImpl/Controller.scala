@@ -4,11 +4,13 @@ import net.codingwell.scalaguice.InjectorExtensions._
 import com.google.inject.{Guice, Injector}
 import de.htwg.se.slay.SlayModule
 import de.htwg.se.slay.controller.controllerComponent._
+import de.htwg.se.slay.model.fileIOComponent.fileIoXMLimpl.FileIO
 import de.htwg.se.slay.model.gamepieceComponent._
 import de.htwg.se.slay.model.gridComponent.{FieldInterface, GridInterface}
 import de.htwg.se.slay.model.mapComponent.MapFactory
 import de.htwg.se.slay.model.playerComponent.Player
 import de.htwg.se.slay.util.UndoManager
+
 import scala.collection.immutable.HashSet
 
 class Controller extends ControllerInterface{
@@ -223,5 +225,11 @@ class Controller extends ControllerInterface{
         notifyObservers(VictoryEvent(players(state-1).name))
       case _ =>
     }
+  }
+
+
+  def save(): Unit ={
+    new FileIO().save("test",players, state, grid)
+
   }
 }

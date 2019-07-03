@@ -68,7 +68,7 @@ class SquareMapBuilder @Inject() (@Assisted val players:Vector[Player]) extends 
     (grid, rowIdx-1)
   }
 
-  protected override def setNeighbors(grid: Vector[FieldInterface], rowIdx: Int, colIdx: Int): Unit = {
+  override def setNeighbors(grid: Vector[FieldInterface], rowIdx: Int, colIdx: Int): Unit = {
     var neighborN:Option[FieldInterface] = None
     var neighborW:Option[FieldInterface] = None
     var neighborE:Option[FieldInterface] = None
@@ -95,7 +95,7 @@ class SquareMapBuilder @Inject() (@Assisted val players:Vector[Player]) extends 
     }
   }
 
-  protected override def setTerritories(grid: Vector[FieldInterface]): HashSet[FieldInterface] = {
+  override def setTerritories(grid: Vector[FieldInterface]): HashSet[FieldInterface] = {
     var capitals: HashSet[FieldInterface] = HashSet()
     for(field <- grid){
       if(field.territory == null) {

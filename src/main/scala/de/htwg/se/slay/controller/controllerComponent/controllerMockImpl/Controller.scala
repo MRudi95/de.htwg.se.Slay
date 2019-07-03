@@ -43,4 +43,6 @@ class Controller extends ControllerInterface{
   override def undo(): Unit = {}
 
   override def redo(): Unit = {}
+
+  override def save(): Unit = ???
 }

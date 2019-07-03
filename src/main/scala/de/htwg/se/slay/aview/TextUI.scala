@@ -63,6 +63,7 @@ class TextUI(controller: ControllerInterface) extends Observer{
       case "undo" => controller.undo()
       case "redo" => controller.redo()
       case "end" => controller.nextturn()
+      case "save" => controller.save()
       case "ff20" => controller.surrender()
       case bal(c) if checkIndex(c) =>
         controller.seeBalance(convertIndex(c))
