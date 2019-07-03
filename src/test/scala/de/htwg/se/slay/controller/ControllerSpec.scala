@@ -51,8 +51,8 @@ class ControllerSpec extends WordSpec with Matchers{
       ctrl.changeName("newname", 1)
       ctrl.changeName("namenew", 2)
       "have the changed names" in{
-        ctrl.players(1) should be ("newname")
-        ctrl.players(2) should be ("namenew")
+        ctrl.players(1).name should be ("newname")
+        ctrl.players(2).name should be ("namenew")
       }
     }
 
