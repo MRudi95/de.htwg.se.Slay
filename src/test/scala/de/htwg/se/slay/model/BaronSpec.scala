@@ -1,5 +1,7 @@
 package de.htwg.se.slay.model
 
+import de.htwg.se.slay.model.gamepieceComponent.Baron
+import de.htwg.se.slay.model.playerComponent.Player
 import org.scalatest._
 
 class BaronSpec extends WordSpec with Matchers {

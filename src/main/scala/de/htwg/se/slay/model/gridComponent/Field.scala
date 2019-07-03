@@ -1,4 +1,7 @@
-package de.htwg.se.slay.model
+package de.htwg.se.slay.model.gridComponent
+
+import de.htwg.se.slay.model.playerComponent.Player
+import de.htwg.se.slay.model.gamepieceComponent.{GamePiece, NoPiece}
 
 class Field(private var _owner: Player, private var _gamepiece: GamePiece = NoPiece()) {
   private var _neighbors: Neighbors= _

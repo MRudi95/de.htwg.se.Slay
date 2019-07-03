@@ -1,6 +1,7 @@
 package de.htwg.se.slay.controller
 
-import de.htwg.se.slay.model.Peasant
+import de.htwg.se.slay.controller.controllerComponent.{BuyCommand, Controller, MoveCommand}
+import de.htwg.se.slay.model.gamepieceComponent.Peasant
 import org.scalatest.{Matchers, WordSpec}
 
 class MoveCommandSpec extends WordSpec with Matchers{

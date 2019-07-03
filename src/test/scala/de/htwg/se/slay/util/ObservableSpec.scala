@@ -1,6 +1,6 @@
 package de.htwg.se.slay.util
 
-import de.htwg.se.slay.controller.Event
+import de.htwg.se.slay.controller.controllerComponent.Event
 import org.scalatest.{Matchers, WordSpec}
 
 class ObservableSpec extends WordSpec with Matchers {

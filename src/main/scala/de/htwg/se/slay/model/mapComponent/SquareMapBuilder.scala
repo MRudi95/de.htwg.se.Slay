@@ -1,4 +1,8 @@
-package de.htwg.se.slay.model
+package de.htwg.se.slay.model.mapComponent
+
+import de.htwg.se.slay.model.gamepieceComponent.{Capital, Tree}
+import de.htwg.se.slay.model.gridComponent.{Field, Grid, Neighbors, Territory}
+import de.htwg.se.slay.model.playerComponent.Player
 
 import scala.collection.immutable.HashSet
 import scala.io.BufferedSource

@@ -1,4 +1,6 @@
-package de.htwg.se.slay.model
+package de.htwg.se.slay.model.gamepieceComponent
+
+import de.htwg.se.slay.model.playerComponent.Player
 
 case class Castle(player: Player) extends GamePiece {
   val strength: Int = 2

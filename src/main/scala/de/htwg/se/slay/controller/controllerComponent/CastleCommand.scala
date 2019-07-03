@@ -1,6 +1,6 @@
-package de.htwg.se.slay.controller
+package de.htwg.se.slay.controller.controllerComponent
 
-import de.htwg.se.slay.model.{Castle, GamePiece}
+import de.htwg.se.slay.model.gamepieceComponent.{Castle, GamePiece}
 import de.htwg.se.slay.util.Command
 
 case class CastleCommand(c: Int, ctrl:Controller) extends Command{

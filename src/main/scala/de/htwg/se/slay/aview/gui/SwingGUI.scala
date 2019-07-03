@@ -3,7 +3,9 @@ package de.htwg.se.slay.aview.gui
 import java.awt.Color
 
 import de.htwg.se.slay.controller._
-import de.htwg.se.slay.model._
+import de.htwg.se.slay.controller.controllerComponent._
+import de.htwg.se.slay.model.gamepieceComponent._
+import de.htwg.se.slay.model.playerComponent.Player
 import de.htwg.se.slay.util.Observer
 
 import scala.collection.mutable.ListBuffer

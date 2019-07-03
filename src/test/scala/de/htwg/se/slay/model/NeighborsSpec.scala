@@ -1,5 +1,7 @@
 package de.htwg.se.slay.model
 
+import de.htwg.se.slay.model.gridComponent.{Field, Neighbors}
+import de.htwg.se.slay.model.playerComponent.Player
 import org.scalatest.{Matchers, WordSpec}
 
 class NeighborsSpec extends WordSpec with Matchers {

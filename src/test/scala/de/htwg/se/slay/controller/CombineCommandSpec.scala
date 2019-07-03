@@ -1,6 +1,8 @@
 package de.htwg.se.slay.controller
 
+import de.htwg.se.slay.controller.controllerComponent.{CombineCommand, Controller}
 import de.htwg.se.slay.model._
+import de.htwg.se.slay.model.gamepieceComponent._
 import org.scalatest.{Matchers, WordSpec}
 
 class CombineCommandSpec extends WordSpec with Matchers{

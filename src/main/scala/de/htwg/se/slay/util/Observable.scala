@@ -1,6 +1,6 @@
 package de.htwg.se.slay.util
 
-import de.htwg.se.slay.controller.{Event, SuccessEvent}
+import de.htwg.se.slay.controller.controllerComponent.{Event, SuccessEvent}
 
 class Observable {
   var subscribers: Vector[Observer] = Vector()

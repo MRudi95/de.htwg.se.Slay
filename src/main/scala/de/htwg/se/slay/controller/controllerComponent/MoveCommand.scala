@@ -1,6 +1,8 @@
-package de.htwg.se.slay.controller
+package de.htwg.se.slay.controller.controllerComponent
 
-import de.htwg.se.slay.model._
+import de.htwg.se.slay.model.gamepieceComponent.{Capital, GamePiece, NoPiece, UnitGamePiece}
+import de.htwg.se.slay.model.gridComponent.{Field, Territory}
+import de.htwg.se.slay.model.playerComponent.Player
 import de.htwg.se.slay.util.Command
 
 import scala.util.Random

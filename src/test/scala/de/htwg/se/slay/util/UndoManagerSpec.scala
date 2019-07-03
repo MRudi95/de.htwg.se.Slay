@@ -1,7 +1,7 @@
 package de.htwg.se.slay.util
 
-import de.htwg.se.slay.controller.{BuyCommand, Controller}
-import de.htwg.se.slay.model.Player
+import de.htwg.se.slay.controller.controllerComponent.{BuyCommand, Controller}
+import de.htwg.se.slay.model.playerComponent.Player
 import org.scalatest.{Matchers, WordSpec}
 
 class UndoManagerSpec extends WordSpec with Matchers{

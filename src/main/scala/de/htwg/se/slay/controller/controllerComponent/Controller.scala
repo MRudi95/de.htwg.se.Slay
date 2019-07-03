@@ -1,6 +1,10 @@
-package de.htwg.se.slay.controller
+package de.htwg.se.slay.controller.controllerComponent
 
-import de.htwg.se.slay.model._
+import de.htwg.se.slay.controller._
+import de.htwg.se.slay.model.gamepieceComponent._
+import de.htwg.se.slay.model.gridComponent.{Field, Grid}
+import de.htwg.se.slay.model.mapComponent.SquareMapBuilder
+import de.htwg.se.slay.model.playerComponent.Player
 import de.htwg.se.slay.util.{Observable, UndoManager}
 
 import scala.collection.immutable.HashSet

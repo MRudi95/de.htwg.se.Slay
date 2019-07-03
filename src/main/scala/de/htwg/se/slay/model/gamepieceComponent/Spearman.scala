@@ -1,4 +1,6 @@
-package de.htwg.se.slay.model
+package de.htwg.se.slay.model.gamepieceComponent
+
+import de.htwg.se.slay.model.playerComponent.Player
 
 class Spearman(val player: Player) extends UnitGamePiece {
   override val strength: Int = 2

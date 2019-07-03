@@ -1,5 +1,7 @@
 package de.htwg.se.slay.model
 
+import de.htwg.se.slay.model.gridComponent.{Field, Grid}
+import de.htwg.se.slay.model.playerComponent.Player
 import org.scalatest._
 
 class GridSpec extends WordSpec with Matchers{

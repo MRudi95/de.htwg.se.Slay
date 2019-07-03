@@ -1,5 +1,7 @@
 package de.htwg.se.slay.model
 
+import de.htwg.se.slay.model.gamepieceComponent.Capital
+import de.htwg.se.slay.model.playerComponent.Player
 import org.scalatest._
 
 class CapitalSpec extends WordSpec with Matchers {

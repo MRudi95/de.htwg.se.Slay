@@ -1,6 +1,9 @@
 package de.htwg.se.slay.controller
 
+import de.htwg.se.slay.controller.controllerComponent.Controller
 import de.htwg.se.slay.model._
+import de.htwg.se.slay.model.gamepieceComponent._
+import de.htwg.se.slay.model.playerComponent.Player
 import org.scalatest._
 
 class ControllerSpec extends WordSpec with Matchers{

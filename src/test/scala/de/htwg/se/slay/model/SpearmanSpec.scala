@@ -1,5 +1,7 @@
 package de.htwg.se.slay.model
 
+import de.htwg.se.slay.model.gamepieceComponent.Spearman
+import de.htwg.se.slay.model.playerComponent.Player
 import org.scalatest._
 
 class SpearmanSpec extends WordSpec with Matchers {

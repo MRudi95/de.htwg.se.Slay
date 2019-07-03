@@ -1,5 +1,7 @@
 package de.htwg.se.slay.controller
 
+import de.htwg.se.slay.controller.controllerComponent.Controller
+
 object StatePlayerTurn {
   var state = idle()
 

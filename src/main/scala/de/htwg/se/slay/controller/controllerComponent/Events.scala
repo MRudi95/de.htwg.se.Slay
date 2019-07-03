@@ -1,4 +1,4 @@
-package de.htwg.se.slay.controller
+package de.htwg.se.slay.controller.controllerComponent
 
 trait Event{}
 

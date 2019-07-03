@@ -1,4 +1,6 @@
-package de.htwg.se.slay.model
+package de.htwg.se.slay.model.mapComponent
+
+import de.htwg.se.slay.model.gridComponent.{Field, Grid}
 
 import scala.collection.immutable.HashSet
 import scala.io.BufferedSource

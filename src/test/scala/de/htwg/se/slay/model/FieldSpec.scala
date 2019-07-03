@@ -1,5 +1,8 @@
 package de.htwg.se.slay.model
 
+import de.htwg.se.slay.model.gamepieceComponent.{NoPiece, Tree}
+import de.htwg.se.slay.model.gridComponent.{Field, Neighbors, Territory}
+import de.htwg.se.slay.model.playerComponent.Player
 import org.scalatest._
 
 class FieldSpec extends WordSpec with Matchers {

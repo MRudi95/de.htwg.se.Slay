@@ -1,5 +1,6 @@
 package de.htwg.se.slay.controller
 
+import de.htwg.se.slay.controller.controllerComponent.Controller
 import org.scalatest.{Matchers, WordSpec}
 
 class StateStartUpSpec extends WordSpec with Matchers{

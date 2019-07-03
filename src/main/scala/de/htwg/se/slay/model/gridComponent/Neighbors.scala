@@ -1,4 +1,4 @@
-package de.htwg.se.slay.model
+package de.htwg.se.slay.model.gridComponent
 
 case class Neighbors(neighborNorth:Field, neighborWest:Field,
                      neighborEast:Field, neighborSouth:Field) extends Iterable[Field]{

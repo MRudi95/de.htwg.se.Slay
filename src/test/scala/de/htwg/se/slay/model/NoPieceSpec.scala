@@ -1,5 +1,6 @@
 package de.htwg.se.slay.model
 
+import de.htwg.se.slay.model.gamepieceComponent.NoPiece
 import org.scalatest._
 
 class NoPieceSpec extends WordSpec with Matchers {

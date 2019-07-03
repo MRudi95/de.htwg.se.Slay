@@ -1,6 +1,6 @@
-package de.htwg.se.slay.controller
+package de.htwg.se.slay.controller.controllerComponent
 
-import de.htwg.se.slay.model._
+import de.htwg.se.slay.model.gamepieceComponent._
 import de.htwg.se.slay.util.Command
 
 class CombineCommand(c1:Int, c2: Int, ctrl:Controller) extends Command{

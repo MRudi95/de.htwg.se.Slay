@@ -1,7 +1,8 @@
-import de.htwg.se.slay.model.{Field, Player, Territory}
+import de.htwg.se.slay.model.gridComponent.{Field, Territory}
+import de.htwg.se.slay.model.playerComponent.Player
 
-val field = new Field(Player("",""))
-val field2 = new Field(Player("",""))
+val field = new Field(new Player("",""))
+val field2 = new Field(new Player("",""))
 val ter1 = new Territory()
 val ter2 = new Territory()
 
@@ -12,5 +13,5 @@ ter2.addField(field)
 
 var list = List(ter1, ter2)
 
-val ter3 = list.maxBy(_.size())
+val ter3 = list.maxBy(_.size)
 list = list.filterNot(_ == ter3)

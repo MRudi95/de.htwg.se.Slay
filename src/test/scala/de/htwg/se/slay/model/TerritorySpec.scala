@@ -1,5 +1,8 @@
 package de.htwg.se.slay.model
 
+import de.htwg.se.slay.model.gamepieceComponent.Capital
+import de.htwg.se.slay.model.gridComponent.{Field, Territory}
+import de.htwg.se.slay.model.playerComponent.Player
 import org.scalatest._
 
 import scala.collection.immutable.HashSet

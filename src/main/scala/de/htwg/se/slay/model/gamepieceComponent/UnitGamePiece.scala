@@ -1,4 +1,4 @@
-package de.htwg.se.slay.model
+package de.htwg.se.slay.model.gamepieceComponent
 
 trait UnitGamePiece extends GamePiece{
   var hasMoved: Boolean
