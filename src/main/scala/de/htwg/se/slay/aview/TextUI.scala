@@ -1,12 +1,13 @@
 package de.htwg.se.slay.aview
 
 import de.htwg.se.slay.controller.controllerComponent._
+import de.htwg.se.slay.controller.controllerComponent.controllerBaseImpl.Controller
 import de.htwg.se.slay.util.Observer
 
 //import scala.io.StdIn.readLine
 //import de.htwg.se.slay.model.playerComponent.Player
 
-class TextUI(controller: Controller) extends Observer{
+class TextUI(controller: ControllerInterface) extends Observer{
 
   controller.add(this)
 

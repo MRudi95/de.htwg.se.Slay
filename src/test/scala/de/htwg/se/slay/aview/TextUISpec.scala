@@ -1,6 +1,7 @@
 package de.htwg.se.slay.aview
 
 import de.htwg.se.slay.controller.controllerComponent._
+import de.htwg.se.slay.controller.controllerComponent.controllerBaseImpl.Controller
 import org.scalatest._
 
 class TextUISpec extends WordSpec with Matchers{

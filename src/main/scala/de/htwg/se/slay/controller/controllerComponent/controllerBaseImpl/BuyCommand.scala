@@ -1,4 +1,4 @@
-package de.htwg.se.slay.controller.controllerComponent
+package de.htwg.se.slay.controller.controllerComponent.controllerBaseImpl
 
 import de.htwg.se.slay.model.gamepieceComponent.{GamePiece, Peasant, UnitGamePiece}
 import de.htwg.se.slay.util.Command

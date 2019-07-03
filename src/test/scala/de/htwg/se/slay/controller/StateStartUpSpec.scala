@@ -1,12 +1,12 @@
 package de.htwg.se.slay.controller
 
-import de.htwg.se.slay.controller.controllerComponent.Controller
+import de.htwg.se.slay.controller.controllerComponent.controllerBaseImpl.Controller
 import org.scalatest.{Matchers, WordSpec}
 
 class StateStartUpSpec extends WordSpec with Matchers{
   "The StatePlayerTurn is supposed to handle WelcomeScreen and ReadPlayerName Events as a state and" should{
     "have an idle state at the beginning" in{
-      StateStartUp.state should be (StatePlayerTurn.idle())
+      StateStartUp.state should be (StateStartUp.idle())
     }
 
     val controller = new Controller

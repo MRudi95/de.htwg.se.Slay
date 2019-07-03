@@ -1,8 +1,7 @@
 package de.htwg.se.slay
 
-import de.htwg.se.slay.aview.TextUI
-import de.htwg.se.slay.aview.gui.SwingGUI
-import de.htwg.se.slay.controller.controllerComponent.Controller
+import de.htwg.se.slay.aview.{SwingGUI, TextUI}
+import de.htwg.se.slay.controller.controllerComponent.controllerBaseImpl.Controller
 
 import scala.io.StdIn.readLine
 

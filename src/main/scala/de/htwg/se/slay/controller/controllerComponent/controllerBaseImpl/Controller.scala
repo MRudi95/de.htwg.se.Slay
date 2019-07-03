@@ -1,15 +1,15 @@
-package de.htwg.se.slay.controller.controllerComponent
+package de.htwg.se.slay.controller.controllerComponent.controllerBaseImpl
 
-import de.htwg.se.slay.controller._
+import de.htwg.se.slay.controller.controllerComponent._
 import de.htwg.se.slay.model.gamepieceComponent._
 import de.htwg.se.slay.model.gridComponent.{Field, Grid}
 import de.htwg.se.slay.model.mapComponent.SquareMapBuilder
 import de.htwg.se.slay.model.playerComponent.Player
-import de.htwg.se.slay.util.{Observable, UndoManager}
+import de.htwg.se.slay.util.UndoManager
 
 import scala.collection.immutable.HashSet
 
-class Controller extends Observable{
+class Controller extends ControllerInterface{
   var players: Vector[Player] = Vector(
     new Player("Player0", "\033[104m"),
     new Player("Player 1", "\033[103m"),

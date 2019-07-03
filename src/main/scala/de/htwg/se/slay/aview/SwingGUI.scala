@@ -1,20 +1,21 @@
-package de.htwg.se.slay.aview.gui
+package de.htwg.se.slay.aview
 
 import java.awt.Color
 
 import de.htwg.se.slay.controller._
 import de.htwg.se.slay.controller.controllerComponent._
+import de.htwg.se.slay.controller.controllerComponent.controllerBaseImpl.Controller
 import de.htwg.se.slay.model.gamepieceComponent._
 import de.htwg.se.slay.model.playerComponent.Player
 import de.htwg.se.slay.util.Observer
 
 import scala.collection.mutable.ListBuffer
-import scala.swing._
 import scala.swing.Swing._
+import scala.swing._
 import scala.swing.event.{ButtonClicked, MouseClicked}
 
 
-class SwingGUI(controller: Controller) extends Frame with Observer{
+class SwingGUI(controller: ControllerInterface) extends Frame with Observer{
   controller.add(this)
 
   val icons = "src/main/resources/icons/"

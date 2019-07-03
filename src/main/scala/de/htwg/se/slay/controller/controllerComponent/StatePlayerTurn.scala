@@ -1,6 +1,6 @@
-package de.htwg.se.slay.controller
+package de.htwg.se.slay.controller.controllerComponent
 
-import de.htwg.se.slay.controller.controllerComponent.Controller
+import de.htwg.se.slay.controller.controllerComponent.controllerBaseImpl.Controller
 
 object StatePlayerTurn {
   var state = idle()
@@ -24,3 +24,11 @@ object StatePlayerTurn {
   def player2(c: Controller): Unit = c.turnPlayer(2)
 
 }
+
+
+
+trait PlayerTurn{}
+
+case class Player0Turn() extends PlayerTurn
+case class Player1Turn() extends PlayerTurn
+case class Player2Turn() extends PlayerTurn
