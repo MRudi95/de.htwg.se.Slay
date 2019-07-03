@@ -11,7 +11,7 @@ class NeighborsSpec extends WordSpec with Matchers {
       val fieldW = new Field(playr)
       val fieldE = null
       val fieldS = new Field(playr)
-      val neighbors = Neighbors(fieldN, fieldW, fieldE, fieldS)
+      val neighbors = Neighbors(Option(fieldN), Option(fieldW), Option(fieldE), Option(fieldS))
       "have 4 Fields, which should be located in the corresponding cardinal directions," in{
         neighbors.neighborNorth should be(fieldN)
         neighbors.neighborWest should be(fieldW)

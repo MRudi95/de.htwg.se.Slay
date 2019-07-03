@@ -44,13 +44,13 @@ class FieldSpec extends WordSpec with Matchers {
       val playr = new Player("", "")
       val fieldOne = new Field(playr)
       val fieldTwo = new Field(playr)
-      val neighbors = Neighbors(fieldTwo, fieldOne, fieldOne, fieldTwo)
+      val neighbors = Neighbors(Option(fieldTwo), Option(fieldOne), Option(fieldOne), Option(fieldTwo))
       val bool = fieldOne.setNeighbors(neighbors)
       "have a Neighbors object" in{
         fieldOne.neighbors should be(neighbors)
         bool should be(true)
       }
-      val neighbors2 = Neighbors(fieldOne, fieldTwo, fieldOne, fieldTwo)
+      val neighbors2 = Neighbors(Option(fieldOne), Option(fieldTwo), Option(fieldOne), Option(fieldTwo))
       val bool2 = fieldOne.setNeighbors(neighbors2)
       "not be set more than one time" in{
         fieldOne.neighbors should be(neighbors)

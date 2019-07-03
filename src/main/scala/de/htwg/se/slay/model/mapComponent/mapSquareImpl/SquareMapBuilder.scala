@@ -28,7 +28,6 @@ class SquareMapBuilder @Inject() (@Assisted val players:Vector[Player]) extends 
 
     setNeighbors(grid, rowIdx, colIdx)
 
-    //(Grid(grid, rowIdx, colIdx), setTerritories(grid))
     (injector.instance[GridFactory].create(grid, rowIdx, colIdx), setTerritories(grid))
   }
 
@@ -71,10 +70,10 @@ class SquareMapBuilder @Inject() (@Assisted val players:Vector[Player]) extends 
   }
 
   protected override def setNeighbors(grid: Vector[FieldInterface], rowIdx: Int, colIdx: Int): Unit = {
-    var neighborN:FieldInterface = null
-    var neighborW:FieldInterface = null
-    var neighborE:FieldInterface = null
-    var neighborS:FieldInterface = null
+    var neighborN:Option[FieldInterface] = None
+    var neighborW:Option[FieldInterface] = None
+    var neighborE:Option[FieldInterface] = None
+    var neighborS:Option[FieldInterface] = None
 
     var idxF = 0
     for(f <- grid){
@@ -83,15 +82,15 @@ class SquareMapBuilder @Inject() (@Assisted val players:Vector[Player]) extends 
       val idxE = idxF + 1
       val idxS = idxF + 1 + colIdx
 
-      if(idxN < 0) neighborN = null else neighborN = grid(idxN)
+      if(idxN < 0) neighborN = None else neighborN = Option(grid(idxN))
 
-      if((idxW+1) % (colIdx+1) == 0) neighborW = null else neighborW = grid(idxW)
+      if((idxW+1) % (colIdx+1) == 0) neighborW = None else neighborW = Option(grid(idxW))
 
-      if(idxE % (colIdx+1) == 0) neighborE = null else neighborE = grid(idxE)
+      if(idxE % (colIdx+1) == 0) neighborE = None else neighborE = Option(grid(idxE))
 
-      if(idxS >= (rowIdx+1) * (colIdx+1)) neighborS = null else neighborS = grid(idxS)
+      if(idxS >= (rowIdx+1) * (colIdx+1)) neighborS = None else neighborS = Option(grid(idxS))
 
-      f.setNeighbors(Neighbors(neighborN, neighborW, neighborE, neighborS))
+      f.setNeighbors(injector.instance[NeighborFactory].create(neighborN, neighborW, neighborE, neighborS))
 
       idxF += 1
     }
@@ -112,10 +111,8 @@ class SquareMapBuilder @Inject() (@Assisted val players:Vector[Player]) extends 
         case _ =>
       }
 
-      val east = field.neighbors.neighborEast
-      val south = field.neighbors.neighborSouth
-      if(east != null && east.owner == field.owner) {
-        if(east.territory != null) {
+      field.neighbors.neighborEast match {
+        case Some(east) if east.owner == field.owner && east.territory != null =>
           if(field.territory.size == 1) {
             field.territory = east.territory
             field.territory.addField(field)
@@ -129,14 +126,17 @@ class SquareMapBuilder @Inject() (@Assisted val players:Vector[Player]) extends 
               field.territory.addField(f)
             }
           }
-        } else {
+        case Some(east) if east.owner == field.owner && east.territory == null =>
           east.territory = field.territory
           field.territory.addField(east)
-        }
+        case _ =>
       }
-      if(south != null && south.owner == field.owner) {
-        field.territory.addField(south)
-        south.territory = field.territory
+
+      field.neighbors.neighborSouth match {
+        case Some(south) if south.owner == field.owner =>
+          field.territory.addField(south)
+          south.territory = field.territory
+        case _ =>
       }
     }
 

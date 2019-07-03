@@ -26,5 +26,10 @@ class SlayModule extends AbstractModule with ScalaModule{
       .implement(classOf[GridInterface], classOf[gridBaseImpl.Grid])
       .build(classOf[GridFactory])
     )
+
+    install(new FactoryModuleBuilder()
+      .implement(classOf[NeighborInterface], classOf[gridBaseImpl.Neighbors])
+      .build(classOf[NeighborFactory])
+    )
   }
 }

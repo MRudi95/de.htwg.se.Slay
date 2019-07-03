@@ -99,9 +99,9 @@ class Controller extends ControllerInterface{
     grid(c2).owner != players(0) && grid(c2).owner != grid(c1).owner
 
   private def checkMoveNeighbor(c1: Int, c2:Int): Boolean ={
-    if(grid(c2).neighbors.exists{x =>
-      if(x != null)x.territory == grid(c1).territory
-      else false
+    if(grid(c2).neighbors.exists{
+      case Some(field) => field.territory == grid(c1).territory
+      case None => false
       }
     ) true
     else {moveErrorMsg = "Not a neighboring field!"; false}
@@ -109,11 +109,10 @@ class Controller extends ControllerInterface{
 
   private def checkMoveStrength(c1: Int, c2:Int): Boolean ={
     if(grid(c2).gamepiece.strength < grid(c1).gamepiece.strength
-      && !grid(c2).neighbors.exists{x =>
-      if(x != null)
-        x.territory == grid(c2).territory && x.gamepiece.strength >= grid(c1).gamepiece.strength
-      else
-        false
+      && !grid(c2).neighbors.exists{
+      case Some(field) =>
+        field.territory == grid(c2).territory && field.gamepiece.strength >= grid(c1).gamepiece.strength
+      case None => false
       }
     ) true
     else {moveErrorMsg = "Your Unit is too weak!"; false}

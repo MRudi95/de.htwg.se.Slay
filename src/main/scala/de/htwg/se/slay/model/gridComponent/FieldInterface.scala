@@ -3,7 +3,7 @@ package de.htwg.se.slay.model.gridComponent
 import de.htwg.se.slay.model.gamepieceComponent.GamePiece
 import de.htwg.se.slay.model.playerComponent.Player
 
-trait FieldInterface{
+trait FieldInterface {
   def owner:Player
   def owner_=(owner: Player):Unit
 

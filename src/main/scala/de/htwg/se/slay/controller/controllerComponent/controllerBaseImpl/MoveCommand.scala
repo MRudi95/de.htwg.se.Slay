@@ -46,15 +46,16 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
     f2.territory.addField(f2)
 
 
-    f2.neighbors.foreach(x =>
-      if (x != null) {
+    f2.neighbors.foreach {
+      case Some(x) =>
         (x.owner, x.territory) match {
           case (o, ter) if o == f2.owner && ter == f2.territory =>
           case (o, ter) if o == f2.owner && !cmbTerList.contains(ter) => cmbTerList = ter :: cmbTerList
           case (o, _) if o == ownerMem => splitTerList = Set(x) :: splitTerList
           case _ =>
         }
-      })
+      case None =>
+    }
     biggestTer = cmbTerList.maxBy(_.size)
     cmbTerList = cmbTerList.filterNot(_ == biggestTer)
 
@@ -105,10 +106,10 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
 
   private def recursion(f: FieldInterface, list: Set[FieldInterface]): Set[FieldInterface] = {
     var recList = list + f
-    f.neighbors.foreach(field =>
-      if (field != null && field.owner == ownerMem && !recList.contains(field))
-        recList ++= recursion(field, recList)
-    )
+    f.neighbors.foreach {
+      case Some(field) if field.owner == ownerMem && !recList.contains(field) => recList ++= recursion(field, recList)
+      case _ =>
+    }
     recList
   }
 
