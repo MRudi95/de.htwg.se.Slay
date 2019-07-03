@@ -1,4 +1,4 @@
-package de.htwg.se.slay.model.mapComponent
+package de.htwg.se.slay.util
 
 import de.htwg.se.slay.model.gridComponent.{Field, Grid}
 
