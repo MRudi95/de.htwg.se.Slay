@@ -228,8 +228,17 @@ class Controller extends ControllerInterface{
   }
 
 
-  def save(): Unit ={
-    new FileIO().save("test",players, state, grid)
+  def save(file: String): Unit ={
+    new FileIO().save(file, players, state, grid)
+  }
 
+  def load(file: String): Unit ={
+    val (p1name, p2name, s, g) = new FileIO().load(file, players)
+    players(1).name = p1name
+    players(2).name = p2name
+    state = s
+    grid = g
+    notifyObservers()
+    notifyObservers(PlayerEvent(players(state).name))
   }
 }

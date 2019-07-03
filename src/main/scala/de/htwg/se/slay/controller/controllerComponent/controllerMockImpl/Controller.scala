@@ -44,5 +44,9 @@ class Controller extends ControllerInterface{
 
   override def redo(): Unit = {}
 
-  override def save(): Unit = ???
+  override def save(file: String): Unit = {}
+
+  override def load(file: String): Unit = {}
+
+  override var state: Int = 0
 }

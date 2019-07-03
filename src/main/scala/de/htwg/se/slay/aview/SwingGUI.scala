@@ -103,6 +103,7 @@ class SwingGUI(controller: ControllerInterface) extends Frame with Observer{
       contents += new MenuItem(Action("Undo"){ controller.undo() })
       contents += new MenuItem(Action("Redo"){ controller.redo() })
     }
+
     contents += new Menu("Names"){
       contents += new MenuItem(Action("Player 1"){
         val res = Dialog.showInput(this, "Enter your new name:", "Name Change", Dialog.Message.Info, initial = "")
@@ -117,6 +118,25 @@ class SwingGUI(controller: ControllerInterface) extends Frame with Observer{
         res match {
           case Some(name) =>
             controller.changeName(name, 2)
+          case None =>
+        }
+      })
+    }
+
+    contents += new Menu("FileIO"){
+      contents += new MenuItem(Action("Load"){
+        val load = Dialog.showInput(this, "Enter the name of the file", "Load Game", Dialog.Message.Info, initial = "")
+        load match {
+          case Some(file) =>
+            controller.load(file)
+          case None =>
+        }
+      })
+      contents += new MenuItem(Action("Save"){
+        val load = Dialog.showInput(this, "Enter the name of the file", "Save Game", Dialog.Message.Info, initial = "")
+        load match {
+          case Some(file) =>
+            controller.save(file)
           case None =>
         }
       })
@@ -161,19 +181,12 @@ class SwingGUI(controller: ControllerInterface) extends Frame with Observer{
       case ButtonClicked(this.balButton) if hiliteList.length == 1 =>
         controller.seeBalance(hiliteList.head.name.toInt)
       case ButtonClicked(this.endButton) =>
-        controller.nextturn()
+        endTurn()
       case ButtonClicked(this.surButton) =>
         surrender()
       case _ =>
     }
   }
-
-  val turnField: TextField = new TextField(){
-    editable = false
-    opaque = false
-    foreground = new Color(222, 222, 222) //white
-    font = new Font("Arial", 0, 20)
-  } //maybe use later
 
   val statusField: TextField = new TextField(){
     editable = false
@@ -273,6 +286,15 @@ class SwingGUI(controller: ControllerInterface) extends Frame with Observer{
         case _ => f.text = ""
       }
     }
+  }
+
+
+  def endTurn(): Unit ={
+    val res = Dialog.showConfirmation(this,
+      "Do you really want to end your turn?",
+      optionType=Dialog.Options.YesNo)
+    if (res == Dialog.Result.Ok)
+      controller.nextturn()
   }
 
   def surrender(): Unit = {

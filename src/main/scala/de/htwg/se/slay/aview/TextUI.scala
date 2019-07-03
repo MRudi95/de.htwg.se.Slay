@@ -57,13 +57,18 @@ class TextUI(controller: ControllerInterface) extends Observer{
     val mov = s"mov ($coord) ($coord)".r
     val cmb = s"cmb ($coord) ($coord)".r
 
+    val filename = "\\w+".r
+    val save = s"save ($filename)".r
+    val load = s"load ($filename)".r
+
     input match {
       case "q" =>
       case "quit" =>
       case "undo" => controller.undo()
       case "redo" => controller.redo()
       case "end" => controller.nextturn()
-      case "save" => controller.save()
+      case save(file) => controller.save(file)
+      case load(file) => controller.load(file)
       case "ff20" => controller.surrender()
       case bal(c) if checkIndex(c) =>
         controller.seeBalance(convertIndex(c))

@@ -4,16 +4,19 @@ import com.google.inject.{Guice, Injector}
 import de.htwg.se.slay.SlayModule
 import de.htwg.se.slay.controller.controllerComponent.ControllerInterface
 import de.htwg.se.slay.model.fileIOComponent.FileIOInterface
-import de.htwg.se.slay.model.gridComponent.{FieldFactory, FieldInterface, GridInterface}
+import de.htwg.se.slay.model.gamepieceComponent._
+import de.htwg.se.slay.model.gridComponent.{FieldFactory, FieldInterface, GridFactory, GridInterface}
 import de.htwg.se.slay.model.playerComponent.Player
 
 import scala.xml.{Elem, NodeBuffer}
 import net.codingwell.scalaguice.InjectorExtensions._
 
+
 class FileIO extends FileIOInterface{
 
   val injector: Injector = Guice.createInjector(new SlayModule)
-  override def load(name: String, players: Vector[Player], ctrl: ControllerInterface): (String, String, Int, GridInterface) = {
+
+  override def load(name: String, players: Vector[Player]): (String, String, Int, GridInterface) = {
     val file = scala.xml.XML.loadFile("SaveFiles/" + name + ".xml")
     val p1name = (file \ "p1").text
     val p2name = (file \ "p2").text
@@ -22,12 +25,27 @@ class FileIO extends FileIOInterface{
     val fieldNodes = file \\ "field"
     var fields: Vector[FieldInterface] = Vector.empty
     for(field <- fieldNodes){
-      val f = injector.instance[FieldFactory].create(players((field \ "@owner").text.toInt))
+      val owner = players((field \ "@owner").text.toInt)
+      val f = injector.instance[FieldFactory].create(owner)
       f.gamepiece = (field \ "@gamepiece").text match{
-        case
+        case " " => NoPiece()
+        case "G" => Grave()
+        case "T" => Tree()
+        case "B" => Castle(owner)
+        case "C" => new Capital(owner)
+        case "1" => new Peasant(owner)
+        case "2" => new Spearman(owner)
+        case "3" => new Knight(owner)
+        case "4" => new Baron(owner)
+        case _ => NoPiece()
       }
-      fields = fields :+
+      fields = fields :+ f
     }
+    val rowIdx = (file \ "grid" \ "@rowIdx").text.toInt
+    val colIdx = (file \ "grid" \ "@colIdx").text.toInt
+    val grid = injector.instance[GridFactory].create(fields, rowIdx, colIdx)
+
+    (p1name, p2name, state, grid)
   }
 
   override def save(name: String, players: Vector[Player], state: Int, grid: GridInterface): Unit = {
