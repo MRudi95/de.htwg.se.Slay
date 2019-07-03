@@ -1,4 +1,6 @@
-package de.htwg.se.slay.model.gridComponent
+package de.htwg.se.slay.model.gridComponent.gridBaseImpl
+
+import de.htwg.se.slay.model.gridComponent.{FieldInterface, NeighborInterface}
 
 case class Neighbors(neighborNorth:FieldInterface, neighborWest:FieldInterface,
                      neighborEast:FieldInterface, neighborSouth:FieldInterface) extends NeighborInterface {
