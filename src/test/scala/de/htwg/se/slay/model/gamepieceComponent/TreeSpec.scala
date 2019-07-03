@@ -1,6 +1,5 @@
-package de.htwg.se.slay.model
+package de.htwg.se.slay.model.gamepieceComponent
 
-import de.htwg.se.slay.model.gamepieceComponent.Tree
 import org.scalatest._
 
 class TreeSpec extends WordSpec with Matchers {

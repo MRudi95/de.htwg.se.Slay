@@ -1,6 +1,5 @@
-package de.htwg.se.slay.model
+package de.htwg.se.slay.model.gamepieceComponent
 
-import de.htwg.se.slay.model.gamepieceComponent.Castle
 import de.htwg.se.slay.model.playerComponent.Player
 import org.scalatest._
 
