@@ -1,6 +1,5 @@
-package de.htwg.se.slay.model.gridComponent
+package de.htwg.se.slay.model.gridComponent.gridBaseImpl
 
-import de.htwg.se.slay.model.gridComponent.gridBaseImpl.{Field, Neighbors}
 import de.htwg.se.slay.model.playerComponent.Player
 import org.scalatest.{Matchers, WordSpec}
 
