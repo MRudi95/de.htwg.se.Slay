@@ -2,7 +2,7 @@ package de.htwg.se.slay.controller.controllerComponent.controllerBaseImpl
 
 import de.htwg.se.slay.controller.controllerComponent._
 import de.htwg.se.slay.model.gamepieceComponent._
-import de.htwg.se.slay.model.gridComponent.{Field, Grid}
+import de.htwg.se.slay.model.gridComponent.{Field, FieldInterface, Grid, GridInterface}
 import de.htwg.se.slay.model.mapComponent.mapSquareImpl.SquareMapBuilder
 import de.htwg.se.slay.model.playerComponent.Player
 import de.htwg.se.slay.util.UndoManager
@@ -14,8 +14,8 @@ class Controller extends ControllerInterface{
     new Player("Player0", "\033[104m"),
     new Player("Player 1", "\033[103m"),
     new Player("Player 2", "\033[102m"))
-  var grid: Grid = _
-  var capitals: HashSet[Field] = _
+  var grid: GridInterface = _
+  var capitals: HashSet[FieldInterface] = _
 
   val playerturn: List[PlayerTurn] = List(Player1Turn(), Player2Turn(), Player0Turn())
   val nextplayer: Iterator[PlayerTurn] = Iterator.continually(playerturn).flatten

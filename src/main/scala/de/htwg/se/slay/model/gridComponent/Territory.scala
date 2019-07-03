@@ -4,20 +4,20 @@ import de.htwg.se.slay.model.gamepieceComponent.{Capital, UnitGamePiece}
 
 import scala.collection.immutable.HashSet
 
-class Territory {
+class Territory extends TerritoryInterface {
   private var _capital: Capital = _
-  private var _fields: HashSet[Field] = HashSet()
+  private var _fields: HashSet[FieldInterface] = HashSet()
   var armyCost: Int = 0
 
-  def setCapital(field: Field): Boolean = {
+  def setCapital(field: FieldInterface): Boolean = {
     field.gamepiece match{
       case capital:Capital => _capital = capital; true
       case _ => false
     }
   }
 
-  def addField(field: Field):Unit = _fields += field
-  def removeField(field: Field):Unit = _fields -= field
+  def addField(field: FieldInterface):Unit = _fields += field
+  def removeField(field: FieldInterface):Unit = _fields -= field
   def size: Int = _fields.size
 
   def addUnit(unit: UnitGamePiece):Unit = {
@@ -28,6 +28,6 @@ class Territory {
   }
 
   def capital: Capital = _capital
-  def fields: HashSet[Field] = _fields
+  def fields: HashSet[FieldInterface] = _fields
 
 }

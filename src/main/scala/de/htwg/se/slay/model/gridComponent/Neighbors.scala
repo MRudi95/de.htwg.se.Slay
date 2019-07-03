@@ -1,7 +1,7 @@
 package de.htwg.se.slay.model.gridComponent
 
-case class Neighbors(neighborNorth:Field, neighborWest:Field,
-                     neighborEast:Field, neighborSouth:Field) extends Iterable[Field]{
+case class Neighbors(neighborNorth:FieldInterface, neighborWest:FieldInterface,
+                     neighborEast:FieldInterface, neighborSouth:FieldInterface) extends NeighborInterface {
 
-  override def iterator: Iterator[Field] = Iterator[Field](neighborNorth, neighborWest, neighborEast, neighborSouth)
+ // override def iterator: Iterator[Field] = Iterator[Field](neighborNorth, neighborWest, neighborEast, neighborSouth)
 }

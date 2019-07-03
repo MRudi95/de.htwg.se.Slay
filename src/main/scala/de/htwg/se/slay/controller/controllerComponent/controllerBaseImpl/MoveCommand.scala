@@ -1,27 +1,27 @@
 package de.htwg.se.slay.controller.controllerComponent.controllerBaseImpl
 
 import de.htwg.se.slay.model.gamepieceComponent.{Capital, GamePiece, NoPiece, UnitGamePiece}
-import de.htwg.se.slay.model.gridComponent.{Field, Territory}
+import de.htwg.se.slay.model.gridComponent.{Field, FieldInterface, Territory, TerritoryInterface}
 import de.htwg.se.slay.model.playerComponent.Player
 import de.htwg.se.slay.util.Command
 
 import scala.util.Random
 
-class MoveCommand(f1: Field, f2: Field, ctrl:Controller) extends Command {
+class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) extends Command {
   var gp1Mem: GamePiece = f1.gamepiece
 
   var gp2Mem: GamePiece = f2.gamepiece
   var ownerMem: Player = f2.owner
-  var terMem: Territory = f2.territory
+  var terMem: TerritoryInterface = f2.territory
 
-  var cmbTerList: List[Territory] = List(f1.territory)
-  var splitTerList: List[Set[Field]] = Nil
+  var cmbTerList: List[TerritoryInterface] = List(f1.territory)
+  var splitTerList: List[Set[FieldInterface]] = Nil
 
-  var caplist: List[Option[Field]] = Nil
-  var biggestTer: Territory = _
+  var caplist: List[Option[FieldInterface]] = Nil
+  var biggestTer: TerritoryInterface = _
 
-  var splitTer: Territory = terMem
-  var splitTerritory: List[(Territory, Field, GamePiece)] = List((splitTer, null, null))
+  var splitTer: TerritoryInterface = terMem
+  var splitTerritory: List[(TerritoryInterface, FieldInterface, GamePiece)] = List((splitTer, null, null))
 
 
   override def doStep(): Unit = {
@@ -102,7 +102,7 @@ class MoveCommand(f1: Field, f2: Field, ctrl:Controller) extends Command {
     }
   }
 
-  private def recursion(f: Field, list: Set[Field]): Set[Field] = {
+  private def recursion(f: FieldInterface, list: Set[FieldInterface]): Set[FieldInterface] = {
     var recList = list + f
     f.neighbors.foreach(field =>
       if (field != null && field.owner == ownerMem && !recList.contains(field))
@@ -111,7 +111,7 @@ class MoveCommand(f1: Field, f2: Field, ctrl:Controller) extends Command {
     recList
   }
 
-  private def splittingTerritories(list: Set[Field]): Unit = {
+  private def splittingTerritories(list: Set[FieldInterface]): Unit = {
     val tmp_ter = new Territory()
     list.foreach { f =>
       tmp_ter.addField(f)
@@ -124,7 +124,7 @@ class MoveCommand(f1: Field, f2: Field, ctrl:Controller) extends Command {
       }
     }
     var tmp_gp: GamePiece = null
-    var newCap: Field = null
+    var newCap: FieldInterface = null
     if (tmp_ter.size >= 2) {
       tmp_ter.fields.find(_.gamepiece.isInstanceOf[NoPiece]) match {
         case Some(field) =>

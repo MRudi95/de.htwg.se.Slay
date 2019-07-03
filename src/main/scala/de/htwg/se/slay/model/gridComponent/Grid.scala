@@ -1,8 +1,8 @@
 package de.htwg.se.slay.model.gridComponent
 
-case class Grid(private val grid:Vector[Field], rowIdx:Int, colIdx:Int) extends IndexedSeq[Field]{
+case class Grid(private val grid:Vector[FieldInterface], rowIdx:Int, colIdx:Int) extends GridInterface {
   override def length: Int = grid.length
-  override def apply(idx: Int):Field = grid(idx)
+  override def apply(idx: Int):FieldInterface = grid(idx)
 
   private val R = "\033[0m"       //Color Reset
   private val B = "\033[1;97m"    //Text Color Black

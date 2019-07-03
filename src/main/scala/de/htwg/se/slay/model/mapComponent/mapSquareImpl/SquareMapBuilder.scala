@@ -1,7 +1,7 @@
 package de.htwg.se.slay.model.mapComponent.mapSquareImpl
 
 import de.htwg.se.slay.model.gamepieceComponent.{Capital, Tree}
-import de.htwg.se.slay.model.gridComponent.{Field, Grid, Neighbors, Territory}
+import de.htwg.se.slay.model.gridComponent._
 import de.htwg.se.slay.model.mapComponent.MapInterface
 import de.htwg.se.slay.model.playerComponent.Player
 import de.htwg.se.slay.util.MapBuilder
@@ -11,7 +11,7 @@ import scala.io.BufferedSource
 
 class SquareMapBuilder(val players:Vector[Player]) extends MapBuilder with MapInterface {
 
-  override def gridCreator(mapname:String, typ:String = "main"):(Grid, HashSet[Field]) = {
+  override def gridCreator(mapname:String, typ:String = "main"):(GridInterface, HashSet[FieldInterface]) = {
     val map: BufferedSource = io.Source.fromFile("src/" + typ + "/resources/maps/" + mapname + ".csv")
     val (grid, rowIdx) = readCSV(map)
     map.close
@@ -23,9 +23,9 @@ class SquareMapBuilder(val players:Vector[Player]) extends MapBuilder with MapIn
     (Grid(grid, rowIdx, colIdx), setTerritories(grid))
   }
 
-  protected override def readCSV(map: BufferedSource): (Vector[Field], Int) = {
+  protected override def readCSV(map: BufferedSource): (Vector[FieldInterface], Int) = {
     var rowIdx = 0
-    var grid:Vector[Field] = Vector.empty
+    var grid:Vector[FieldInterface] = Vector.empty
     var idxC = 0
     for(line <- map.getLines()){
       val fields = line.split(";")
@@ -46,11 +46,11 @@ class SquareMapBuilder(val players:Vector[Player]) extends MapBuilder with MapIn
     (grid, rowIdx-1)
   }
 
-  protected override def setNeighbors(grid: Vector[Field], rowIdx: Int, colIdx: Int): Unit = {
-    var neighborN:Field = null
-    var neighborW:Field = null
-    var neighborE:Field = null
-    var neighborS:Field = null
+  protected override def setNeighbors(grid: Vector[FieldInterface], rowIdx: Int, colIdx: Int): Unit = {
+    var neighborN:FieldInterface = null
+    var neighborW:FieldInterface = null
+    var neighborE:FieldInterface = null
+    var neighborS:FieldInterface = null
 
     var idxF = 0
     for(f <- grid){
@@ -73,8 +73,8 @@ class SquareMapBuilder(val players:Vector[Player]) extends MapBuilder with MapIn
     }
   }
 
-  protected override def setTerritories(grid: Vector[Field]): HashSet[Field] = {
-    var capitals: HashSet[Field] = HashSet()
+  protected override def setTerritories(grid: Vector[FieldInterface]): HashSet[FieldInterface] = {
+    var capitals: HashSet[FieldInterface] = HashSet()
     for(field <- grid){
       if(field.territory == null) {
         field.territory = new Territory

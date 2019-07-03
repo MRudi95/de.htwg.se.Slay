@@ -1,13 +1,13 @@
 package de.htwg.se.slay.util
 
-import de.htwg.se.slay.model.gridComponent.{Field, Grid}
+import de.htwg.se.slay.model.gridComponent.{Field, FieldInterface, Grid, GridInterface}
 
 import scala.collection.immutable.HashSet
 import scala.io.BufferedSource
 
 trait MapBuilder {
-  def gridCreator(mapname:String, typ:String = "main"):(Grid, HashSet[Field])
-  protected def readCSV(map: BufferedSource): (Vector[Field], Int)
-  protected def setNeighbors(grid: Vector[Field], rowIdx: Int, colIdx: Int): Unit
-  protected def setTerritories(grid: Vector[Field]): HashSet[Field]
+  def gridCreator(mapname:String, typ:String = "main"):(GridInterface, HashSet[FieldInterface])
+  protected def readCSV(map: BufferedSource): (Vector[FieldInterface], Int)
+  protected def setNeighbors(grid: Vector[FieldInterface], rowIdx: Int, colIdx: Int): Unit
+  protected def setTerritories(grid: Vector[FieldInterface]): HashSet[FieldInterface]
 }

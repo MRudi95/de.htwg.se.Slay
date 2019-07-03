@@ -1,6 +1,6 @@
 package de.htwg.se.slay.controller.controllerComponent
 
-import de.htwg.se.slay.model.gridComponent.{Field, Grid}
+import de.htwg.se.slay.model.gridComponent.{Field, FieldInterface, Grid, GridInterface}
 import de.htwg.se.slay.model.playerComponent.Player
 import de.htwg.se.slay.util.Observable
 
@@ -8,8 +8,8 @@ import scala.collection.immutable.HashSet
 
 trait ControllerInterface extends Observable{
 
-  def grid:Grid
-  def capitals: HashSet[Field]
+  def grid:GridInterface
+  def capitals: HashSet[FieldInterface]
   def players: Vector[Player]
 
   def gridToString: String

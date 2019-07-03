@@ -1,6 +1,6 @@
 package de.htwg.se.slay.model
 
-import de.htwg.se.slay.model.gridComponent.{Field, Grid}
+import de.htwg.se.slay.model.gridComponent.{Field, FieldInterface, Grid, GridInterface}
 import de.htwg.se.slay.model.mapComponent.mapSquareImpl.SquareMapBuilder
 import de.htwg.se.slay.model.playerComponent.Player
 import org.scalatest.{Matchers, WordSpec}
@@ -14,7 +14,7 @@ class SquareMapBuilderSpec extends WordSpec with Matchers {
       new Player("1",""),
       new Player("2",""))
     val reader = new SquareMapBuilder(players)
-    val (grid: Grid, capitals: HashSet[Field]) = reader.gridCreator("Test", "test")
+    val (grid: GridInterface, capitals: HashSet[FieldInterface]) = reader.gridCreator("Test", "test")
 
     "read a Map from a .csv into a Grid and assigns it to its given players" in{
       grid(0).owner should be(players(0))

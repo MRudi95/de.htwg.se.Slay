@@ -1,7 +1,7 @@
 package de.htwg.se.slay.controller.controllerComponent.controllerMockImpl
 
 import de.htwg.se.slay.controller.controllerComponent.ControllerInterface
-import de.htwg.se.slay.model.gridComponent.{Field, Grid}
+import de.htwg.se.slay.model.gridComponent.{Field, FieldInterface, Grid}
 import de.htwg.se.slay.model.playerComponent.Player
 
 import scala.collection.immutable.HashSet
@@ -9,7 +9,7 @@ import scala.collection.immutable.HashSet
 class Controller extends ControllerInterface{
   var grid: Grid = _
 
-  var capitals: HashSet[Field] = _
+  var capitals: HashSet[FieldInterface] = _
 
   var players: Vector[Player] = Vector(
     new Player("Player0", "\033[104m"),
