@@ -2,7 +2,6 @@ package de.htwg.se.slay.controller.controllerComponent.controllerMockImpl
 
 import de.htwg.se.slay.controller.controllerComponent.ControllerInterface
 import de.htwg.se.slay.model.gridComponent.{FieldInterface, GridInterface}
-import de.htwg.se.slay.model.gridComponent.gridBaseImpl.Grid
 import de.htwg.se.slay.model.playerComponent.Player
 
 import scala.collection.immutable.HashSet
