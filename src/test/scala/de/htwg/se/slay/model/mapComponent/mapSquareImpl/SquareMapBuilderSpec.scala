@@ -28,12 +28,12 @@ class SquareMapBuilderSpec extends WordSpec with Matchers {
       capitals.size should be (2)
     }
     "assign Neighbor relationships to the Fields in the Grid" in{
-      grid(0).neighbors.neighborEast should be(grid(1))
-      grid(1).neighbors.neighborWest should be(grid(0))
+      grid(0).neighbors.neighborEast should be(Option(grid(1)))
+      grid(1).neighbors.neighborWest should be(Option(grid(0)))
 
-      grid(0).neighbors.neighborWest should be(null)
-      grid(0).neighbors.neighborSouth should be(grid(4))
-      grid(0).neighbors.neighborNorth should be(null)
+      grid(0).neighbors.neighborWest should be(None)
+      grid(0).neighbors.neighborSouth should be(Option(grid(4)))
+      grid(0).neighbors.neighborNorth should be(None)
     }
     "assign Territory relationships to the Fields in the Grid" in{
       grid(2).territory.fields.contains(grid(2)) should be (true)
