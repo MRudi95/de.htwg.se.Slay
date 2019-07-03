@@ -1,6 +1,7 @@
 package de.htwg.se.slay.model
 
-import de.htwg.se.slay.model.gridComponent.{Field, Grid}
+import de.htwg.se.slay.model.gridComponent.Grid
+import de.htwg.se.slay.model.gridComponent.gridBaseImpl.Field
 import de.htwg.se.slay.model.playerComponent.Player
 import org.scalatest._
 

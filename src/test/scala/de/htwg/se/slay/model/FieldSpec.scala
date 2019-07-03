@@ -1,7 +1,8 @@
 package de.htwg.se.slay.model
 
 import de.htwg.se.slay.model.gamepieceComponent.{NoPiece, Tree}
-import de.htwg.se.slay.model.gridComponent.{Field, Neighbors, Territory}
+import de.htwg.se.slay.model.gridComponent.gridBaseImpl.Field
+import de.htwg.se.slay.model.gridComponent.{Neighbors, Territory}
 import de.htwg.se.slay.model.playerComponent.Player
 import org.scalatest._
 

@@ -1,4 +1,5 @@
-import de.htwg.se.slay.model.gridComponent.{Field, Territory}
+import de.htwg.se.slay.model.gridComponent.Territory
+import de.htwg.se.slay.model.gridComponent.gridBaseImpl.Field
 import de.htwg.se.slay.model.playerComponent.Player
 
 val field = new Field(new Player("",""))

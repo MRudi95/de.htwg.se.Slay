@@ -1,6 +1,6 @@
 package de.htwg.se.slay.model
 
-import de.htwg.se.slay.model.gridComponent.{Field, FieldInterface, Grid, GridInterface}
+import de.htwg.se.slay.model.gridComponent.{FieldInterface, Grid, GridInterface}
 import de.htwg.se.slay.model.mapComponent.mapSquareImpl.SquareMapBuilder
 import de.htwg.se.slay.model.playerComponent.Player
 import org.scalatest.{Matchers, WordSpec}

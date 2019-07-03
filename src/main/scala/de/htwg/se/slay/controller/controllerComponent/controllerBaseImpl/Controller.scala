@@ -2,7 +2,7 @@ package de.htwg.se.slay.controller.controllerComponent.controllerBaseImpl
 
 import de.htwg.se.slay.controller.controllerComponent._
 import de.htwg.se.slay.model.gamepieceComponent._
-import de.htwg.se.slay.model.gridComponent.{Field, FieldInterface, Grid, GridInterface}
+import de.htwg.se.slay.model.gridComponent.{FieldInterface, Grid, GridInterface}
 import de.htwg.se.slay.model.mapComponent.mapSquareImpl.SquareMapBuilder
 import de.htwg.se.slay.model.playerComponent.Player
 import de.htwg.se.slay.util.UndoManager

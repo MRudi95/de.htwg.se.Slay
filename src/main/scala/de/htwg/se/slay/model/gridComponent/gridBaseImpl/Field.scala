@@ -1,7 +1,8 @@
-package de.htwg.se.slay.model.gridComponent
+package de.htwg.se.slay.model.gridComponent.gridBaseImpl
 
-import de.htwg.se.slay.model.playerComponent.Player
 import de.htwg.se.slay.model.gamepieceComponent.{GamePiece, NoPiece}
+import de.htwg.se.slay.model.gridComponent.{FieldInterface, NeighborInterface, TerritoryInterface}
+import de.htwg.se.slay.model.playerComponent.Player
 
 class Field(private var _owner: Player, private var _gamepiece: GamePiece = NoPiece()) extends FieldInterface {
   private var _neighbors: NeighborInterface = _
