@@ -2,7 +2,7 @@ package de.htwg.se.slay.model.mapComponent.mapSquareImpl
 
 import de.htwg.se.slay.model.gamepieceComponent.{Capital, Tree}
 import de.htwg.se.slay.model.gridComponent._
-import de.htwg.se.slay.model.gridComponent.gridBaseImpl.{Field, Grid, Neighbors}
+import de.htwg.se.slay.model.gridComponent.gridBaseImpl.{Field, Grid, Neighbors, Territory}
 import de.htwg.se.slay.model.mapComponent.MapInterface
 import de.htwg.se.slay.model.playerComponent.Player
 import de.htwg.se.slay.util.MapBuilder

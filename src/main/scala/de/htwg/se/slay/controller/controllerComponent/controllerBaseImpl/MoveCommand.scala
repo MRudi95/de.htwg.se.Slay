@@ -1,7 +1,8 @@
 package de.htwg.se.slay.controller.controllerComponent.controllerBaseImpl
 
 import de.htwg.se.slay.model.gamepieceComponent.{Capital, GamePiece, NoPiece, UnitGamePiece}
-import de.htwg.se.slay.model.gridComponent.{FieldInterface, Territory, TerritoryInterface}
+import de.htwg.se.slay.model.gridComponent.gridBaseImpl.Territory
+import de.htwg.se.slay.model.gridComponent.{FieldInterface, TerritoryInterface}
 import de.htwg.se.slay.model.playerComponent.Player
 import de.htwg.se.slay.util.Command
 

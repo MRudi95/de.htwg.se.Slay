@@ -1,6 +1,7 @@
-package de.htwg.se.slay.model.gridComponent
+package de.htwg.se.slay.model.gridComponent.gridBaseImpl
 
 import de.htwg.se.slay.model.gamepieceComponent.{Capital, UnitGamePiece}
+import de.htwg.se.slay.model.gridComponent.{FieldInterface, TerritoryInterface}
 
 import scala.collection.immutable.HashSet
 
