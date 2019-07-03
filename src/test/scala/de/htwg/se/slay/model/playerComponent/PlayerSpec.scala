@@ -1,6 +1,5 @@
-package de.htwg.se.slay.model
+package de.htwg.se.slay.model.playerComponent
 
-import de.htwg.se.slay.model.playerComponent.Player
 import org.scalatest._
 
 class PlayerSpec extends WordSpec with Matchers {
