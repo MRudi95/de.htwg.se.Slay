@@ -1,8 +1,11 @@
 package de.htwg.se.slay.model.gridComponent.gridBaseImpl
 
+import com.google.inject.assistedinject.Assisted
 import de.htwg.se.slay.model.gridComponent.{FieldInterface, GridInterface}
+import javax.inject.Inject
 
-case class Grid(private val grid:Vector[FieldInterface], rowIdx:Int, colIdx:Int) extends GridInterface {
+case class Grid @Inject() (@Assisted private val grid:Vector[FieldInterface],
+                           @Assisted("row") rowIdx:Int, @Assisted("col") colIdx:Int) extends GridInterface {
   override def length: Int = grid.length
   override def apply(idx: Int):FieldInterface = grid(idx)
 

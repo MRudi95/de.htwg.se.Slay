@@ -28,7 +28,8 @@ class SquareMapBuilder @Inject() (@Assisted val players:Vector[Player]) extends 
 
     setNeighbors(grid, rowIdx, colIdx)
 
-    (Grid(grid, rowIdx, colIdx), setTerritories(grid))
+    //(Grid(grid, rowIdx, colIdx), setTerritories(grid))
+    (injector.instance[GridFactory].create(grid, rowIdx, colIdx), setTerritories(grid))
   }
 
   protected override def readCSV(map: BufferedSource): (Vector[FieldInterface], Int) = {
