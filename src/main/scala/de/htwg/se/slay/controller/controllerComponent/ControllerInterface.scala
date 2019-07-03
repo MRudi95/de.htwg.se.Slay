@@ -33,6 +33,8 @@ trait ControllerInterface extends Observable{
   def redo(): Unit
 
   def save(): Unit
+
+  var state: Int
 }
 
 
