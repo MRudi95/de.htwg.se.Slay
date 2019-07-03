@@ -1,14 +1,15 @@
-package de.htwg.se.slay.model.mapComponent
+package de.htwg.se.slay.model.mapComponent.mapSquareImpl
 
 import de.htwg.se.slay.model.gamepieceComponent.{Capital, Tree}
 import de.htwg.se.slay.model.gridComponent.{Field, Grid, Neighbors, Territory}
+import de.htwg.se.slay.model.mapComponent.MapInterface
 import de.htwg.se.slay.model.playerComponent.Player
 import de.htwg.se.slay.util.MapBuilder
 
 import scala.collection.immutable.HashSet
 import scala.io.BufferedSource
 
-class SquareMapBuilder(val players:Vector[Player]) extends MapBuilder {
+class SquareMapBuilder(val players:Vector[Player]) extends MapBuilder with MapInterface {
 
   override def gridCreator(mapname:String, typ:String = "main"):(Grid, HashSet[Field]) = {
     val map: BufferedSource = io.Source.fromFile("src/" + typ + "/resources/maps/" + mapname + ".csv")
