@@ -1,6 +1,6 @@
 package de.htwg.se.slay.util
 
-import de.htwg.se.slay.model.gridComponent.{FieldInterface, Grid, GridInterface}
+import de.htwg.se.slay.model.gridComponent.{FieldInterface, GridInterface}
 
 import scala.collection.immutable.HashSet
 import scala.io.BufferedSource

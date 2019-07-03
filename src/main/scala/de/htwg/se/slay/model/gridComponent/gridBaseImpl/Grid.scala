@@ -1,4 +1,6 @@
-package de.htwg.se.slay.model.gridComponent
+package de.htwg.se.slay.model.gridComponent.gridBaseImpl
+
+import de.htwg.se.slay.model.gridComponent.{FieldInterface, GridInterface}
 
 case class Grid(private val grid:Vector[FieldInterface], rowIdx:Int, colIdx:Int) extends GridInterface {
   override def length: Int = grid.length
