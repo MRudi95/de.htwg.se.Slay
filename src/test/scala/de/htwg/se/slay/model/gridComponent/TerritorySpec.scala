@@ -1,4 +1,4 @@
-package de.htwg.se.slay.model
+package de.htwg.se.slay.model.gridComponent
 
 import de.htwg.se.slay.model.gamepieceComponent.Capital
 import de.htwg.se.slay.model.gridComponent.gridBaseImpl.{Field, Territory}

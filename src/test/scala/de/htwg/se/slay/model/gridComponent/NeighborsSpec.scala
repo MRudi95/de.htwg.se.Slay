@@ -1,4 +1,4 @@
-package de.htwg.se.slay.model
+package de.htwg.se.slay.model.gridComponent
 
 import de.htwg.se.slay.model.gridComponent.gridBaseImpl.{Field, Neighbors}
 import de.htwg.se.slay.model.playerComponent.Player
