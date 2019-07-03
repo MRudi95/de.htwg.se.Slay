@@ -1,16 +1,23 @@
 package de.htwg.se.slay.model.mapComponent.mapSquareImpl
 
+import net.codingwell.scalaguice.InjectorExtensions._
+import com.google.inject.{Guice, Injector}
+import com.google.inject.assistedinject.Assisted
+import de.htwg.se.slay.SlayModule
 import de.htwg.se.slay.model.gamepieceComponent.{Capital, Tree}
 import de.htwg.se.slay.model.gridComponent._
 import de.htwg.se.slay.model.gridComponent.gridBaseImpl.{Field, Grid, Neighbors, Territory}
 import de.htwg.se.slay.model.mapComponent.MapInterface
 import de.htwg.se.slay.model.playerComponent.Player
 import de.htwg.se.slay.util.MapBuilder
+import javax.inject.Inject
 
 import scala.collection.immutable.HashSet
 import scala.io.BufferedSource
 
-class SquareMapBuilder(val players:Vector[Player]) extends MapBuilder with MapInterface {
+class SquareMapBuilder @Inject() (@Assisted val players:Vector[Player]) extends MapBuilder with MapInterface {
+
+  val injector: Injector = Guice.createInjector(new SlayModule)
 
   override def gridCreator(mapname:String, typ:String = "main"):(GridInterface, HashSet[FieldInterface]) = {
     val map: BufferedSource = io.Source.fromFile("src/" + typ + "/resources/maps/" + mapname + ".csv")
@@ -32,13 +39,28 @@ class SquareMapBuilder(val players:Vector[Player]) extends MapBuilder with MapIn
       val fields = line.split(";")
       for(field <- fields) {
         field match {
-          case "0"  => grid = grid :+ new Field(players(0))
-          case "10" => grid = grid :+ new Field(players(1))
-          case "11" => grid = grid :+ new Field(players(1), new Capital(players(1)))
-          case "12" => grid = grid :+ new Field(players(1), Tree())
-          case "20" => grid = grid :+ new Field(players(2))
-          case "21" => grid = grid :+ new Field(players(2), new Capital(players(2)))
-          case "22" => grid = grid :+ new Field(players(2), Tree())
+          case "0"  =>
+            grid = grid :+ injector.instance[FieldFactory].create(players(0))
+          case "10" =>
+            grid = grid :+ injector.instance[FieldFactory].create(players(1))
+          case "11" =>
+            val f = injector.instance[FieldFactory].create(players(1))
+            f.gamepiece = new Capital(players(1))
+            grid = grid :+ f
+          case "12" =>
+            val f = injector.instance[FieldFactory].create(players(1))
+            f.gamepiece = Tree()
+            grid = grid :+ f
+          case "20" =>
+            grid = grid :+ injector.instance[FieldFactory].create(players(2))
+          case "21" =>
+            val f = injector.instance[FieldFactory].create(players(2))
+            f.gamepiece = new Capital(players(2))
+            grid = grid :+ f
+          case "22" =>
+            val f = injector.instance[FieldFactory].create(players(2))
+            f.gamepiece = Tree()
+            grid = grid :+ f
         }
         idxC += 1
       }

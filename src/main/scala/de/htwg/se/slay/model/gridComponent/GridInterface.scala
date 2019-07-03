@@ -16,21 +16,6 @@ trait GridInterface extends IndexedSeq[FieldInterface]{
 }
 
 
-trait FieldInterface{
-  def owner:Player
-  def owner_=(owner: Player):Unit
-
-  def gamepiece:GamePiece
-  def gamepiece_=(gamepiece: GamePiece):Unit
-
-  def neighbors:NeighborInterface
-  def setNeighbors(neighbors: NeighborInterface):Boolean
-
-  def territory: TerritoryInterface
-  def territory_=(territory: TerritoryInterface):Unit
-}
-
-
 trait TerritoryInterface{
   def capital: Capital
   def fields: HashSet[FieldInterface]

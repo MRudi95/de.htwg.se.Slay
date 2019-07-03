@@ -1,12 +1,14 @@
 package de.htwg.se.slay.controller.controllerComponent.controllerBaseImpl
 
+import net.codingwell.scalaguice.InjectorExtensions._
+import com.google.inject.{Guice, Injector}
+import de.htwg.se.slay.SlayModule
 import de.htwg.se.slay.controller.controllerComponent._
 import de.htwg.se.slay.model.gamepieceComponent._
 import de.htwg.se.slay.model.gridComponent.{FieldInterface, GridInterface}
-import de.htwg.se.slay.model.mapComponent.mapSquareImpl.SquareMapBuilder
+import de.htwg.se.slay.model.mapComponent.MapFactory
 import de.htwg.se.slay.model.playerComponent.Player
 import de.htwg.se.slay.util.UndoManager
-
 import scala.collection.immutable.HashSet
 
 class Controller extends ControllerInterface{
@@ -22,6 +24,7 @@ class Controller extends ControllerInterface{
   var state: Int = 1
 
   val undoManager = new UndoManager
+  val injector: Injector = Guice.createInjector(new SlayModule)
 
 
   def gridToString: String = grid.toString
@@ -34,7 +37,7 @@ class Controller extends ControllerInterface{
   }
 
   def createGrid(mapname: String, typ: String = "main"): Unit = {
-    val (g, c) = new SquareMapBuilder(players).gridCreator(mapname, typ)
+    val (g, c) = injector.instance[MapFactory].create(players).gridCreator(mapname, typ)
     grid = g
     capitals = c
     notifyObservers(GridCreatedEvent())

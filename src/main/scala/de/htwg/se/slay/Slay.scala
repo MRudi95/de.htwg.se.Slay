@@ -1,12 +1,14 @@
 package de.htwg.se.slay
 
+import com.google.inject.{Guice, Injector}
 import de.htwg.se.slay.aview.{SwingGUI, TextUI}
-import de.htwg.se.slay.controller.controllerComponent.controllerBaseImpl.Controller
+import de.htwg.se.slay.controller.controllerComponent.ControllerInterface
 
 import scala.io.StdIn.readLine
 
 object Slay{
-  val controller = new Controller
+  val injector: Injector = Guice.createInjector(new SlayModule)
+  val controller: ControllerInterface = injector.getInstance(classOf[ControllerInterface])
   val gui = new SwingGUI(controller)
   val tui = new TextUI(controller)
 

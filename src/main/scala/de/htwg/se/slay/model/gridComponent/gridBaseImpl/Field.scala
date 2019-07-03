@@ -1,10 +1,14 @@
 package de.htwg.se.slay.model.gridComponent.gridBaseImpl
 
+import com.google.inject.Inject
+import com.google.inject.assistedinject.Assisted
 import de.htwg.se.slay.model.gamepieceComponent.{GamePiece, NoPiece}
 import de.htwg.se.slay.model.gridComponent.{FieldInterface, NeighborInterface, TerritoryInterface}
 import de.htwg.se.slay.model.playerComponent.Player
 
-class Field(private var _owner: Player, private var _gamepiece: GamePiece = NoPiece()) extends FieldInterface {
+class Field @Inject() (@Assisted private var _owner: Player) extends FieldInterface {
+
+  private var _gamepiece: GamePiece = NoPiece()
   private var _neighbors: NeighborInterface = _
   private var _territory: TerritoryInterface = _
 
