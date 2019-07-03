@@ -1,7 +1,8 @@
 package de.htwg.se.slay.controller.controllerComponent.controllerBaseImpl
 
+import com.google.inject.Guice
+import de.htwg.se.slay.SlayModule
 import de.htwg.se.slay.model.gamepieceComponent.{Capital, GamePiece, NoPiece, UnitGamePiece}
-import de.htwg.se.slay.model.gridComponent.gridBaseImpl.Territory
 import de.htwg.se.slay.model.gridComponent.{FieldInterface, TerritoryInterface}
 import de.htwg.se.slay.model.playerComponent.Player
 import de.htwg.se.slay.util.Command
@@ -114,7 +115,7 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
   }
 
   private def splittingTerritories(list: Set[FieldInterface]): Unit = {
-    val tmp_ter = new Territory()
+    val tmp_ter = Guice.createInjector(new SlayModule).getInstance(classOf[TerritoryInterface])
     list.foreach { f =>
       tmp_ter.addField(f)
       f.territory = tmp_ter

@@ -6,7 +6,6 @@ import com.google.inject.assistedinject.Assisted
 import de.htwg.se.slay.SlayModule
 import de.htwg.se.slay.model.gamepieceComponent.{Capital, Tree}
 import de.htwg.se.slay.model.gridComponent._
-import de.htwg.se.slay.model.gridComponent.gridBaseImpl.{Field, Grid, Neighbors, Territory}
 import de.htwg.se.slay.model.mapComponent.MapInterface
 import de.htwg.se.slay.model.playerComponent.Player
 import de.htwg.se.slay.util.MapBuilder
@@ -100,7 +99,7 @@ class SquareMapBuilder @Inject() (@Assisted val players:Vector[Player]) extends 
     var capitals: HashSet[FieldInterface] = HashSet()
     for(field <- grid){
       if(field.territory == null) {
-        field.territory = new Territory
+        field.territory = injector.getInstance(classOf[TerritoryInterface])
         field.territory.addField(field)
       }
 

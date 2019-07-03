@@ -18,7 +18,3 @@ trait TerritoryInterface{
 
   def setCapital(field: FieldInterface): Boolean
 }
-
-trait TerritoryFactory{
-  def create(): TerritoryInterface
-}
