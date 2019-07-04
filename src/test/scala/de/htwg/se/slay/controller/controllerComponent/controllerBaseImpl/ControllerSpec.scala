@@ -179,7 +179,6 @@ class ControllerSpec extends WordSpec with Matchers{
       val controller = new Controller
       controller.createGrid("Test", "test")
 
-      controller.grid(7).gamepiece = new Peasant(controller.players(2))
       controller.capitals.foreach{f => f.gamepiece.asInstanceOf[Capital].balance = -1}
       controller.moneymoney()
     }
