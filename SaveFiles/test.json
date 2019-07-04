@@ -1,0 +1,398 @@
+{
+  "players" : {
+    "p1" : "Player 1",
+    "p2" : "Player 2"
+  },
+  "state" : {
+    "state" : 2
+  },
+  "grid" : {
+    "rowIdx" : 7,
+    "colIdx" : 15,
+    "fields" : [ {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "T"
+    }, {
+      "owner" : 1,
+      "gamepiece" : "T"
+    }, {
+      "owner" : 1,
+      "gamepiece" : "T"
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "T"
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "T"
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 1,
+      "gamepiece" : "T"
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 1,
+      "gamepiece" : "T"
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "T"
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "T"
+    }, {
+      "owner" : 1,
+      "gamepiece" : "T"
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "T"
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    } ]
+  }
+}

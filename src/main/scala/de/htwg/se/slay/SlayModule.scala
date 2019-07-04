@@ -3,6 +3,7 @@ package de.htwg.se.slay
 import com.google.inject.AbstractModule
 import com.google.inject.assistedinject.FactoryModuleBuilder
 import de.htwg.se.slay.controller.controllerComponent.{ControllerInterface, controllerBaseImpl}
+import de.htwg.se.slay.model.fileIOComponent._
 import de.htwg.se.slay.model.gridComponent._
 import de.htwg.se.slay.model.mapComponent.{MapFactory, MapInterface}
 import de.htwg.se.slay.model.mapComponent.mapSquareImpl.SquareMapBuilder
@@ -33,5 +34,7 @@ class SlayModule extends AbstractModule with ScalaModule{
     )
 
     bind[TerritoryInterface].to[gridBaseImpl.Territory]
+
+    bind[FileIOInterface].to[fileIoXMLimpl.FileIO]
   }
 }

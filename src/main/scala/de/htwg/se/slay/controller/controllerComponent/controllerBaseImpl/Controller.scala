@@ -4,7 +4,7 @@ import net.codingwell.scalaguice.InjectorExtensions._
 import com.google.inject.{Guice, Injector}
 import de.htwg.se.slay.SlayModule
 import de.htwg.se.slay.controller.controllerComponent._
-import de.htwg.se.slay.model.fileIOComponent.fileIoXMLimpl.FileIO
+import de.htwg.se.slay.model.fileIOComponent.FileIOInterface
 import de.htwg.se.slay.model.gamepieceComponent._
 import de.htwg.se.slay.model.gridComponent.{FieldInterface, GridInterface}
 import de.htwg.se.slay.model.mapComponent.MapFactory
@@ -229,11 +229,13 @@ class Controller extends ControllerInterface{
 
 
   def save(file: String): Unit ={
-    new FileIO().save(file, players, state, grid)
+    val fileIO = injector.getInstance(classOf[FileIOInterface])
+    fileIO.save(file, players, state, grid)
   }
 
   def load(file: String): Unit ={
-    val (p1name, p2name, s, g) = new FileIO().load(file, players)
+    val fileIO = injector.getInstance(classOf[FileIOInterface])
+    val (p1name, p2name, s, g) = fileIO.load(file, players)
     players(1).name = p1name
     players(2).name = p2name
     state = s

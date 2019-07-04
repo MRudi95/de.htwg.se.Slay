@@ -2,7 +2,6 @@ package de.htwg.se.slay.model.fileIOComponent.fileIoXMLimpl
 
 import com.google.inject.{Guice, Injector}
 import de.htwg.se.slay.SlayModule
-import de.htwg.se.slay.controller.controllerComponent.ControllerInterface
 import de.htwg.se.slay.model.fileIOComponent.FileIOInterface
 import de.htwg.se.slay.model.gamepieceComponent._
 import de.htwg.se.slay.model.gridComponent.{FieldFactory, FieldInterface, GridFactory, GridInterface}
