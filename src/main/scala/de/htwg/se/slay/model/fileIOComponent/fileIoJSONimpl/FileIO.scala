@@ -42,7 +42,6 @@ class FileIO extends FileIOInterface {
           }
           fields = fields :+ f
         }
-      case None =>
     }
     val rowIdx = (json \ "grid" \ "rowIdx").get.toString.toInt
     val colIdx = (json \ "grid" \ "colIdx").get.toString.toInt
