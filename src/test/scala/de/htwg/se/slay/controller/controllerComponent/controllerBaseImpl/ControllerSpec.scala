@@ -134,5 +134,24 @@ class ControllerSpec extends WordSpec with Matchers{
         controller.grid(7).gamepiece.getClass should be (classOf[Peasant])
       }
     }
+
+    "quick stuff" in{
+      val controller = new Controller
+      controller.createGrid("Test", "test")
+      controller.state = 1
+      controller.surrender()
+      controller.state = 2
+      controller.surrender()
+      controller.state = 0
+      controller.surrender()
+
+      controller.grid(1).gamepiece = Grave()
+      controller.buyPeasant(1)
+
+      controller.grid(6).gamepiece = new Peasant(controller.players(2))
+      controller.moveUnit(6,7)
+      controller.nextturn()
+      controller.capitals.foreach(_.gamepiece.asInstanceOf[Capital].balance = -1)
+    }
   }
 }
