@@ -7,7 +7,7 @@ import de.htwg.se.slay.model.gamepieceComponent._
 import de.htwg.se.slay.model.gridComponent.{FieldFactory, FieldInterface, GridFactory, GridInterface}
 import de.htwg.se.slay.model.playerComponent.Player
 
-import scala.xml.{Elem, NodeBuffer}
+import scala.xml.{Elem, NodeBuffer, PrettyPrinter}
 import net.codingwell.scalaguice.InjectorExtensions._
 
 
@@ -51,7 +51,9 @@ class FileIO extends FileIOInterface{
     val xml = <xml>{playersToXML(players)}{stateToXML(state)}{gridToXML(grid, players)}</xml>
     import java.io._
     val pw = new PrintWriter(new File("SaveFiles/" + name + ".xml"))
-    pw.write(xml.toString())
+    val prettyPrinter = new PrettyPrinter(120, 4)
+    val xmlPretty = prettyPrinter.format(xml)
+    pw.write(xmlPretty)
     pw.close()
   }
 
