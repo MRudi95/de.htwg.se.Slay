@@ -1,5 +1,7 @@
 package de.htwg.se.slay.model.fileIOComponent.fileIoXMLimpl
 
-class FileIOSpec {
+import org.scalatest._
+
+class FileIOSpec extends WordSpec with Matchers {
 
 }
