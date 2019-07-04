@@ -12,7 +12,6 @@ import net.codingwell.scalaguice.InjectorExtensions._
 
 
 class FileIO extends FileIOInterface{
-
   val injector: Injector = Guice.createInjector(new SlayModule)
 
   override def load(name: String, players: Vector[Player]): (String, String, Int, GridInterface) = {
