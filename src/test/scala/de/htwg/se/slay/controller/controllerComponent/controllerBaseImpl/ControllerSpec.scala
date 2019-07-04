@@ -135,6 +135,8 @@ class ControllerSpec extends WordSpec with Matchers{
       }
     }
 
+
+
     "quick stuff" in{
       val controller = new Controller
       controller.createGrid("Test", "test")
@@ -145,13 +147,16 @@ class ControllerSpec extends WordSpec with Matchers{
       controller.state = 0
       controller.surrender()
 
-      controller.grid(1).gamepiece = Grave()
-      controller.buyPeasant(1)
+      controller.state = 2
+      controller.grid(6).gamepiece = Grave()
+      controller.buyPeasant(6)
+
 
       controller.grid(6).gamepiece = new Peasant(controller.players(2))
       controller.moveUnit(6,7)
       controller.nextturn()
       controller.capitals.foreach(_.gamepiece.asInstanceOf[Capital].balance = -1)
+      controller.moneymoney()
     }
   }
 }
