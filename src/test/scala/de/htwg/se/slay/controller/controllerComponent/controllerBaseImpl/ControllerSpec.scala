@@ -180,7 +180,7 @@ class ControllerSpec extends WordSpec with Matchers{
       controller.createGrid("Test", "test")
 
       controller.grid(7).gamepiece = new Peasant(controller.players(2))
-      controller.capitals.foreach(_.gamepiece.asInstanceOf[Capital].balance = -1)
+      controller.capitals.foreach(f => f.gamepiece.asInstanceOf[Capital].balance = -1)
       controller.moneymoney()
     }
   }
