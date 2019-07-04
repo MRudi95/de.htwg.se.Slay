@@ -9,7 +9,7 @@ class FileIOSpec extends WordSpec with Matchers {
       val jsonIO = new FileIO
       val ctrl = new Controller
       val (p1, p2, s, g) = jsonIO.load("test", ctrl.players)
-      jsonIO.save("test", ctrl.players, s, g)
+      jsonIO.save("test2", ctrl.players, s, g)
     }
   }
 }

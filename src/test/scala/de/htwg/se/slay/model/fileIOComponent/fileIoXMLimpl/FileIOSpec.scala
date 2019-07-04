@@ -9,7 +9,7 @@ class FileIOSpec extends WordSpec with Matchers {
       val xmlIO = new FileIO
       val ctrl = new Controller
       val (p1, p2, s, g) = xmlIO.load("test", ctrl.players)
-      xmlIO.save("test", ctrl.players, s, g)
+      xmlIO.save("test2", ctrl.players, s, g)
     }
   }
 }
