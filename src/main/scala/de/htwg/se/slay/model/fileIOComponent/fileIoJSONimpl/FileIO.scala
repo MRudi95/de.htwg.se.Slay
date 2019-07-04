@@ -11,7 +11,7 @@ import de.htwg.se.slay.model.playerComponent.Player
 
 import scala.io.Source
 
-class FileIO extends FileIOInterface{
+class FileIO extends FileIOInterface {
   val injector: Injector = Guice.createInjector(new SlayModule)
 
   override def load(name: String, players: Vector[Player]): (String, String, Int, GridInterface) = {
@@ -23,12 +23,12 @@ class FileIO extends FileIOInterface{
 
     var fields: Vector[FieldInterface] = Vector.empty
     val fieldsJson = (json \ "grid" \ "fields").asOpt[JsArray]
-    fieldsJson match{
+    fieldsJson match {
       case Some(fieldArray) =>
-        for(field <- fieldArray.value){
+        for (field <- fieldArray.value) {
           val owner = players((field \ "owner").get.toString.toInt)
           val f = injector.instance[FieldFactory].create(owner)
-          f.gamepiece = (field \ "gamepiece").as[String] match{
+          f.gamepiece = (field \ "gamepiece").as[String] match {
             case " " => NoPiece()
             case "G" => Grave()
             case "T" => Tree()
@@ -63,17 +63,12 @@ class FileIO extends FileIOInterface{
     pw.close()
   }
 
-  def playersToJson(players: Vector[Player]): JsObject={
-    Json.obj(
-      "p1" -> players(1).name,
-      "p2" -> players(2).name
-    )
+  def playersToJson(players: Vector[Player]): JsObject ={
+    Json.obj("p1" -> players(1).name, "p2" -> players(2).name)
   }
 
-  def stateToJson(state: Int): JsObject ={
-    Json.obj(
-      "state" -> state
-    )
+  def stateToJson(state: Int): JsObject = {
+    Json.obj("state" -> state)
   }
 
   def gridToJson(grid: GridInterface, players: Vector[Player]): JsObject ={

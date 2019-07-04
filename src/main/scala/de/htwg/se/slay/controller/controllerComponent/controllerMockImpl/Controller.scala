@@ -16,7 +16,7 @@ class Controller extends ControllerInterface{
     new Player("Player 1", "\033[103m"),
     new Player("Player 2", "\033[102m"))
 
-  override def gridToString: String = grid.toString
+  override def gridToString: String = ""
 
   override def addPlayer(player: Player): Unit = players = players :+ player
 
