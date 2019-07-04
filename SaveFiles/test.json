@@ -11,7 +11,7 @@
     "colIdx" : 15,
     "fields" : [ {
       "owner" : 0,
-      "gamepiece" : ""
+      "gamepiece" : " "
     }, {
       "owner" : 0,
       "gamepiece" : " "
@@ -44,7 +44,7 @@
       "gamepiece" : "B"
     }, {
       "owner" : 1,
-      "gamepiece" : ""
+      "gamepiece" : " "
     }, {
       "owner" : 1,
       "gamepiece" : " "

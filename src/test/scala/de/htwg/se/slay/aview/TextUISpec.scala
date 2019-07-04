@@ -44,6 +44,11 @@ class TextUISpec extends WordSpec with Matchers{
         tui.processInput("mov C1 C2")
         tui.processInput("cmb C1 B1")
         tui.processInput("asdasd")
+        val controller2 = new Controller
+        val tui2 = new TextUI(controller2)
+        tui2.processInput("load test")
+        tui2.processInput("save test")
+
       }
 
 
