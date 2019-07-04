@@ -158,5 +158,30 @@ class ControllerSpec extends WordSpec with Matchers{
       controller.capitals.foreach(_.gamepiece.asInstanceOf[Capital].balance = -1)
       controller.moneymoney()
     }
+
+    "quicker stuff" in{
+      val controller = new Controller
+      controller.createGrid("Test", "test")
+
+      controller.state = 2
+      controller.grid(7).gamepiece = Grave()
+      controller.buyPeasant(7)
+
+
+      controller.grid(7).gamepiece = new Peasant(controller.players(2))
+      controller.moveUnit(7,6)
+      controller.nextturn()
+      controller.capitals.foreach(_.gamepiece.asInstanceOf[Capital].balance = -1)
+      controller.moneymoney()
+    }
+
+    "quickest stuff" in{
+      val controller = new Controller
+      controller.createGrid("Test", "test")
+
+      controller.grid(7).gamepiece = new Peasant(controller.players(2))
+      controller.capitals.foreach(_.gamepiece.asInstanceOf[Capital].balance = -1)
+      controller.moneymoney()
+    }
   }
 }
