@@ -11,3 +11,5 @@ class Observable {
 
   def notifyObservers(e: Event = SuccessEvent()): Unit = subscribers.foreach(o => o.update(e))
 }
+
+
