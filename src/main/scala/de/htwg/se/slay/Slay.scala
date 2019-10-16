@@ -12,12 +12,12 @@ object Slay{
   val gui = new SwingGUI(controller)
   val tui = new TextUI(controller)
 
-  //controller.createGrid("Map1")
+  controller.createGrid("Map1")
 
   def main(args: Array[String]) : Unit = {
     //StateStartUp.handle(WelcomeScreen(), controller)
 
-    controller.createGrid("Map1")
+    //controller.createGrid("Map1")
     var input: String = ""
     controller.nextturn()
     do{
