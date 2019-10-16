@@ -18,7 +18,10 @@ import scala.swing.event.{ButtonClicked, MouseClicked}
 class SwingGUI(controller: ControllerInterface) extends Frame with Observer{
   controller.add(this)
 
-  val icons = "src/main/resources/icons/"
+  //val icons = "src/main/resources/icons/"
+  def icons(icon:String) ={
+    this.getClass.getResource("/icons/" + icon)
+  }
   val water: Color = new Color(84, 214, 247)  //blue
   val p1Color: Color = new Color(242, 242, 58) //yellow
   val p2Color: Color = new Color(52, 226, 58) //green
@@ -221,8 +224,8 @@ class SwingGUI(controller: ControllerInterface) extends Frame with Observer{
         }
         icon = f.gamepiece match{
           case _:NoPiece  => null
-          case _:Tree     => Icon(icons + "tree.png")
-          case _:Capital  => Icon(icons + "capital.png")
+          case _:Tree     => Icon(icons("tree.png"))
+          case _:Capital  => Icon(icons("capital.png"))
           case _          => null
         }
 
@@ -269,14 +272,14 @@ class SwingGUI(controller: ControllerInterface) extends Frame with Observer{
 
       f.icon = controller.grid(idx).gamepiece match{
         case _:NoPiece  => null
-        case _:Tree     => Icon(icons + "tree.png")
-        case _:Grave    => Icon(icons + "grave.png")
-        case _:Capital  => Icon(icons + "capital.png")
-        case _:Castle   => Icon(icons + "castle.png")
-        case _:Peasant  => Icon(icons + "peasant.gif")
-        case _:Spearman => Icon(icons + "spearman.gif")
-        case _:Knight   => Icon(icons + "knight.gif")
-        case _:Baron    => Icon(icons + "baron.gif")
+        case _:Tree     => Icon(icons("tree.png"))
+        case _:Grave    => Icon(icons("grave.png"))
+        case _:Capital  => Icon(icons("capital.png"))
+        case _:Castle   => Icon(icons("castle.png"))
+        case _:Peasant  => Icon(icons("peasant.gif"))
+        case _:Spearman => Icon(icons("spearman.gif"))
+        case _:Knight   => Icon(icons("knight.gif"))
+        case _:Baron    => Icon(icons("baron.gif"))
         case _          => null
       }
 
