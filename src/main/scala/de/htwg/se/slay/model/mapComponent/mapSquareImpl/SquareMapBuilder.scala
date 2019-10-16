@@ -19,7 +19,8 @@ class SquareMapBuilder @Inject() (@Assisted val players:Vector[Player]) extends 
   val injector: Injector = Guice.createInjector(new SlayModule)
 
   override def gridCreator(mapname:String, typ:String = "main"):(GridInterface, HashSet[FieldInterface]) = {
-    val map: BufferedSource = io.Source.fromFile("src/" + typ + "/resources/maps/" + mapname + ".csv")
+    //val map: BufferedSource = io.Source.fromFile("src/" + typ + "/resources/maps/" + mapname + ".csv")
+    val map: BufferedSource = io.Source.fromURL(this.getClass.getResource("/maps/" + mapname + ".csv"))
     val (grid, rowIdx) = readCSV(map)
     map.close
 

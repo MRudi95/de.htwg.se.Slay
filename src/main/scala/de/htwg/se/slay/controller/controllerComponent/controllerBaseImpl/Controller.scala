@@ -6,7 +6,7 @@ import de.htwg.se.slay.SlayModule
 import de.htwg.se.slay.controller.controllerComponent._
 import de.htwg.se.slay.model.fileIOComponent.FileIOInterface
 import de.htwg.se.slay.model.gamepieceComponent._
-import de.htwg.se.slay.model.gridComponent.{FieldInterface, GridInterface}
+import de.htwg.se.slay.model.gridComponent.{FieldFactory, FieldInterface, GridFactory, GridInterface}
 import de.htwg.se.slay.model.mapComponent.MapFactory
 import de.htwg.se.slay.model.playerComponent.Player
 import de.htwg.se.slay.util.UndoManager
@@ -18,7 +18,7 @@ class Controller extends ControllerInterface{
     new Player("Player0", "\033[104m"),
     new Player("Player 1", "\033[103m"),
     new Player("Player 2", "\033[102m"))
-  var grid: GridInterface = _
+
   var capitals: HashSet[FieldInterface] = _
 
   val playerturn: List[PlayerTurn] = List(Player1Turn(), Player2Turn(), Player0Turn())
@@ -28,6 +28,8 @@ class Controller extends ControllerInterface{
   val undoManager = new UndoManager
   val injector: Injector = Guice.createInjector(new SlayModule)
 
+  var grid: GridInterface = injector.instance[GridFactory].create(Vector(injector.instance[FieldFactory].create(players(0))), 0, 0) //for Web Tech, so Grid isnt empty at first
+  //var grid: GridInterface = _
 
   def gridToString: String = grid.toString
 
