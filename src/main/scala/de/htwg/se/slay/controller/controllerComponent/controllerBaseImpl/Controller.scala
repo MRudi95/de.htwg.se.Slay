@@ -10,6 +10,7 @@ import de.htwg.se.slay.model.gridComponent.{FieldFactory, FieldInterface, GridFa
 import de.htwg.se.slay.model.mapComponent.MapFactory
 import de.htwg.se.slay.model.playerComponent.Player
 import de.htwg.se.slay.util.UndoManager
+import play.api.libs.json.JsObject
 
 import scala.collection.immutable.HashSet
 

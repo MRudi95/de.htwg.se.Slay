@@ -75,18 +75,22 @@ class FileIO extends FileIOInterface {
       "rowIdx" -> grid.rowIdx,
       "colIdx" -> grid.colIdx,
       "fields" -> Json.toJson(
-        for(field <- grid) yield fieldToJson(field, players)
+        for(field  <- grid) yield fieldToJson(field, players)
       )
     )
   }
 
   def fieldToJson(field: FieldInterface, players: Vector[Player]): JsObject ={
-    Json.obj(
+    val f = Json.obj(
       "owner" -> (field.owner match{
         case p0 if p0 == players(0) => 0
         case p1 if p1 == players(1) => 1
         case p2 if p2 == players(2) => 2}),
       "gamepiece" -> field.gamepiece.toString
     )
+    field.gamepiece match {
+      case gp:UnitGamePiece => f.+("hasMoved", JsBoolean(gp.hasMoved))
+      case _ => f
+    }
   }
 }

@@ -35,6 +35,6 @@ class SlayModule extends AbstractModule with ScalaModule{
 
     bind[TerritoryInterface].to[gridBaseImpl.Territory]
 
-    bind[FileIOInterface].to[fileIoXMLimpl.FileIO]
+    bind[FileIOInterface].to[fileIoJSONimpl.FileIO]
   }
 }
