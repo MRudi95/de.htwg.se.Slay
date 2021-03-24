@@ -11,10 +11,10 @@ class TextUI(controller: ControllerInterface) extends Observer{
 
   controller.add(this)
 
-  private val R = "\033[0m"         //Color Reset
-  private val B = "\033[1;97m"      //Text Color Black
-  private val RED = "\033[41m"      //Red Background
-  private val GREEN = "\033[42m"    //Green Background
+  private val R = "\u001b[0m"         //Color Reset
+  private val B = "\u001b[1;97m"      //Text Color Black
+  private val RED = "\u001b[41m"      //Red Background
+  private val GREEN = "\u001b[42m"    //Green Background
 
 /*  def welcomeScreen(): Unit = {
     println("\n========== WELCOME TO SLAY ==========\n" +

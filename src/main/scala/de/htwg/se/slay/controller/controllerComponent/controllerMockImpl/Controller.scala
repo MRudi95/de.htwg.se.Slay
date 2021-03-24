@@ -12,9 +12,9 @@ class Controller extends ControllerInterface{
   var capitals: HashSet[FieldInterface] = _
 
   var players: Vector[Player] = Vector(
-    new Player("Player0", "\033[104m"),
-    new Player("Player 1", "\033[103m"),
-    new Player("Player 2", "\033[102m"))
+    new Player("Player0", "\u001b[104m"),
+    new Player("Player 1", "\u001b[103m"),
+    new Player("Player 2", "\u001b[102m"))
 
   override def gridToString: String = ""
 

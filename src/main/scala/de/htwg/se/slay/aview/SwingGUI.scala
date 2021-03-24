@@ -77,10 +77,10 @@ class SwingGUI(controller: ControllerInterface) extends Frame with Observer{
     listenTo(okButton)
     reactions += {
       case ButtonClicked(this.okButton) if nameField.text == "" =>
-        controller.addPlayer(new Player("Player " + player , "\033[10" + (4-player) + "m"))
+        controller.addPlayer(new Player("Player " + player , "\u001b[10" + (4-player) + "m"))
         StateStartUp.handle(ReadPlayerName(player+1), controller)
       case ButtonClicked(this.okButton) =>
-        controller.addPlayer(new Player(nameField.text, "\033[10" + (4-player) + "m"))
+        controller.addPlayer(new Player(nameField.text, "\u001b[10" + (4-player) + "m"))
         StateStartUp.handle(ReadPlayerName(player+1), controller)
     }
 

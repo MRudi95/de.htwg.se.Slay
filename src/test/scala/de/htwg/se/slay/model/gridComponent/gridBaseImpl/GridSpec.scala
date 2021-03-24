@@ -29,9 +29,9 @@ class GridSpec extends WordSpec with Matchers{
       "have a String representation" in{
         grid2.toString should be(
           "\n    A  \n" +
-          "       \033[0m\n" +
-          "1   \033[1;97m   \033[0m\n" +
-          "       \033[0m\n")
+          "       \u001b[0m\n" +
+          "1   \u001b[1;97m   \u001b[0m\n" +
+          "       \u001b[0m\n")
       }
     }
   }

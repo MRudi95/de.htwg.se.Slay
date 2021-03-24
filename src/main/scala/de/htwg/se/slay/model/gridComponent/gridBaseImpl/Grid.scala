@@ -9,8 +9,8 @@ case class Grid @Inject() (@Assisted private val grid:Vector[FieldInterface],
   override def length: Int = grid.length
   override def apply(idx: Int):FieldInterface = grid(idx)
 
-  private val R = "\033[0m"       //Color Reset
-  private val B = "\033[1;97m"    //Text Color Black
+  private val R = "\u001b[0m"       //Color Reset
+  private val B = "\u001b[1;97m"    //Text Color Black
 
   private val abcLine = abcIndex
 
