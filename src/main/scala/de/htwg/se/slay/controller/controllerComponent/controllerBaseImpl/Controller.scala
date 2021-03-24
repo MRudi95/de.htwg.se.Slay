@@ -30,7 +30,6 @@ class Controller extends ControllerInterface{
   val injector: Injector = Guice.createInjector(new SlayModule)
 
   var grid: GridInterface = injector.instance[GridFactory].create(Vector(injector.instance[FieldFactory].create(players(0))), 0, 0) //for Web Tech, so Grid isnt empty at first
-  //var grid: GridInterface = _
 
   def gridToString: String = grid.toString
 

@@ -16,8 +16,8 @@ class ControllerSpec extends WordSpec with Matchers{
       "have added Players" in{
         controller.players(3) should be (playr1)
       }
-      "have no Grid yet" in{
-        controller.grid should be (null)
+      "have a start Grid" in{
+        controller.grid should not be null
       }
       "have no Capitals yet" in{
         controller.capitals should be (null)

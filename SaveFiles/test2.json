@@ -4,7 +4,7 @@
     "p2" : "Player 2"
   },
   "state" : {
-    "state" : 2
+    "state" : 1
   },
   "grid" : {
     "rowIdx" : 7,
@@ -16,43 +16,43 @@
       "owner" : 0,
       "gamepiece" : " "
     }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
       "owner" : 2,
-      "gamepiece" : "1"
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
     }, {
       "owner" : 2,
-      "gamepiece" : "2"
-    }, {
-      "owner" : 1,
-      "gamepiece" : "3"
-    }, {
-      "owner" : 0,
-      "gamepiece" : "4"
-    }, {
-      "owner" : 1,
-      "gamepiece" : "T"
-    }, {
-      "owner" : 0,
-      "gamepiece" : "G"
-    }, {
-      "owner" : 1,
-      "gamepiece" : "C"
-    }, {
-      "owner" : 1,
-      "gamepiece" : "C"
-    }, {
-      "owner" : 0,
-      "gamepiece" : "B"
-    }, {
-      "owner" : 1,
       "gamepiece" : " "
     }, {
       "owner" : 1,
       "gamepiece" : " "
     }, {
-      "owner" : 1,
+      "owner" : 2,
       "gamepiece" : " "
     }, {
-      "owner" : 1,
+      "owner" : 2,
       "gamepiece" : "C"
     }, {
       "owner" : 0,
@@ -61,19 +61,19 @@
       "owner" : 0,
       "gamepiece" : " "
     }, {
-      "owner" : 1,
+      "owner" : 2,
       "gamepiece" : " "
     }, {
       "owner" : 0,
       "gamepiece" : " "
     }, {
-      "owner" : 1,
+      "owner" : 2,
       "gamepiece" : "T"
     }, {
       "owner" : 1,
       "gamepiece" : "T"
     }, {
-      "owner" : 1,
+      "owner" : 2,
       "gamepiece" : "T"
     }, {
       "owner" : 1,
@@ -82,7 +82,7 @@
       "owner" : 1,
       "gamepiece" : "C"
     }, {
-      "owner" : 1,
+      "owner" : 2,
       "gamepiece" : "C"
     }, {
       "owner" : 0,
@@ -100,13 +100,13 @@
       "owner" : 0,
       "gamepiece" : " "
     }, {
-      "owner" : 1,
+      "owner" : 2,
       "gamepiece" : " "
     }, {
-      "owner" : 1,
+      "owner" : 2,
       "gamepiece" : " "
     }, {
-      "owner" : 1,
+      "owner" : 2,
       "gamepiece" : " "
     }, {
       "owner" : 1,
@@ -116,6 +116,30 @@
       "gamepiece" : "C"
     }, {
       "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 2,
+      "gamepiece" : "T"
+    }, {
+      "owner" : 1,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 2,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 2,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 2,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 2,
       "gamepiece" : " "
     }, {
       "owner" : 1,
@@ -124,31 +148,7 @@
       "owner" : 1,
       "gamepiece" : "C"
     }, {
-      "owner" : 1,
-      "gamepiece" : " "
-    }, {
-      "owner" : 0,
-      "gamepiece" : " "
-    }, {
-      "owner" : 1,
-      "gamepiece" : " "
-    }, {
-      "owner" : 0,
-      "gamepiece" : " "
-    }, {
-      "owner" : 1,
-      "gamepiece" : "C"
-    }, {
-      "owner" : 1,
-      "gamepiece" : " "
-    }, {
-      "owner" : 1,
-      "gamepiece" : "T"
-    }, {
-      "owner" : 1,
-      "gamepiece" : "C"
-    }, {
-      "owner" : 1,
+      "owner" : 2,
       "gamepiece" : " "
     }, {
       "owner" : 0,
@@ -157,7 +157,13 @@
       "owner" : 0,
       "gamepiece" : " "
     }, {
+      "owner" : 2,
+      "gamepiece" : " "
+    }, {
       "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 2,
       "gamepiece" : " "
     }, {
       "owner" : 1,
@@ -166,13 +172,7 @@
       "owner" : 1,
       "gamepiece" : " "
     }, {
-      "owner" : 1,
-      "gamepiece" : " "
-    }, {
-      "owner" : 1,
-      "gamepiece" : " "
-    }, {
-      "owner" : 1,
+      "owner" : 2,
       "gamepiece" : "C"
     }, {
       "owner" : 1,
@@ -205,59 +205,53 @@
       "owner" : 0,
       "gamepiece" : " "
     }, {
-      "owner" : 1,
+      "owner" : 2,
       "gamepiece" : "C"
     }, {
-      "owner" : 1,
+      "owner" : 2,
       "gamepiece" : "T"
     }, {
       "owner" : 1,
       "gamepiece" : " "
     }, {
+      "owner" : 2,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 2,
+      "gamepiece" : " "
+    }, {
       "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 2,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 2,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 2,
       "gamepiece" : "C"
     }, {
       "owner" : 1,
       "gamepiece" : " "
     }, {
-      "owner" : 1,
-      "gamepiece" : " "
-    }, {
-      "owner" : 0,
-      "gamepiece" : " "
-    }, {
-      "owner" : 0,
-      "gamepiece" : " "
-    }, {
-      "owner" : 1,
-      "gamepiece" : " "
-    }, {
-      "owner" : 0,
-      "gamepiece" : " "
-    }, {
-      "owner" : 1,
-      "gamepiece" : " "
-    }, {
-      "owner" : 0,
+      "owner" : 2,
       "gamepiece" : " "
     }, {
       "owner" : 1,
       "gamepiece" : "C"
-    }, {
-      "owner" : 1,
-      "gamepiece" : " "
-    }, {
-      "owner" : 1,
-      "gamepiece" : " "
-    }, {
-      "owner" : 1,
-      "gamepiece" : "C"
-    }, {
-      "owner" : 1,
-      "gamepiece" : " "
-    }, {
-      "owner" : 1,
-      "gamepiece" : "T"
     }, {
       "owner" : 1,
       "gamepiece" : " "
@@ -265,21 +259,39 @@
       "owner" : 1,
       "gamepiece" : "T"
     }, {
-      "owner" : 1,
+      "owner" : 2,
+      "gamepiece" : " "
+    }, {
+      "owner" : 2,
       "gamepiece" : "T"
-    }, {
-      "owner" : 1,
-      "gamepiece" : " "
-    }, {
-      "owner" : 0,
-      "gamepiece" : " "
-    }, {
-      "owner" : 1,
-      "gamepiece" : " "
     }, {
       "owner" : 1,
       "gamepiece" : "T"
     }, {
+      "owner" : 2,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 2,
+      "gamepiece" : "T"
+    }, {
+      "owner" : 2,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 2,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 2,
+      "gamepiece" : " "
+    }, {
       "owner" : 1,
       "gamepiece" : "C"
     }, {
@@ -289,28 +301,16 @@
       "owner" : 1,
       "gamepiece" : " "
     }, {
-      "owner" : 1,
-      "gamepiece" : " "
-    }, {
-      "owner" : 1,
+      "owner" : 2,
       "gamepiece" : "C"
     }, {
-      "owner" : 1,
-      "gamepiece" : " "
-    }, {
-      "owner" : 1,
-      "gamepiece" : " "
-    }, {
-      "owner" : 1,
-      "gamepiece" : "C"
-    }, {
-      "owner" : 1,
+      "owner" : 2,
       "gamepiece" : " "
     }, {
       "owner" : 0,
       "gamepiece" : " "
     }, {
-      "owner" : 1,
+      "owner" : 2,
       "gamepiece" : " "
     }, {
       "owner" : 1,
@@ -322,43 +322,7 @@
       "owner" : 1,
       "gamepiece" : "C"
     }, {
-      "owner" : 1,
-      "gamepiece" : " "
-    }, {
-      "owner" : 0,
-      "gamepiece" : " "
-    }, {
-      "owner" : 0,
-      "gamepiece" : " "
-    }, {
-      "owner" : 1,
-      "gamepiece" : " "
-    }, {
-      "owner" : 1,
-      "gamepiece" : "C"
-    }, {
-      "owner" : 1,
-      "gamepiece" : " "
-    }, {
-      "owner" : 0,
-      "gamepiece" : " "
-    }, {
-      "owner" : 1,
-      "gamepiece" : " "
-    }, {
-      "owner" : 0,
-      "gamepiece" : " "
-    }, {
-      "owner" : 0,
-      "gamepiece" : " "
-    }, {
-      "owner" : 1,
-      "gamepiece" : " "
-    }, {
-      "owner" : 0,
-      "gamepiece" : " "
-    }, {
-      "owner" : 1,
+      "owner" : 2,
       "gamepiece" : " "
     }, {
       "owner" : 0,
@@ -373,7 +337,13 @@
       "owner" : 1,
       "gamepiece" : "C"
     }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
       "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 2,
       "gamepiece" : " "
     }, {
       "owner" : 0,
@@ -385,7 +355,37 @@
       "owner" : 1,
       "gamepiece" : " "
     }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
       "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 1,
+      "gamepiece" : " "
+    }, {
+      "owner" : 2,
+      "gamepiece" : "C"
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 0,
+      "gamepiece" : " "
+    }, {
+      "owner" : 2,
+      "gamepiece" : " "
+    }, {
+      "owner" : 2,
       "gamepiece" : "C"
     }, {
       "owner" : 0,
