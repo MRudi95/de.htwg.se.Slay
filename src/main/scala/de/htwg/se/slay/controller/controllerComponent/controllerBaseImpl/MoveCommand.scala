@@ -25,6 +25,13 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
   var splitTer: TerritoryInterface = terMem
   var splitTerritory: List[(TerritoryInterface, FieldInterface, GamePiece)] = List((splitTer, null, null))
 
+  def makeMove() =
+    caplist.foreach {
+    case Some(field) =>
+      field.gamepiece = NoPiece()
+      ctrl.capitals -= field
+    case None =>
+  }
 
   override def doStep(): Unit = {
     gp1Mem = f1.gamepiece
@@ -62,12 +69,7 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
 
 
     caplist = cmbTerList.map(_.fields.find(_.gamepiece.isInstanceOf[Capital]))
-    caplist.foreach {
-      case Some(field) =>
-        field.gamepiece = NoPiece()
-        ctrl.capitals -= field
-      case None =>
-    }
+    makeMove()
 
     cmbTerList.foreach { ter =>
       if (ter.capital != null) {
@@ -228,13 +230,7 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
     ownerMem = tmp_owner
     terMem = tmp_ter
 
-
-    caplist.foreach {
-      case Some(field) =>
-        field.gamepiece = NoPiece()
-        ctrl.capitals -= field
-      case None =>
-    }
+    makeMove()
 
     cmbTerList.foreach { ter =>
       if (ter.capital != null) {

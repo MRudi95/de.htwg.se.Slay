@@ -17,9 +17,7 @@ case class Grid @Inject() (@Assisted private val grid:Vector[FieldInterface],
   override def toString: String ={
     var StringGrid = "\n" + abcLine + "\n"
     for(rows <- 0 to rowIdx) {
-      var lineOne = ""
-      var lineTwo = ""
-      var lineThree = ""
+      var lineOne, lineTwo, lineThree = ""
 
       for (cols <- 0 to colIdx) {
         val idx = rows * (colIdx+1) + cols
