@@ -25,12 +25,43 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
   var splitTer: TerritoryInterface = terMem
   var splitTerritory: List[(TerritoryInterface, FieldInterface, GamePiece)] = List((splitTer, null, null))
 
-  def makeMove() =
+  def makeMove() = {
     caplist.foreach {
     case Some(field) =>
       field.gamepiece = NoPiece()
       ctrl.capitals -= field
     case None =>
+    }
+  }
+
+  def makeTeritory() = {
+    cmbTerList.foreach { ter =>
+      if (ter.capital != null) {
+        biggestTer.capital.balance += ter.capital.balance
+        biggestTer.armyCost += ter.armyCost
+      }
+      ter.fields.foreach { f =>
+        f.territory = biggestTer
+        biggestTer.addField(f)
+      }
+    }
+  }
+
+  def f2Step() = {
+    f2.owner = ownerMem
+    f2.territory.removeField(f2)
+    f2.territory = terMem
+    f2.territory.addField(f2)
+  }
+
+  def stepSetup() = {
+    (f1.gamepiece, f2.gamepiece, f2.owner, f2.territory)
+  }
+
+  def gamepieceSetup(hasMoved: Boolean) = {
+    f1.gamepiece = gp1Mem
+    f2.gamepiece = gp2Mem
+    f1.gamepiece.asInstanceOf[UnitGamePiece].hasMoved = hasMoved
   }
 
   override def doStep(): Unit = {
@@ -71,16 +102,7 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
     caplist = cmbTerList.map(_.fields.find(_.gamepiece.isInstanceOf[Capital]))
     makeMove()
 
-    cmbTerList.foreach { ter =>
-      if (ter.capital != null) {
-        biggestTer.capital.balance += ter.capital.balance
-        biggestTer.armyCost += ter.armyCost
-      }
-      ter.fields.foreach { f =>
-        f.territory = biggestTer
-        biggestTer.addField(f)
-      }
-    }
+    makeTeritory()
 
 
     splitTerList = splitTerList.map(list => recursion(list.head, list))
@@ -148,19 +170,11 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
 
 
   override def undoStep(): Unit = {
-    val tmp_gp1 = f1.gamepiece
-    val tmp_gp2 = f2.gamepiece
-    val tmp_owner = f2.owner
-    val tmp_ter = f2.territory
+    val (tmp_gp1, tmp_gp2, tmp_owner, tmp_ter) = stepSetup()
 
-    f1.gamepiece = gp1Mem
-    f1.gamepiece.asInstanceOf[UnitGamePiece].hasMoved = false
-    f2.gamepiece = gp2Mem
-    f2.owner = ownerMem
+    gamepieceSetup(false)
+    f2Step()
 
-    f2.territory.removeField(f2)
-    f2.territory = terMem
-    f2.territory.addField(f2)
     gp2Mem match {
       case _: UnitGamePiece => f2.territory.addUnit(_)
       case _: Capital => ctrl.capitals += f2
@@ -206,19 +220,11 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
   }
 
   override def redoStep(): Unit = {
-    val tmp_gp1 = f1.gamepiece
-    val tmp_gp2 = f2.gamepiece
-    val tmp_owner = f2.owner
-    val tmp_ter = f2.territory
+    val (tmp_gp1, tmp_gp2, tmp_owner, tmp_ter) = stepSetup()
 
-    f1.gamepiece = gp1Mem
-    f2.gamepiece = gp2Mem
-    f2.gamepiece.asInstanceOf[UnitGamePiece].hasMoved = true
-    f2.owner = ownerMem
+    gamepieceSetup(true)
+    f2Step()
 
-    f2.territory.removeField(f2)
-    f2.territory = terMem
-    f2.territory.addField(f2)
     gp2Mem match {
       case _: UnitGamePiece => f2.territory.removeUnit(_)
       case _: Capital => ctrl.capitals -= f2
@@ -232,16 +238,7 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
 
     makeMove()
 
-    cmbTerList.foreach { ter =>
-      if (ter.capital != null) {
-        biggestTer.capital.balance += ter.capital.balance
-        biggestTer.armyCost += ter.armyCost
-      }
-      ter.fields.foreach { f =>
-        f.territory = biggestTer
-        biggestTer.addField(f)
-      }
-    }
+    makeTeritory()
 
 
     splitTerritory.foreach {
