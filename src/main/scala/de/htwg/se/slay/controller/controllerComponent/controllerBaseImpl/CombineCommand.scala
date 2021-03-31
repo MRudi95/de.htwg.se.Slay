@@ -16,23 +16,23 @@ class CombineCommand(c1:Int, c2: Int, ctrl:Controller) extends Command{
 
     (ctrl.grid(c1).gamepiece, ctrl.grid(c2).gamepiece) match {
       case (_: Peasant, _: Peasant) =>
-        ctrl.grid(c1).gamepiece = new Spearman(ctrl.grid(c1).owner)
+        ctrl.grid(c1).gamepiece = Spearman(ctrl.grid(c1).owner)
         ctrl.grid(c2).gamepiece = NoPiece()
       case (_: Peasant, _: Spearman) | (_: Spearman, _: Peasant) =>
-        ctrl.grid(c1).gamepiece = new Knight(ctrl.grid(c1).owner)
+        ctrl.grid(c1).gamepiece = Knight(ctrl.grid(c1).owner)
         ctrl.grid(c2).gamepiece = NoPiece()
       case (_: Peasant, _: Knight) | (_: Knight, _: Peasant) =>
-        ctrl.grid(c1).gamepiece = new Baron(ctrl.grid(c1).owner)
+        ctrl.grid(c1).gamepiece = Baron(ctrl.grid(c1).owner)
         ctrl.grid(c2).gamepiece = NoPiece()
       case (_: Spearman, _: Spearman) =>
-        ctrl.grid(c1).gamepiece = new Baron(ctrl.grid(c1).owner)
+        ctrl.grid(c1).gamepiece = Baron(ctrl.grid(c1).owner)
         ctrl.grid(c2).gamepiece = NoPiece()
       case _ =>
     }
 
     ctrl.grid(c1).territory.addUnit(ctrl.grid(c1).gamepiece.asInstanceOf[UnitGamePiece])
     if(memento1.asInstanceOf[UnitGamePiece].hasMoved || memento2.asInstanceOf[UnitGamePiece].hasMoved)
-      ctrl.grid(c1).gamepiece.asInstanceOf[UnitGamePiece].hasMoved = true
+      ctrl.grid(c1).gamepiece = ctrl.grid(c1).gamepiece.asInstanceOf[UnitGamePiece].copyTo(true)
   }
 
   override def undoStep(): Unit = {

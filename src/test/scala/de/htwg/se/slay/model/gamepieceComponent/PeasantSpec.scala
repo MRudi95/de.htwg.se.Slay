@@ -29,16 +29,16 @@ class PeasantSpec extends WordSpec with Matchers {
     }
     "it has moved in a turn" should{
       val playr = new Player("", "")
-      val peasant = new Peasant(playr)
-      peasant.hasMoved = true
+      val peasant1 = Peasant(playr)
+      val peasant = peasant1.copyTo(true)
       "have moved as true" in{
         peasant.hasMoved should be (true)
       }
     }
     "a new turn starts" should{
       val playr = new Player("", "")
-      val peasant = new Peasant(playr)
-      peasant.hasMoved = false
+      val peasant1 = Peasant(playr)
+      val peasant = peasant1.copyTo(false)
       "have hasMoved set as true" in{
         peasant.hasMoved should be (false)
       }

@@ -2,11 +2,14 @@ package de.htwg.se.slay.model.gamepieceComponent
 
 import de.htwg.se.slay.model.playerComponent.Player
 
-class Knight(val player: Player) extends UnitGamePiece {
-  override val strength: Int = 3
-  override val price: Int = 30
-  override val cost: Int = 18
-  var hasMoved: Boolean = false
-
+case class Knight(player: Player,
+                 hasMoved: Boolean = false,
+                 strength: Int = 3,
+                 price: Int = 30,
+                 cost: Int = 18
+                ) extends UnitGamePiece {
+  override def copyTo(moved: Boolean) ={
+    this.copy(hasMoved = moved)
+  }
   override def toString: String = "3"
 }

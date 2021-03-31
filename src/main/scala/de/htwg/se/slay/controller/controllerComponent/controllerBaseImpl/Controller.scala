@@ -191,13 +191,12 @@ class Controller extends ControllerInterface{
     state = p
     undoManager.reset()
     grid.foreach(_.gamepiece match{
-      case gp:UnitGamePiece => gp.hasMoved = false
+      case gp:UnitGamePiece => gp.copyTo(false)
       case _ =>
     })
     notifyObservers()
     notifyObservers(PlayerEvent(players(p).name))
   }
-
 
 
   def undo():Unit = {

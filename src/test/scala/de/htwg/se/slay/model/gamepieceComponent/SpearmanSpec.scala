@@ -29,16 +29,16 @@ class SpearmanSpec extends WordSpec with Matchers {
     }
     "it has moved in a turn" should{
       val playr = new Player("", "")
-      val spearman = new Spearman(playr)
-      spearman.hasMoved = true
+      val spearman1 = Spearman(playr)
+      val spearman = spearman1.copyTo(true)
       "have moved as true" in{
         spearman.hasMoved should be (true)
       }
     }
     "a new turn starts" should{
       val playr = new Player("", "")
-      val spearman = new Spearman(playr)
-      spearman.hasMoved = false
+      val spearman1 = Spearman(playr)
+      val spearman = spearman1.copyTo(false)
       "have hasMoved set as true" in{
         spearman.hasMoved should be (false)
       }

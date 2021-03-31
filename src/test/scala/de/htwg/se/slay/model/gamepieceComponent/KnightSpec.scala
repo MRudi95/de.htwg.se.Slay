@@ -29,16 +29,16 @@ class KnightSpec extends WordSpec with Matchers {
     }
     "it has moved in a turn" should{
       val playr = new Player("", "")
-      val knight = new Knight(playr)
-      knight.hasMoved = true
+      val knight1 = Knight(playr)
+      val knight = knight1.copyTo(true)
       "have moved as true" in{
         knight.hasMoved should be (true)
       }
     }
     "a new turn starts" should{
       val playr = new Player("", "")
-      val knight = new Knight(playr)
-      knight.hasMoved = false
+      val knight1 = Knight(playr)
+      val knight = knight1.copyTo(false)
       "have hasMoved set as true" in{
         knight.hasMoved should be (false)
       }

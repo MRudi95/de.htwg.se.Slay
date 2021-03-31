@@ -29,16 +29,16 @@ class BaronSpec extends WordSpec with Matchers {
     }
     "it has moved in a turn" should{
       val playr = new Player("", "")
-      val baron = new Baron(playr)
-      baron.hasMoved = true
+      val baron1 = Baron(playr)
+      val baron = baron1.copyTo(true)
       "have moved as true" in{
         baron.hasMoved should be (true)
       }
     }
     "a new turn starts" should{
       val playr = new Player("", "")
-      val baron = new Baron(playr)
-      baron.hasMoved = false
+      val baron1 = Baron(playr)
+      val baron = baron1.copyTo(false)
       "have hasMoved set as true" in{
         baron.hasMoved should be (false)
       }

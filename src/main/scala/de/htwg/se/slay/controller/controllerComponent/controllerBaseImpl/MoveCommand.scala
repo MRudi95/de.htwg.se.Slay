@@ -61,7 +61,10 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
   def gamepieceSetup(hasMoved: Boolean) = {
     f1.gamepiece = gp1Mem
     f2.gamepiece = gp2Mem
-    f1.gamepiece.asInstanceOf[UnitGamePiece].hasMoved = hasMoved
+    f2.gamepiece = f2.gamepiece match{
+      case gp:UnitGamePiece => gp.copyTo(hasMoved)
+      case gp:GamePiece => gp
+    }
   }
 
   override def doStep(): Unit = {
@@ -77,7 +80,11 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
 
     f1.gamepiece = NoPiece()
     f2.gamepiece = gp1Mem
-    f2.gamepiece.asInstanceOf[UnitGamePiece].hasMoved = true
+//    f2.gamepiece.asInstanceOf[UnitGamePiece].hasMoved = true
+    f2.gamepiece = f2.gamepiece match{
+      case gp:UnitGamePiece => gp.copyTo(true)
+      case gp:GamePiece => gp
+    }
     f2.owner = f1.owner
 
     f2.territory.removeField(f2)
