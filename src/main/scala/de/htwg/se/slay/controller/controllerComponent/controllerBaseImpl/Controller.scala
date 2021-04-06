@@ -48,8 +48,10 @@ class Controller extends ControllerInterface{
   }
 
   def seeBalance(c: Int): Unit ={
-    if(checkOwner(c) && grid(c).territory.capital != null){
-      val ter = grid(c).territory
+    val ter = grid(c).territory match {
+      case Some(value) => value
+    }
+    if(checkOwner(c) && ter.capital != null){
       notifyObservers(BalanceEvent(ter.capital.balance, ter.size, ter.armyCost))
     }
   }
@@ -73,7 +75,10 @@ class Controller extends ControllerInterface{
   }
 
   private def checkBalance(c: Int, bal:Int): Boolean ={
-    if(grid(c).territory.capital.balance >= bal) true
+    val ter = grid(c).territory match {
+      case Some(value) => value
+    }
+    if(ter.capital.balance >= bal) true
     else {notifyObservers(MoneyErrorEvent()); false}
   }
 
@@ -168,13 +173,16 @@ class Controller extends ControllerInterface{
   def moneymoney(): Unit = {
     for(field <- capitals){
       val cap = field.gamepiece.asInstanceOf[Capital]
-      cap.balance += field.territory.size
-      cap.balance -= field.territory.armyCost
+      val ter = field.territory match {
+        case Some(value) => value
+      }
+      cap.balance += ter.size
+      cap.balance -= ter.armyCost
       if(cap.balance < 0){
         cap.balance = 0
-        field.territory.fields.foreach(x => x.gamepiece match{
+        ter.fields.foreach(x => x.gamepiece match{
           case unit:UnitGamePiece =>
-            field.territory.removeUnit(unit)
+            ter.removeUnit(unit)
             x.gamepiece = Grave()
           case _ =>
         })

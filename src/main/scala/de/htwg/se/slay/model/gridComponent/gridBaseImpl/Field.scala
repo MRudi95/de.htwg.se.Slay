@@ -10,7 +10,7 @@ class Field @Inject() (@Assisted private var _owner: Player) extends FieldInterf
 
   private var _gamepiece: GamePiece = NoPiece()
   private var _neighbors: NeighborInterface = _
-  private var _territory: TerritoryInterface = _
+  private var _territory: Option[TerritoryInterface] = None
 
   def owner:Player = _owner
   def owner_=(owner: Player):Unit = _owner = owner
@@ -23,7 +23,7 @@ class Field @Inject() (@Assisted private var _owner: Player) extends FieldInterf
     if(_neighbors == null) {_neighbors = neighbors; true} else false
   }
 
-  def territory: TerritoryInterface = _territory
-  def territory_=(territory: TerritoryInterface):Unit = _territory = territory
+  def territory: Option[TerritoryInterface] = _territory
+  def territory_=(territory: Option[TerritoryInterface]):Unit = _territory = territory
 
 }

@@ -99,42 +99,66 @@ class SquareMapBuilder @Inject() (@Assisted val players:Vector[Player]) extends 
   override def setTerritories(grid: Vector[FieldInterface]): HashSet[FieldInterface] = {
     var capitals: HashSet[FieldInterface] = HashSet()
     for(field <- grid){
-      if(field.territory == null) {
-        field.territory = injector.getInstance(classOf[TerritoryInterface])
-        field.territory.addField(field)
+      if(field.territory.isEmpty) {
+        field.territory = Some(injector.getInstance(classOf[TerritoryInterface]))
+        for (x <- field.territory) yield x.addField(field)
       }
 
       field.gamepiece match {
         case _:Capital =>
-          field.territory.setCapital(field)
+          for (x <- field.territory) yield x.setCapital(field)
           capitals += field
         case _ =>
       }
 
+//      field.neighbors.neighborEast match {
+//        case Some(east) if east.owner == field.owner && east.territory != null =>
+//          if(field.territory.size == 1) {
+//            field.territory = east.territory
+//            field.territory.addField(field)
+//          } else{
+//            east.territory.fields.find(_.gamepiece.isInstanceOf[Capital]) match{
+//              case Some(capField) => field.territory.setCapital(capField)
+//              case None =>
+//            }
+//            east.territory.fields.foreach { f =>
+//              f.territory = field.territory
+//              field.territory.addField(f)
+//            }
+//          }
+//        case Some(east) if east.owner == field.owner && east.territory == null =>
+//          east.territory = field.territory
+//          for (x <- field.territory) yield x.addField(east)
+//        case _ =>
+//      }
+
       field.neighbors.neighborEast match {
-        case Some(east) if east.owner == field.owner && east.territory != null =>
-          if(field.territory.size == 1) {
-            field.territory = east.territory
-            field.territory.addField(field)
-          } else{
-            east.territory.fields.find(_.gamepiece.isInstanceOf[Capital]) match{
-              case Some(capField) => field.territory.setCapital(capField)
-              case None =>
-            }
-            east.territory.fields.foreach { f =>
-              f.territory = field.territory
-              field.territory.addField(f)
-            }
+        case Some(east) if east.owner == field.owner =>
+          east.territory match {
+            case Some(territory) =>
+              if(field.territory.size == 1) {
+                field.territory = east.territory
+                for (x <- field.territory) yield x.addField(field)
+              } else{
+                territory.fields.find(_.gamepiece.isInstanceOf[Capital]) match{
+                  case Some(capField) => for (x <- field.territory) yield x.setCapital(capField)
+                  case None =>
+                }
+                territory.fields.foreach { f =>
+                  f.territory = field.territory
+                  for (x <- field.territory) yield x.addField(f)
+                }
+              }
+            case None =>
+              east.territory = field.territory
+              for (x <- field.territory) yield x.addField(east)
           }
-        case Some(east) if east.owner == field.owner && east.territory == null =>
-          east.territory = field.territory
-          field.territory.addField(east)
         case _ =>
       }
 
       field.neighbors.neighborSouth match {
         case Some(south) if south.owner == field.owner =>
-          field.territory.addField(south)
+          for (x <- field.territory) yield x.addField(south)
           south.territory = field.territory
         case _ =>
       }

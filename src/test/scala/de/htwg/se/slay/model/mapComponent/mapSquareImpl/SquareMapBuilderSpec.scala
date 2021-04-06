@@ -36,12 +36,15 @@ class SquareMapBuilderSpec extends WordSpec with Matchers {
       grid(0).neighbors.neighborNorth should be(None)
     }
     "assign Territory relationships to the Fields in the Grid" in{
-      grid(2).territory.fields.contains(grid(2)) should be (true)
-      grid(2).territory.fields.contains(grid(5)) should be (true)
-      grid(2).territory.fields.contains(grid(6)) should be (true)
-      grid(2).territory.fields.contains(grid(7)) should be (true)
-      grid(2).territory.fields.contains(grid(1)) should be (false)
-      grid(2).territory.capital should be (grid(2).gamepiece)
+      val ter = grid(2).territory match {
+        case Some(value) => value
+      }
+      ter.fields.contains(grid(2)) should be (true)
+      ter.fields.contains(grid(5)) should be (true)
+      ter.fields.contains(grid(6)) should be (true)
+      ter.fields.contains(grid(7)) should be (true)
+      ter.fields.contains(grid(1)) should be (false)
+      ter.capital should be (grid(2).gamepiece)
     }
 
     "special case \"U-formation\"" in{

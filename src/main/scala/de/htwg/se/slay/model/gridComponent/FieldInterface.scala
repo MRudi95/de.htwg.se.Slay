@@ -13,8 +13,8 @@ trait FieldInterface {
   def neighbors:NeighborInterface
   def setNeighbors(neighbors: NeighborInterface):Boolean
 
-  def territory: TerritoryInterface
-  def territory_=(territory: TerritoryInterface):Unit
+  def territory: Option[TerritoryInterface]
+  def territory_=(territory: Option[TerritoryInterface]):Unit
 }
 
 trait FieldFactory{

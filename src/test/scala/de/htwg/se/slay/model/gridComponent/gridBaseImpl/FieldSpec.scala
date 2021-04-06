@@ -60,7 +60,7 @@ class FieldSpec extends WordSpec with Matchers {
     "its territory changes" should{
       val playr =  new Player("", "")
       val field = new Field(playr)
-      val ter = new Territory
+      val ter = Some(new Territory)
       field.territory = ter
       "have a Territory" in{
         field.territory should be (ter)

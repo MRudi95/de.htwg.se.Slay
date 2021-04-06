@@ -14,16 +14,18 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
 
   var gp2Mem: GamePiece = f2.gamepiece
   var ownerMem: Player = f2.owner
-  var terMem: TerritoryInterface = f2.territory
+  var terMem: Option[TerritoryInterface] = f2.territory
 
-  var cmbTerList: List[TerritoryInterface] = List(f1.territory)
+  var cmbTerList: List[Option[TerritoryInterface]] = List(f1.territory)
   var splitTerList: List[Set[FieldInterface]] = Nil
 
   var caplist: List[Option[FieldInterface]] = Nil
-  var biggestTer: TerritoryInterface = _
+  var biggestTer: Option[TerritoryInterface] = None
 
-  var splitTer: TerritoryInterface = terMem
-  var splitTerritory: List[(TerritoryInterface, FieldInterface, GamePiece)] = List((splitTer, null, null))
+  var splitTer: Option[TerritoryInterface] = terMem
+  var splitTerritory: List[(TerritoryInterface, FieldInterface, GamePiece)] = List((splitTer match {
+    case Some(value) => value
+  }, null, null))
 
   def makeMove() = {
     caplist.foreach {
@@ -35,23 +37,32 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
   }
 
   def makeTeritory() = {
-    cmbTerList.foreach { ter =>
-      if (ter.capital != null) {
-        biggestTer.capital.balance += ter.capital.balance
-        biggestTer.armyCost += ter.armyCost
-      }
-      ter.fields.foreach { f =>
-        f.territory = biggestTer
-        biggestTer.addField(f)
-      }
+    cmbTerList.foreach {
+      case Some(ter) =>
+        if (ter.capital != null) {
+          biggestTer match {
+            case Some(biggestTer) =>
+              biggestTer.capital.balance += ter.capital.balance
+              biggestTer.armyCost += ter.armyCost
+          }
+        }
+        ter.fields.foreach { f =>
+          f.territory = biggestTer
+          biggestTer match {
+            case Some(value) => value.addField(f)
+          }
+        }
+      case None =>
     }
   }
 
   def f2Step() = {
     f2.owner = ownerMem
-    f2.territory.removeField(f2)
+//    f2.territory.removeField(f2)
+    for(x <- f2.territory) yield x.removeField(f2)
     f2.territory = terMem
-    f2.territory.addField(f2)
+//    f2.territory.addField(f2)
+    for(x <- f2.territory) yield x.addField(f2)
   }
 
   def stepSetup() = {
@@ -73,23 +84,24 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
     ownerMem = f2.owner
     terMem = f2.territory
     gp2Mem match {
-      case _: UnitGamePiece => terMem.removeUnit(_)
+      case _: UnitGamePiece => for(x <- terMem) yield x.removeUnit _ //terMem.removeUnit(_)
       case _: Capital => ctrl.capitals -= f2
       case _ =>
     }
 
     f1.gamepiece = NoPiece()
     f2.gamepiece = gp1Mem
-//    f2.gamepiece.asInstanceOf[UnitGamePiece].hasMoved = true
     f2.gamepiece = f2.gamepiece match{
       case gp:UnitGamePiece => gp.copyTo(true)
       case gp:GamePiece => gp
     }
     f2.owner = f1.owner
 
-    f2.territory.removeField(f2)
+//    f2.territory.removeField(f2)
+    for(x <- f2.territory) yield x.removeField(f2)
     f2.territory = f1.territory
-    f2.territory.addField(f2)
+//    f2.territory.addField(f2)
+    for(x <- f2.territory) yield x.addField(f2)
 
 
     f2.neighbors.foreach {
@@ -102,11 +114,14 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
         }
       case None =>
     }
-    biggestTer = cmbTerList.maxBy(_.size)
+    biggestTer = cmbTerList.maxBy {
+      case Some(value) => value.size
+    }
     cmbTerList = cmbTerList.filterNot(_ == biggestTer)
 
 
-    caplist = cmbTerList.map(_.fields.find(_.gamepiece.isInstanceOf[Capital]))
+//    caplist = cmbTerList.map(_.fields.find(_.gamepiece.isInstanceOf[Capital]))
+    caplist = cmbTerList.flatMap(_.map(_.fields.find(_.gamepiece.isInstanceOf[Capital])))
     makeMove()
 
     makeTeritory()
@@ -120,20 +135,26 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
       }
     )
 
-
-    terMem.fields.find(_.gamepiece.isInstanceOf[Capital]) match {
-      case Some(field) =>
-        splitTerList.foreach { list =>
-          if (!list.contains(field)) {
-            list.foreach(splitTer.removeField(_))
-            splitTer.fields.foreach(_.territory = splitTer)
-            splittingTerritories(list)
-          }
+    terMem match {
+      case Some(terMem) =>
+        terMem.fields.find(_.gamepiece.isInstanceOf[Capital]) match {
+          case Some(field) =>
+            splitTerList.foreach { list =>
+              if (!list.contains(field)) {
+                splitTer match {
+                  case Some(splitTer) =>
+                    list.foreach(splitTer.removeField)
+                    splitTer.fields.foreach(_.territory = Some(splitTer))
+                    splittingTerritories(list)
+                }
+              }
+            }
+          case None =>
+            splitTerritory = List()
+            splitTerList.foreach(list => splittingTerritories(list))
         }
-      case None =>
-        splitTerritory = List()
-        splitTerList.foreach(list => splittingTerritories(list))
     }
+
   }
 
   private def recursion(f: FieldInterface, list: Set[FieldInterface]): Set[FieldInterface] = {
@@ -149,10 +170,10 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
     val tmp_ter = Guice.createInjector(new SlayModule).getInstance(classOf[TerritoryInterface])
     list.foreach { f =>
       tmp_ter.addField(f)
-      f.territory = tmp_ter
+      f.territory = Some(tmp_ter)
       f.gamepiece match {
         case gp: UnitGamePiece =>
-          splitTer.removeUnit(gp)
+          for(x <- splitTer) yield x.removeUnit(gp)
           tmp_ter.addUnit(gp)
         case _ =>
       }
@@ -183,7 +204,7 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
     f2Step()
 
     gp2Mem match {
-      case _: UnitGamePiece => f2.territory.addUnit(_)
+      case _: UnitGamePiece => for(x <- f2.territory) yield x.addUnit _ //f2.territory.addUnit(_)
       case _: Capital => ctrl.capitals += f2
       case _ =>
     }
@@ -194,21 +215,28 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
     terMem = tmp_ter
 
 
-    cmbTerList.foreach { ter =>
-      if (ter.capital != null) {
-        biggestTer.capital.balance -= ter.capital.balance
-        biggestTer.armyCost -= ter.armyCost
-      }
-      ter.fields.foreach { f =>
-        f.territory = ter
-        biggestTer.removeField(f)
-      }
+    cmbTerList.foreach {
+      case Some(ter) =>
+        if (ter.capital != null) {
+          biggestTer match {
+            case Some(biggestTer) =>
+              biggestTer.capital.balance -= ter.capital.balance
+              biggestTer.armyCost -= ter.armyCost
+          }
+
+        }
+        ter.fields.foreach { f =>
+          f.territory = Some(ter)
+          biggestTer match {
+            case Some(value) => value.removeField(f)
+          }
+        }
     }
 
     caplist.foreach {
       case Some(field) =>
         cmbTerList.find(_ == field.territory) match {
-          case Some(ter) =>
+          case Some(Some(ter)) =>
             field.gamepiece = ter.capital
             ctrl.capitals += field
           case None =>
@@ -217,7 +245,10 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
     }
 
 
-    terMem.fields.foreach(_.territory = terMem)
+//    terMem.fields.foreach(_.territory = terMem)
+    terMem match {
+      case Some(value) => value.fields.foreach(_.territory = terMem)
+    }
     splitTerritory.foreach {
       case (_, cap, gp) if gp != null =>
         ctrl.capitals -= cap
@@ -233,7 +264,7 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
     f2Step()
 
     gp2Mem match {
-      case _: UnitGamePiece => f2.territory.removeUnit(_)
+      case _: UnitGamePiece => for(x <- f2.territory) yield x.removeUnit _ //f2.territory.removeUnit(_)
       case _: Capital => ctrl.capitals -= f2
       case _ =>
     }
@@ -253,7 +284,7 @@ class MoveCommand(f1: FieldInterface, f2: FieldInterface, ctrl:Controller) exten
         ctrl.capitals += cap
         cap.gamepiece = ter.capital
       case (ter, _, _) =>
-        ter.fields.foreach(_.territory = ter)
+        ter.fields.foreach(_.territory = Some(ter))
     }
   }
 }
