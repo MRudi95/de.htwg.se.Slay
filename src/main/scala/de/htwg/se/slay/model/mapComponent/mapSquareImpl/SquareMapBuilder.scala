@@ -9,10 +9,11 @@ import de.htwg.se.slay.model.gridComponent._
 import de.htwg.se.slay.model.mapComponent.MapInterface
 import de.htwg.se.slay.model.playerComponent.Player
 import de.htwg.se.slay.util.MapBuilder
-import javax.inject.Inject
 
+import javax.inject.Inject
 import scala.collection.immutable.HashSet
 import scala.io.BufferedSource
+import scala.util.{Failure, Success, Try}
 
 class SquareMapBuilder @Inject() (@Assisted val players:Vector[Player]) extends MapBuilder with MapInterface {
 
@@ -156,12 +157,17 @@ class SquareMapBuilder @Inject() (@Assisted val players:Vector[Player]) extends 
         case _ =>
       }
 
-      field.neighbors.neighborSouth match {
+      Try(
+        field.neighbors.neighborSouth match {
         case Some(south) if south.owner == field.owner =>
           for (x <- field.territory) yield x.addField(south)
           south.territory = field.territory
-        case _ =>
+        case None =>
+      }) match {
+        case Success(value) => println("success")
+        case Failure(exception) => println("error", exception.printStackTrace())
       }
+
     }
 
     capitals
