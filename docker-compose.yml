@@ -1,6 +1,6 @@
 version: '3'
 services:
-  game-logic:
+  game-module:
     build:
       context: "GameModule/."
       dockerfile: "Dockerfile.web"
@@ -16,7 +16,7 @@ services:
       default:
         aliases:
           - game
-  player-management:
+  player-module:
     build:
       context: "PlayerModule/."
       dockerfile: "Dockerfile.web"
@@ -32,9 +32,9 @@ services:
       default:
         aliases:
           - player
-  database:
+  slick-db:
     image: "postgres"
-    container_name: "database"
+    container_name: "slick-db"
     networks:
       default:
         aliases:

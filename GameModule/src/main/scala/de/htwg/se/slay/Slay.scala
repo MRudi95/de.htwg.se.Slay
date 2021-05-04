@@ -9,7 +9,7 @@ import scala.io.StdIn.readLine
 object  Slay{
   val injector: Injector = Guice.createInjector(new SlayModule)
   val controller: ControllerInterface = injector.getInstance(classOf[ControllerInterface])
-  val gui = new SwingGUI(controller)
+//  val gui = new SwingGUI(controller)
   val tui = new TextUI(controller)
   val restapi = new RestAPI(controller)
 
