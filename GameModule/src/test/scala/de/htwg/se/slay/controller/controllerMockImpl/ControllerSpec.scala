@@ -17,7 +17,7 @@ class ControllerSpec extends WordSpec with Matchers{
 
       controller.gridToString
       controller.addPlayer(controller.players(0))
-      controller.changeName("", 0)
+//      controller.changeName("", 0)
       controller.createGrid("","")
       controller.seeBalance(1)
       controller.buyPeasant(1)

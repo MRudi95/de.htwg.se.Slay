@@ -32,9 +32,9 @@ class ControllerSpec extends WordSpec with Matchers{
       "have Capitals" in{
         controller.capitals should not be null
       }
-      "have a String representation for the Grid" in{
-        controller.gridToString should be (controller.grid.toString)
-      }
+//      "have a String representation for the Grid" in{
+//        controller.gridToString should be (controller.grid.toString)
+//      }
 
       controller.moneymoney()
       "have money added to the capitals" in{
@@ -43,16 +43,16 @@ class ControllerSpec extends WordSpec with Matchers{
       }
     }
 
-    "changing a players name" should{
-      val ctrl = new Controller
-      ctrl.state = 1
-      ctrl.changeName("newname", 1)
-      ctrl.changeName("namenew", 2)
-      "have the changed names" in{
-        ctrl.players(1).name should be ("newname")
-        ctrl.players(2).name should be ("namenew")
-      }
-    }
+//    "changing a players name" should{
+//      val ctrl = new Controller
+//      ctrl.state = 1
+//      ctrl.changeName("newname", 1)
+//      ctrl.changeName("namenew", 2)
+//      "have the changed names" in{
+//        ctrl.players(1).name should be ("newname")
+//        ctrl.players(2).name should be ("namenew")
+//      }
+//    }
 
     "doing actions on the game" should{
       val controller = new Controller

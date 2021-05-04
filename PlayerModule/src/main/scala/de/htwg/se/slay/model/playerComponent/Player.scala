@@ -1,7 +1,7 @@
 package de.htwg.se.slay.model.playerComponent
 
 case class Player (id: Option[String] = None,
-                   name: String,
+                   name: String = "",
                    wins: Int = 0,
                    losses: Int = 0) {
 

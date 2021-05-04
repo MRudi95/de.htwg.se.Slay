@@ -34,6 +34,19 @@ class RestAPI(controller: ControllerInterface) {
             )
           }
         )
+      },
+      pathPrefix("player"){
+        concat(
+          path("name"){
+            put(
+              entity(as[String]){ jsonString => {
+                val json = Json.parse(jsonString)
+                complete(HttpEntity(ContentTypes.`application/json`, controller.changeName((json \ "name").as[String])))
+              }
+              }
+            )
+          }
+        )
       }
     )
 

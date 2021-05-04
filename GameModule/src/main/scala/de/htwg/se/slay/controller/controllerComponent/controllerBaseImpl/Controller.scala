@@ -1,5 +1,10 @@
 package de.htwg.se.slay.controller.controllerComponent.controllerBaseImpl
 
+import akka.actor.ActorSystem
+import akka.http.scaladsl.Http
+import akka.http.scaladsl.model.{HttpEntity, HttpMethods, HttpRequest, HttpResponse}
+import akka.http.scaladsl.server.Directives.as
+import akka.http.scaladsl.unmarshalling.Unmarshal
 import net.codingwell.scalaguice.InjectorExtensions._
 import com.google.inject.{Guice, Injector}
 import de.htwg.se.slay.SlayModule
@@ -10,11 +15,18 @@ import de.htwg.se.slay.model.gridComponent.{FieldFactory, FieldInterface, GridFa
 import de.htwg.se.slay.model.mapComponent.MapFactory
 import de.htwg.se.slay.model.playerComponent.Player
 import de.htwg.se.slay.util.UndoManager
-import play.api.libs.json.JsObject
+import play.api.libs.json.{JsObject, Json}
 
 import scala.collection.immutable.HashSet
+import scala.concurrent.{ExecutionContextExecutor, Future}
+import scala.util.{Failure, Success}
 
 class Controller extends ControllerInterface{
+  private val envPlayerModuleHost = sys.env.getOrElse("PLAYER_MODULE_HOST", "localhost:9002")
+  val playerModuleServiceUrl = s"http://$envPlayerModuleHost/"
+  implicit val actorSystem: ActorSystem = ActorSystem("actorSystemController")
+  implicit val executionContext: ExecutionContextExecutor = actorSystem.dispatcher
+
   var players: Vector[Player] = Vector(
     new Player("Player0", "\u001b[104m"),
     new Player("Player 1", "\u001b[103m"),
@@ -35,9 +47,28 @@ class Controller extends ControllerInterface{
 
   def addPlayer(player: Player): Unit = players = players :+ player
 
-  def changeName(name: String, player: Int): Unit = {
-    players(player).name = name
-    if(player == state) notifyObservers(PlayerEvent(players(player).name))
+  def changeName(name: String): String = {
+//    players(player).name = name
+//    if(player == state) notifyObservers(PlayerEvent(players(player).name))
+    val id = 1234
+    val json = Json.obj(
+      "name" -> name
+    ).toString()
+
+    val responseFuture: Future[HttpResponse] = Http().singleRequest(HttpRequest(
+      HttpMethods.PUT,
+      uri = playerModuleServiceUrl + s"player/$id",
+      entity = HttpEntity.apply(json)
+    ))
+    responseFuture.onComplete {
+      case Success(res) =>
+        println("SUCKS ASS")
+//        println(res.entity)
+//        println(Unmarshal(res).to[String])
+      case Failure(_) =>
+        println("NAME FAIL")
+    }
+    "TEST"
   }
 
   def createGrid(mapname: String, typ: String = "main"): Unit = {

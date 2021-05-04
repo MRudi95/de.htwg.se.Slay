@@ -1,0 +1,7 @@
+FROM hseeberger/scala-sbt:8u212_1.2.8_2.13.0
+WORKDIR /PlayerModule
+ADD . /PlayerModule
+CMD sbt run
+
+# sudo docker build -t slay:v1
+# sudo docker run -a stdin -a stdout -i slay:v1

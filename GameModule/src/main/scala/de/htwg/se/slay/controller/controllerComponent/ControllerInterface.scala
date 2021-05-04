@@ -14,7 +14,7 @@ trait ControllerInterface extends Observable{
 
   def gridToString: String
   def addPlayer(player: Player): Unit
-  def changeName(name: String, player: Int): Unit
+  def changeName(name: String): String
 
   def createGrid(mapname: String, typ: String = "main"): Unit
   def seeBalance(c: Int): Unit

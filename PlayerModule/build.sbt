@@ -21,4 +21,14 @@ libraryDependencies += "com.typesafe.akka" %% "akka-http"   % "10.1.12"
 libraryDependencies += "com.typesafe.akka" %% "akka-stream" % "2.6.5"
 libraryDependencies += "de.heikoseeberger" %% "akka-http-play-json" % "1.32.0"
 
+
 libraryDependencies += "org.mongodb.scala" %% "mongo-scala-driver" % "2.9.0"
+
+
+libraryDependencies ++= Seq(
+  "com.typesafe.slick" % "slick_2.13" % "3.3.3",
+  "org.slf4j" % "slf4j-api" % "1.7.25",
+  "com.typesafe.slick" % "slick-hikaricp_2.13" % "3.3.3"
+)
+
+libraryDependencies += "org.postgresql" % "postgresql" % "42.2.13"

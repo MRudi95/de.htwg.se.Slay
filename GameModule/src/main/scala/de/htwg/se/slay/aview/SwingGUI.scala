@@ -112,7 +112,7 @@ class SwingGUI(controller: ControllerInterface) extends Frame with Observer{
         val res = Dialog.showInput(this, "Enter your new name:", "Name Change", Dialog.Message.Info, initial = "")
         res match {
           case Some(name) =>
-            controller.changeName(name, 1)
+            controller.changeName(name)
           case None =>
         }
       })
@@ -120,7 +120,7 @@ class SwingGUI(controller: ControllerInterface) extends Frame with Observer{
         val res = Dialog.showInput(this, "Enter your new name:", "Name Change", Dialog.Message.Info, initial = "")
         res match {
           case Some(name) =>
-            controller.changeName(name, 2)
+            controller.changeName(name)
           case None =>
         }
       })

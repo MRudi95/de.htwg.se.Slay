@@ -20,7 +20,7 @@ class Controller extends ControllerInterface{
 
   override def addPlayer(player: Player): Unit = players = players :+ player
 
-  override def changeName(name: String, player: Int): Unit = {}
+  override def changeName(name: String): String = {""}
 
   override def createGrid(mapname: String, typ: String): Unit = {}
 
