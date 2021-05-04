@@ -9,5 +9,5 @@ trait PlayerPersistenceInterface {
 
   def update(player: Player): Unit
 
-  def delete(player: Player)
+  def delete(player: Player): Unit
 }

@@ -45,8 +45,9 @@ class Controller {
     val playerOption = playerPersistence.read(id.toInt)
     playerOption match {
       case Some(player) =>
-        playerPersistence.update(player.changeName(newname))
-        playerJson(player).toString()
+        val updatedPlayer = player.changeName(newname)
+        playerPersistence.update(updatedPlayer)
+        playerJson(updatedPlayer).toString()
       case None => Json.obj(
         "success" -> false,
         "msg" -> s"Player with $id could not be found"
