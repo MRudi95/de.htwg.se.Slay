@@ -1,6 +1,6 @@
 package de.htwg.se.slay.model.playerComponent
 
-case class Player (id: Option[String] = None,
+case class Player (id: Option[Int] = None,
                    name: String = "",
                    wins: Int = 0,
                    losses: Int = 0) {
@@ -19,6 +19,9 @@ case class Player (id: Option[String] = None,
   }
 
   def winLossRatio(): Double = {
+    if(losses == 0)
+      return wins
+
     wins / losses
   }
 }

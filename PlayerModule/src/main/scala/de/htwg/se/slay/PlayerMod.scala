@@ -27,10 +27,22 @@ object PlayerMod{
           get {
             complete(HttpEntity(ContentTypes.`application/json`, controller.getPlayer(id)))
           },
-          put{
+          put {
             entity(as[String]) { jsonString => {
               val json = Json.parse(jsonString)
               complete(HttpEntity(ContentTypes.`application/json`, controller.changePlayerName(id, json)))
+            }
+            }
+          },
+
+        )
+      },
+      pathPrefix("player") {
+        concat(
+          post {
+            entity(as[String]) { jsonString => {
+              val json = Json.parse(jsonString)
+              complete(HttpEntity(ContentTypes.`application/json`, controller.createPlayer(json)))
             }
             }
           }
