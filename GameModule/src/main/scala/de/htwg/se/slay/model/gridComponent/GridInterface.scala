@@ -1,12 +1,13 @@
 package de.htwg.se.slay.model.gridComponent
 
 import com.google.inject.assistedinject.Assisted
+import de.htwg.se.slay.model.playerComponent.Player
 
 trait GridInterface extends IndexedSeq[FieldInterface]{
   override def length: Int
   override def apply(idx: Int):FieldInterface
 
-  override def toString: String
+  def toString(players: Vector[Player]): String
 
   def rowIdx: Int
   def colIdx: Int

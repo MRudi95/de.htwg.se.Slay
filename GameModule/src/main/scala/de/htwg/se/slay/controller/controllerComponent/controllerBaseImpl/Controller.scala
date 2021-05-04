@@ -31,7 +31,7 @@ class Controller extends ControllerInterface{
 
   var grid: GridInterface = injector.instance[GridFactory].create(Vector(injector.instance[FieldFactory].create(players(0))), 0, 0) //for Web Tech, so Grid isnt empty at first
 
-  def gridToString: String = grid.toString
+  def gridToString: String = grid.toString(players)
 
   def addPlayer(player: Player): Unit = players = players :+ player
 
@@ -164,6 +164,20 @@ class Controller extends ControllerInterface{
     if(checkOwner(c1) && checkMovable(c1) && checkMoved(c1) && checkMove(c1, c2)){
       undoManager.doStep(new MoveCommand(grid(c1), grid(c2), this))
       notifyObservers()
+      checkWin()
+    }
+  }
+
+
+  def checkWin(): Unit = {
+    if(grid.forall(f => f.owner == players(0) || f.owner == players(state))){
+      state match {
+        case 1 =>
+          notifyObservers(VictoryEvent(players(state+1).name))
+        case 2 =>
+          notifyObservers(VictoryEvent(players(state-1).name))
+        case _ =>
+      }
     }
   }
 
