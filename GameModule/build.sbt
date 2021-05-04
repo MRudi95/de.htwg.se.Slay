@@ -16,3 +16,9 @@ libraryDependencies += "com.google.inject.extensions" % "guice-assistedinject" %
 
 libraryDependencies += "org.scala-lang.modules" % "scala-xml_2.13" % "1.2.0"
 libraryDependencies += "com.typesafe.play" %% "play-json" % "2.9.2"
+
+libraryDependencies += "com.typesafe.akka" %% "akka-http"   % "10.1.12"
+libraryDependencies += "com.typesafe.akka" %% "akka-stream" % "2.6.5"
+libraryDependencies += "de.heikoseeberger" %% "akka-http-play-json" % "1.32.0"
+
+libraryDependencies += "org.mongodb.scala" %% "mongo-scala-driver" % "2.9.0"

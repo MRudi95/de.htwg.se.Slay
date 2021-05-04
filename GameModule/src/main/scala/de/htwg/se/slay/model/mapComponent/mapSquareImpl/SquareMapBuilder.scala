@@ -164,8 +164,8 @@ class SquareMapBuilder @Inject() (@Assisted val players:Vector[Player]) extends 
           south.territory = field.territory
         case None =>
       }) match {
-        case Success(value) => println("success")
-        case Failure(exception) => println("error", exception.printStackTrace())
+        case Success(value) => //println("success")
+        case Failure(exception) => //println("error", exception.printStackTrace())
       }
 
     }
