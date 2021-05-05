@@ -18,7 +18,8 @@ import de.htwg.se.slay.util.UndoManager
 import play.api.libs.json.{JsObject, Json}
 
 import scala.collection.immutable.HashSet
-import scala.concurrent.{ExecutionContextExecutor, Future}
+import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, ExecutionContextExecutor, Future}
 import scala.util.{Failure, Success}
 
 class Controller extends ControllerInterface{
@@ -60,15 +61,19 @@ class Controller extends ControllerInterface{
       uri = playerModuleServiceUrl + s"player/$id",
       entity = HttpEntity.apply(json)
     ))
-    responseFuture.onComplete {
-      case Success(res) =>
-        println("SUCKS ASS")
-//        println(res.entity)
-//        println(Unmarshal(res).to[String])
-      case Failure(_) =>
-        println("NAME FAIL")
-    }
-    "TEST"
+//    responseFuture.onComplete {
+//      case Success(res) =>
+//        println("success")
+////        println(res.entity)
+////        println(Unmarshal(res).to[String])
+//      case Failure(_) =>
+//        println("name fail")
+//    }
+    val responseStringFuture = responseFuture.flatMap(res => Unmarshal(res.entity).to[String])
+    val responseString = Await.result(responseStringFuture, Duration("10s"))
+
+
+    responseString
   }
 
   def createGrid(mapname: String, typ: String = "main"): Unit = {
