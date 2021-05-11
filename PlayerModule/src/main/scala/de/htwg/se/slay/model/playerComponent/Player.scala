@@ -1,6 +1,8 @@
 package de.htwg.se.slay.model.playerComponent
 
-case class Player (id: Option[Int] = None,
+import org.mongodb.scala.bson.annotations.BsonProperty
+
+case class Player (@BsonProperty("_id") id: Option[String] = None,
                    name: String = "",
                    wins: Int = 0,
                    losses: Int = 0) {

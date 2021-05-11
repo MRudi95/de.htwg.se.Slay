@@ -26,26 +26,26 @@ class PlayerPersistence extends PlayerPersistenceInterface{
   override def create(player: Player): Player = {
     val playerIdQuery = (players returning players.map(_.id)) += (None, player.name, player.wins, player.losses)
     val playerId = Await.result(db.run(playerIdQuery), Duration("10s"))
-    player.copy(id = Some(playerId))
+    player.copy(id = Some(playerId.toString))
   }
 
-  override def read(playerId: Int): Option[Player] = {
-    val query = players.filter(_.id === playerId)
+  override def read(playerId: String): Option[Player] = {
+    val query = players.filter(_.id === playerId.toInt)
     val playerOption = Await.result(db.run(query.result.headOption), Duration("10s"))
     playerOption match {
-      case Some(players) => Some(Player(players._1, players._2, players._3, players._4))
+      case Some(players) => Some(Player(Some(players._1.get.toString), players._2, players._3, players._4))
       case None => None
     }
   }
 
   override def update(player: Player): Unit = {
-    val query = players.filter(_.id === player.id)
-    val update = query.update(player.id, player.name, player.wins, player.losses)
+    val query = players.filter(_.id === player.id.get.toInt)
+    val update = query.update(Some(player.id.get.toInt), player.name, player.wins, player.losses)
     db.run(update)
   }
 
   override def delete(player: Player): Unit = {
-    val query = players.filter(_.id === player.id).delete
+    val query = players.filter(_.id === player.id.get.toInt).delete
     db.run(query)
   }
 }
