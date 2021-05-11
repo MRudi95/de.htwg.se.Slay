@@ -42,7 +42,7 @@ class PlayerPersistence extends PlayerPersistenceInterface{
       set("losses", player.losses),
     )
 
-    players.updateOne(equal("_id", player.id.getOrElse(throw new RuntimeException("Can not update element with faulty id"))), updatedValues)
+    Await.result(players.updateOne(equal("_id", player.id.getOrElse(throw new RuntimeException("Can not update element with faulty id"))), updatedValues).toFutureOption(), Duration("10s"))
   }
 
   override def delete(player: Player): Unit = {

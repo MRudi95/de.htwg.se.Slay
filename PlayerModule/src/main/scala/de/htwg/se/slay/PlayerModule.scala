@@ -6,6 +6,6 @@ import net.codingwell.scalaguice._
 
 class PlayerModule extends AbstractModule with ScalaModule{
   override def configure(): Unit = {
-    bind[PlayerPersistenceInterface].to[slickImplementation.PlayerPersistence]
+    bind[PlayerPersistenceInterface].to[mongoImplementation.PlayerPersistence]
   }
 }

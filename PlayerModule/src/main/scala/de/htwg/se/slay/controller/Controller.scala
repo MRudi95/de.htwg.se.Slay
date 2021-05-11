@@ -28,7 +28,7 @@ class Controller {
   }
 
   def getPlayer(id: String): String = {
-    val playerOption = playerPersistence.read(id.toInt)
+    val playerOption = playerPersistence.read(id)
     playerOption match {
       case Some(player) =>
         playerJson(player).toString()
@@ -42,7 +42,7 @@ class Controller {
   def changePlayerName(id: String, json: JsValue): String = {
     val newname = (json \ "name").as[String]
 
-    val playerOption = playerPersistence.read(id.toInt)
+    val playerOption = playerPersistence.read(id)
     playerOption match {
       case Some(player) =>
         val updatedPlayer = player.changeName(newname)
@@ -58,7 +58,7 @@ class Controller {
   def updateResult(id: String, json: JsValue): String = {
     val result = (json \ "result").as[Boolean]
 
-    val playerOption = playerPersistence.read(id.toInt)
+    val playerOption = playerPersistence.read(id)
     playerOption match {
       case Some(player) =>
         playerPersistence.update(player.playerWonGame(result))
