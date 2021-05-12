@@ -2,10 +2,8 @@ package de.htwg.se.slay.model.persistenceComponent.mongoImplementation
 
 import de.htwg.se.slay.model.persistenceComponent.PlayerPersistenceInterface
 import de.htwg.se.slay.model.playerComponent.Player
-import org.bson.codecs.configuration.CodecRegistries.{fromProviders, fromRegistries}
 import org.bson.codecs.configuration.CodecRegistry
 import org.mongodb.scala.{MongoClient, MongoCollection, MongoDatabase}
-import org.mongodb.scala.bson.codecs.Macros._
 import org.mongodb.scala._
 import org.bson.codecs.configuration.CodecRegistries.{fromProviders, fromRegistries}
 import org.bson.types.ObjectId
